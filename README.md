@@ -2,6 +2,7 @@
 
 Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
-**Hajuvedenvalitsin**
-*Tuoksun valinta ei koskaan ole ollut näin helppoa!*
+**Viikko 1**
+*https://github.com/apndx/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt*
+*https://github.com/apndx/otm-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt*
 
