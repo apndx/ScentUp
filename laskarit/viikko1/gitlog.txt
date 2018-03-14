@@ -1,0 +1,94 @@
+commit 3e7ebc5a671f79fcfdeb70c5e32f51197772b328
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:59:17 2018 +0200
+
+    muutoksia tiedostoihin
+
+ tiedostoja/file22 | 0
+ tiedostoja/file3  | 1 +
+ 2 files changed, 1 insertion(+)
+
+commit 1e22ccf2295ca1c09a6e08a919629102965519b7
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:40:20 2018 +0200
+
+    tiedostoihin muutoksia
+
+ eka.txt    | 4 ++--
+ kolmas.txt | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+commit 41fd2ce9fefef25084dc09bb38c5b9ce018aa9c4
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:37:46 2018 +0200
+
+    tiedoston nimen muutos
+
+ eka.txt      | 28 ++++++++++++++++++++++++++++
+ tiedosto.txt | 28 ----------------------------
+ 2 files changed, 28 insertions(+), 28 deletions(-)
+
+commit a3bbbb8bc9d5dff58ee36ea91830d2c79684e90d
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:33:21 2018 +0200
+
+    toinen.txt poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 34c1fc605bf435aa96e0a5589d124d013119e6e1
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:05:30 2018 +0200
+
+    muutos tiedostoon
+
+ tiedosto.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 1823655fdd82bfd3ed59f89744e46e2741444689
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 16:03:57 2018 +0200
+
+    tiedostoon runon verran tekstiä
+
+ tiedosto.txt | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+commit d93ecbcca3af39b86bcffb07b7c01b873b12b249
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 15:57:56 2018 +0200
+
+    tiedostoihin lisätty tekstiä
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 1d0964af2f28c2483c919410a565b2bb99e68918
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 15:55:52 2018 +0200
+
+    lisätään kolmas tiedosto
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 264fd133f4adf3ff90a86355ead78b8d470a4dd6
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 15:52:47 2018 +0200
+
+    tiedoston muutos ja uuden lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 24ada47303f986651fc6d10e330ccdeababd63d0
+Author: Heli Huhtilainen <heli.huhtilainen@helsinki.fi>
+Date:   Wed Mar 14 15:50:52 2018 +0200
+
+    tiedosto.xtx luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
