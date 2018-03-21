@@ -9,4 +9,5 @@ Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
 **Viikko 2 tehtävät**
 *
+* [jacoco_testikattavuus.jpg](https://github.com/apndx/otm-harjoitustyo/blob/master/laskarit/viikko2/jacoco_testikattavuus.jpg)
 
