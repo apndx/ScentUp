@@ -2,6 +2,15 @@
 
 Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
+
+# FragApp
+
+## Dokumentaatio
+
+* [Vaatimusmäärittely](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+* [Työaikakirjanpito](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+
+
 **Viikko 1 tehtävät**
 
 * [*gitlog.txt*](https://github.com/apndx/otm-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
@@ -11,12 +20,7 @@ Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
 * [*jacoco_testikattavuus.jpg*](https://github.com/apndx/otm-harjoitustyo/blob/master/laskarit/viikko2/jacoco_testikattavuus.jpg)
 
-# Tuoksutin
 
-## Dokumentaatio
-
-* [Vaatimusmäärittely](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
-* [Työaikakirjanpito](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
 
 
