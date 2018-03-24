@@ -26,16 +26,12 @@ Sovellus koostuu kolmesta näkymästä:
 
    - Valittavana on näkymä, jossa voi lisätä uusia hajuvesiä
        - Hajuvedelle määritellään ominaisuusia: kategoria, vivahteita, vuodenaika, vuorokaudenaika ja sukupuoli
-
    - Käyttäjä näkee oman sivunsa jossa on aiemmin tehdyt käyttäjäkohtaiset valinnat, joissa näkyy valintapäivä
        - Valintoihin voi myös merkitä käyttäjäkohtaisen tiedon onko valinta huono, ok, vai suosikki
-
    - Toisessa näkymässä valintoja voi poistaa ja lisätä	
-
    - Käyttäjä voi kirjautua ulos
 
 ## Jatkokehitysideioita
 
    - Olemassaolevien hajuvesien ominaisuuksien muokkaus
-
    - Hajuvesien hakutoimintoja ominaisuuksien perusteella
