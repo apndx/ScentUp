@@ -10,7 +10,9 @@ Alkuvaiheessa sovelluksella on vain peruskäyttäjä.
 
 ## Käyttöliittymäluonnos
 
-Sovellus koostuu kolmesta näkymästä:
+Sovellus koostuu viidestä näkymästä:
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaar.jpg" width="750">
 
 ## Perusversion tarjoama toiminnallisuus
 
@@ -25,7 +27,7 @@ Sovellus koostuu kolmesta näkymästä:
 ### Kirjautumisen jälkeen
 
    - Valittavana on näkymä, jossa voi lisätä uusia hajuvesiä
-       - Hajuvedelle määritellään ominaisuusia: kategoria, vivahteita, vuodenaika, vuorokaudenaika ja sukupuoli
+       - Hajuvedelle määritellään nimi, merkki, vuorokaudenaika, vuodenaika, kategoria ja sukupuoli
    - Käyttäjä näkee oman sivunsa jossa on aiemmin tehdyt käyttäjäkohtaiset valinnat, joissa näkyy valintapäivä
        - Valintoihin voi myös merkitä käyttäjäkohtaisen tiedon onko valinta huono, ok, vai suosikki
    - Toisessa näkymässä valintoja voi poistaa ja lisätä	
@@ -33,5 +35,6 @@ Sovellus koostuu kolmesta näkymästä:
 
 ## Jatkokehitysideioita
 
+   - Hajuvesiin voi lisätä tuoksuominaisuuksia, näitä varten tehdään tietokantataulut valmiiksi
    - Olemassaolevien hajuvesien ominaisuuksien muokkaus
-   - Hajuvesien hakutoimintoja ominaisuuksien perusteella
+   - Hajuvesien hakutoimintoja eri ominaisuuksien perusteella
