@@ -3,7 +3,7 @@
 Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
 
-# FragApp
+# ScentUp
 
 ## Dokumentaatio
 
