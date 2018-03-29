@@ -1,0 +1,46 @@
+http://yuml.me/4dd7fe3c.png
+http://yuml.me/edit/4dd7fe3c
+
+
+CREATE TABLE User (
+    user_id integer PRIMARY KEY,
+    name varchar(200),
+    username varchar(200)
+);
+
+
+CREATE TABLE Scent (
+    user_id integer PRIMARY KEY,
+    name varchar(200),
+    brand varchar(200),
+    timeofday integer,
+    season integer,
+    gender integer
+);
+
+
+CREATE TABLE UserScent (
+    user_id integer,
+    scent_id integer,
+    choicedate integer,
+    preference integer,
+    FOREIGN KEY (user_id) REFERENCES User(user_id),
+    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id)
+);
+
+
+CREATE TABLE Category (
+    category_id integer PRIMARY KEY,     
+    name varchar(200),
+    weight integer	
+);
+
+
+CREATE TABLE ScentCategory (
+    scent_id integer,
+    category_id integer,
+    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id),
+    FOREIGN KEY (category_id) REFERENCES Category(category_id)
+);
+
+
