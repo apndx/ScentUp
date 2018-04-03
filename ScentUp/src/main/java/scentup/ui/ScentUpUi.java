@@ -39,6 +39,7 @@ public class ScentUpUi {
 
             } else if (chosen.matches("2")) {
                 // login
+                menu2(reader, users);
             
             } else if (chosen.matches("3")) {
                 menu3();
@@ -74,7 +75,7 @@ public class ScentUpUi {
                 }
 
             } else {
-                System.out.println("Username needs to be min 5 characters.");
+                System.out.println("Username needs to be min 5 characters (and not too long either).");
             }
         } else {
             System.out.println("Name cannot be empty");
@@ -82,10 +83,30 @@ public class ScentUpUi {
         }
     }
 
-    public static void menu2() {
+    public static void menu2(Scanner reader, UserDao users) throws SQLException {
         //login
+        System.out.println("Pleas type your username and enter");
+        String username = reader.nextLine();
+
+        if (username.matches(".{5,200}")) {
         
-        
+            User current = users.findOne(username);
+            
+            if (current==null) {
+                System.out.println("This username was not found.");
+                 printMenu();
+                 
+            } else {
+                //todo login and open userpage
+                System.out.println("Welcome to ScentUp "+ current.getName());
+                printMenu();
+            }        
+           
+        } else {
+            System.out.println("Username needs to be min 5 characters (and not too long either).");
+            printMenu();
+        }
+
     }
     
     public static void menu3() {

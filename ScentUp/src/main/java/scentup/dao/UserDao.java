@@ -24,10 +24,10 @@ public class UserDao {
         this.database = database;
     }
 
-    public User findOne(Integer key) throws SQLException {
+    public User findOne(String username) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE user_id = ?");
-        stmt.setInt(1, key);
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
+        stmt.setString(1, username);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
@@ -82,7 +82,7 @@ public class UserDao {
         if (object.getUserId() == null) {
             return save(object);
         } else {
-            // muulloin päivitetään asiakas
+            // otherwise update user
             return update(object);
         }
 

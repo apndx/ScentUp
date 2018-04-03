@@ -10,5 +10,5 @@ package scentup.domain;
  * @author hdheli
  */
 public class UserScent {
-    
+    // 1 dislike, 2 like, 3 love
 }
