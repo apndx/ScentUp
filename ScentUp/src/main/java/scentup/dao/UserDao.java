@@ -26,24 +26,48 @@ public class UserDao {
 
     public User findOne(Integer key) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE user_id = ?");
         stmt.setInt(1, key);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
+            stmt.close();
+            rs.close();
+            conn.close();
+
             return null;
         }
 
-        User user = new User(rs.getInt("userid"), rs.getString("name"),
+        User user = new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
 
         stmt.close();
         rs.close();
-
         conn.close();
 
         return user;
+    }
+
+    public boolean isUsernameFree(String username) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
+        stmt.setString(1, username);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            stmt.close();
+            rs.close();
+            conn.close();
+            return true;
+        } else {
+            stmt.close();
+            rs.close();
+            conn.close();
+            return false;
+        }
+
     }
 
     public List<User> findAll() throws SQLException {
@@ -89,14 +113,15 @@ public class UserDao {
         stmt.close();
 
         stmt = conn.prepareStatement("SELECT * FROM User"
-                + " WHERE username = ? AND name = ?");
-        stmt.setString(1, user.getUsername());
-        stmt.setString(2, user.getName());
+                + " WHERE name = ?  AND username = ?");
+        stmt.setString(1, user.getName());
+        stmt.setString(2, user.getUsername());
+       
 
         ResultSet rs = stmt.executeQuery();
         rs.next(); // vain 1 tulos
 
-        User u = new User(rs.getInt("user_id"), rs.getString("name"),
+        User u = new User(rs.getInt("user_id"), rs.getString("name"), 
                 rs.getString("username"));
 
         stmt.close();
@@ -114,7 +139,7 @@ public class UserDao {
                 + " name = ?, username = ?, WHERE id = ?");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-        stmt.setInt(3, user.getUserId()); 
+        stmt.setInt(3, user.getUserId());
 
         stmt.executeUpdate();
 

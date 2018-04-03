@@ -5,6 +5,8 @@
  */
 package scentup.domain;
 
+import java.util.Objects;
+
 /**
  *
  * @author hdheli
@@ -15,7 +17,7 @@ public class User {
     private String name;
     private String username;
 
-    public User(int userId, String username, String name) {
+    public User(Integer userId, String name, String username) {
         this.userId=userId;
         this.name = name;
         this.username = username;
@@ -33,7 +35,7 @@ public class User {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -46,5 +48,16 @@ public class User {
         User other = (User) obj;
         return username.equals(other.username);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.userId);
+        hash = 31 * hash + Objects.hashCode(this.name);
+        hash = 31 * hash + Objects.hashCode(this.username);
+        return hash;
+    }
+    
+    
 
 }
