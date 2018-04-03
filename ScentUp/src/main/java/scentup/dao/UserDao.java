@@ -88,16 +88,15 @@ public class UserDao {
 
     }
 
-    public void delete(Integer key) throws SQLException {
+    public void delete(String username) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM User WHERE id = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM User WHERE username = ?");
 
-        stmt.setInt(1, key);
+        stmt.setString(1, username);
         stmt.executeUpdate();
 
         stmt.close();
         conn.close();
-
     }
 
     private User save(User user) throws SQLException {

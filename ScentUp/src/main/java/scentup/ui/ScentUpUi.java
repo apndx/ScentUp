@@ -26,23 +26,25 @@ public class ScentUpUi {
 
         System.out.println("Welcome to ScentUp! ");
         System.out.println(" ");
-        System.out.println("What to do next?");
-        System.out.println("1. Create new User");
-        System.out.println("2. Quit");
+        printMenu();
 
         Scanner reader = new Scanner(System.in);
 
-        // here should be made sure that input is int, otherwise declined
+        // here should be made sure that input is a number of the menu, otherwise declined
         while (true) {
             String chosen = reader.nextLine();
             if (chosen.matches("1")) {
-
+                
                 menu1(reader, users);
 
             } else if (chosen.matches("2")) {
-                menu2();
+                // login
+            
+            } else if (chosen.matches("3")) {
+                menu3();
                 break;
-            } else {
+            }else {
+        
                 System.out.println("Please type a number mentioned in the menu.");
             }
 
@@ -51,7 +53,8 @@ public class ScentUpUi {
     }
 
     public static void menu1(Scanner reader, UserDao users) throws SQLException {
-
+        // creates a new user to the database
+        
         System.out.println("What is your name?");
         String name = reader.nextLine();
         if (name.matches(".{1,200}")) {
@@ -67,9 +70,7 @@ public class ScentUpUi {
                     System.out.println("Your username has now been registered.");
                 } else if (!users.isUsernameFree(username)) {
                     System.out.println("This username is already in use, please choose another. ");
-                    System.out.println("What to do next?");
-                    System.out.println("1. Create new User");
-                    System.out.println("2. Quit");
+                    printMenu();
                 }
 
             } else {
@@ -77,14 +78,28 @@ public class ScentUpUi {
             }
         } else {
             System.out.println("Name cannot be empty");
-            System.out.println("What to do next?");
-            System.out.println("1. Create new User");
-            System.out.println("2. Quit");
+            printMenu();
         }
     }
 
     public static void menu2() {
+        //login
+        
+        
+    }
+    
+    public static void menu3() {
+        
+        //quits the application
         System.out.println("See you soon!");
     }
+    
+    public static void printMenu() {
+        System.out.println("What to do next?");
+        System.out.println("1. Create a new User");
+        System.out.println("2. Login");
+        System.out.println("3. Quit");
+    }
+    
 
 }
