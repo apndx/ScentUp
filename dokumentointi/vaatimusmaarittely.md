@@ -21,7 +21,7 @@ Sovellus koostuu viidestä näkymästä:
    - Käyttäjä voi luoda käyttäjätunnuksen
       - Käyttäjätunnuksen pitää olla uniikki ja vähintään viisi merkkiä pitkä
    - Käyttäjä voi kirjautua järjestelmään
-      - Kirjautuminen onnistuu syötettäessä käyttäjätunnus ja nimi lomakkeelle
+      - Kirjautuminen onnistuu syötettäessä käyttäjätunnus lomakkeelle
       - Jos käyttäjää ei ole, tulee virheilmoitus
 
 ### Kirjautumisen jälkeen
@@ -38,3 +38,5 @@ Sovellus koostuu viidestä näkymästä:
    - Hajuvesiin voi lisätä tuoksuominaisuuksia, näitä varten tehdään tietokantataulut valmiiksi
    - Olemassaolevien hajuvesien ominaisuuksien muokkaus
    - Hajuvesien hakutoimintoja eri ominaisuuksien perusteella
+   - Turvallisempi kirjautuminen
+   - Sovellukseen pääkäyttäjä, ja hajuvesien lisäys vaatii pääkäyttäjän oikeudet

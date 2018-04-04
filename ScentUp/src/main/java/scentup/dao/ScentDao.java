@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import scentup.domain.Scent;
 import scentup.domain.User;
@@ -51,8 +52,24 @@ public class ScentDao {
 
 
     public List<Scent> findAll() throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent");
+        ResultSet rs = stmt.executeQuery();
+        List<Scent> listOfAll = new ArrayList<>();
 
-        return null;
+        while (rs.next()) {
+            Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"),
+                    rs.getString("brand"), rs.getInt("timeofday"),
+                    rs.getInt("season"), rs.getInt("gender"));
+
+            listOfAll.add(s);
+        }
+        
+        stmt.close();
+        rs.close();
+
+        conn.close();
+        return listOfAll;
     }
 
     public Scent saveOrUpdate(Scent object) throws SQLException {

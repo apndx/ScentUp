@@ -9,6 +9,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.Scanner;
 import scentup.dao.Database;
+import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.domain.User;
 
@@ -23,6 +24,7 @@ public class ScentUpUi {
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
 
         UserDao users = new UserDao(database);
+        ScentDao scents = new ScentDao(database);
 
         System.out.println("Welcome to ScentUp! ");
         System.out.println(" ");
@@ -38,11 +40,17 @@ public class ScentUpUi {
                 menu1(reader, users);
 
             } else if (chosen.matches("2")) {
+                // add a new scent
+                // todo
+                menu2(reader, scents);
+                
+                
+            }   else if (chosen.matches("3")) {
                 // login
-                menu2(reader, users);
+                menu3(reader, users);
             
-            } else if (chosen.matches("3")) {
-                menu3();
+            } else if (chosen.matches("4")) {
+                menu4();
                 break;
             }else {
         
@@ -76,14 +84,41 @@ public class ScentUpUi {
 
             } else {
                 System.out.println("Username needs to be min 5 characters (and not too long either).");
+                System.out.println(" ");
+                printMenu();
             }
         } else {
-            System.out.println("Name cannot be empty");
+            System.out.println("Name cannot be empty.");
+            System.out.println(" ");
             printMenu();
         }
     }
 
-    public static void menu2(Scanner reader, UserDao users) throws SQLException {
+    public static void menu2(Scanner reader, ScentDao scents) throws SQLException  {
+        // add a new scent. combination of a name and a brand must be unique.
+        // todo
+        
+        System.out.println("Name of the Scent?");
+        String scentName = reader.nextLine();
+        
+        if (scentName.matches(".{1,200}")){ // is it within the size limits
+            System.out.println("Brand of the Scent?");
+            String brand = reader.nextLine();
+            
+            if (scentName.matches(".{1,200}")) {
+                
+            }
+                
+        } else {
+            System.out.println("Name cannot be empty (and not too long either).");
+            System.out.println(" ");
+            printMenu();
+        }
+        
+        
+    }
+    
+    public static void menu3(Scanner reader, UserDao users) throws SQLException {
         //login
         System.out.println("Pleas type your username and enter");
         String username = reader.nextLine();
@@ -109,7 +144,7 @@ public class ScentUpUi {
 
     }
     
-    public static void menu3() {
+    public static void menu4() {
         
         //quits the application
         System.out.println("See you soon!");
@@ -118,8 +153,9 @@ public class ScentUpUi {
     public static void printMenu() {
         System.out.println("What to do next?");
         System.out.println("1. Create a new User");
-        System.out.println("2. Login");
-        System.out.println("3. Quit");
+        System.out.println("2. Add a new Scent");
+        System.out.println("3. ScentIn");
+        System.out.println("4. ScentOut");
     }
     
 
