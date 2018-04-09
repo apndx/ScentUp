@@ -19,7 +19,8 @@ import scentup.domain.User;
  * @author hdheli
  */
 public class ScentDao {
-        private Database database;
+
+    private Database database;
 
     public ScentDao(Database database) {
         this.database = database;
@@ -50,6 +51,29 @@ public class ScentDao {
         return scent;
     }
 
+    public boolean checkIfScentExists(String name, String brand) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE name = ? AND brand = ? ");
+        stmt.setString(1, name);
+        stmt.setString(2, brand);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            stmt.close();
+            rs.close();
+            conn.close();
+
+            return false;
+        }
+
+        stmt.close();
+        rs.close();
+        conn.close();
+
+        return true;
+    }
 
     public List<Scent> findAll() throws SQLException {
         Connection conn = database.getConnection();
@@ -64,7 +88,7 @@ public class ScentDao {
 
             listOfAll.add(s);
         }
-        
+
         stmt.close();
         rs.close();
 
@@ -115,13 +139,12 @@ public class ScentDao {
                 + " WHERE name = ?  AND brand = ?");
         stmt.setString(1, scent.getName());
         stmt.setString(2, scent.getBrand());
-       
 
         ResultSet rs = stmt.executeQuery();
         rs.next(); // vain 1 tulos
 
-        Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"), 
-                rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), 
+        Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"),
+                rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"),
                 rs.getInt("gender"));
 
         stmt.close();

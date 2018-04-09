@@ -23,12 +23,12 @@ public class Scent {
     public Scent(Integer scent_id, String scentName, String brand, Integer timeOfDay,
             Integer season, Integer gender) {
 
-        this.scent_id=scent_id;
-        this.name=name;
-        this.brand=brand;
-        this.timeOfDay=timeOfDay;
-        this.season=season;
-        this.gender=gender;
+        this.scent_id = scent_id;
+        this.name = name;
+        this.brand = brand;
+        this.timeOfDay = timeOfDay;
+        this.season = season;
+        this.gender = gender;
     }
 
     public Integer getScent_id() {
@@ -107,7 +107,5 @@ public class Scent {
         }
         return true;
     }
-    
-    
 
 }

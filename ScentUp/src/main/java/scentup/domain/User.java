@@ -12,13 +12,13 @@ import java.util.Objects;
  * @author hdheli
  */
 public class User {
-    
+
     private Integer userId;
     private String name;
     private String username;
 
     public User(Integer userId, String name, String username) {
-        this.userId=userId;
+        this.userId = userId;
         this.name = name;
         this.username = username;
     }
@@ -44,7 +44,6 @@ public class User {
         if (!(obj instanceof User)) {
             return false;
         }
-
         User other = (User) obj;
         return username.equals(other.username);
     }
@@ -57,7 +56,4 @@ public class User {
         hash = 31 * hash + Objects.hashCode(this.username);
         return hash;
     }
-    
-    
-
 }

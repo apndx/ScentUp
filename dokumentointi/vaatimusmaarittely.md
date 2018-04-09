@@ -40,3 +40,4 @@ Sovellus koostuu viidestä näkymästä:
    - Hajuvesien hakutoimintoja eri ominaisuuksien perusteella
    - Turvallisempi kirjautuminen
    - Sovellukseen pääkäyttäjä, ja hajuvesien lisäys vaatii pääkäyttäjän oikeudet
+   - Toiminto jolla hajuvesiä voi lisätä useita kerralla tiedostosta 

@@ -36,24 +36,23 @@ public class ScentUpUi {
         while (true) {
             String chosen = reader.nextLine();
             if (chosen.matches("1")) {
-                
+
                 menu1(reader, users);
 
             } else if (chosen.matches("2")) {
                 // add a new scent
                 // todo
                 menu2(reader, scents);
-                
-                
-            }   else if (chosen.matches("3")) {
+
+            } else if (chosen.matches("3")) {
                 // login
                 menu3(reader, users);
-            
+
             } else if (chosen.matches("4")) {
                 menu4();
                 break;
-            }else {
-        
+            } else {
+
                 System.out.println("Please type a number mentioned in the menu.");
             }
 
@@ -63,7 +62,7 @@ public class ScentUpUi {
 
     public static void menu1(Scanner reader, UserDao users) throws SQLException {
         // creates a new user to the database
-        
+
         System.out.println("What is your name?");
         String name = reader.nextLine();
         if (name.matches(".{1,200}")) {
@@ -92,73 +91,87 @@ public class ScentUpUi {
         }
     }
 
-    public static void menu2(Scanner reader, ScentDao scents) throws SQLException  {
+    public static void menu2(Scanner reader, ScentDao scents) throws SQLException {
         // add a new scent. combination of a name and a brand must be unique.
         // the first version continues one step at a time, and aborts if
         // inputs do not meet the criteria
-        
+
         System.out.println("Name of the Scent?");
         String scentName = reader.nextLine();
-        
-        if (scentName.matches(".{1,200}")){ // is it within the size limits
+
+        if (scentName.matches(".{1,200}")) { // is it within the size limits
             System.out.println("Brand of the Scent? If unknown, type unknown and enter.");
             String brand = reader.nextLine();
-            
+
             if (brand.matches(".{1,200}")) {
+                // check from the database by name and brand, if the scent already exist 
+                // if exists, we don't want a double
+                if (!scents.checkIfScentExists(scentName, brand)) {
+                     // lets ask the remaining details for the scent
+                    System.out.println("Is it a day or a night scent?");
+                    System.out.println("1. Day");
+                    System.out.println("2. Night");
+                    String timeOfDay = reader.nextLine(); // 1 day, 2 night
+                     
+                     
+                } else {
+                  
+                     System.out.println("This scent has already been registered.");
+                    
+                }
                 
+
             } else {
                 System.out.println("Brand cannot be empty (and not too long either). ");
                 printMenu();
             }
-                
+
         } else {
             System.out.println("Name cannot be empty (and not too long either).");
             printMenu();
         }
-        
-        
+
     }
-    
+
     public static void menu3(Scanner reader, UserDao users) throws SQLException {
         //login
         System.out.println("Pleas type your username and enter");
         String username = reader.nextLine();
 
         if (username.matches(".{5,200}")) {
-        
+
             User current = users.findOne(username);
-            
-            if (current==null) {
+
+            if (current == null) {
                 System.out.println("This username was not found.");
-                 printMenu();
-                 
+                printMenu();
+
             } else {
                 //todo login and open userpage
-                System.out.println("Welcome to ScentUp "+ current.getName());
+                System.out.println("Welcome to ScentUp " + current.getName());
                 printMenu();
-            }        
-           
+            }
+
         } else {
             System.out.println("Username needs to be min 5 characters (and not too long either).");
             printMenu();
         }
 
     }
-    
+
     public static void menu4() {
-        
+
         //quits the application
         System.out.println("See you soon!");
     }
-    
+
     public static void printMenu() {
         System.out.println(" ");
         System.out.println("What to do next?");
         System.out.println("1. Create a new User");
-        System.out.println("2. Add a new Scent");
+        System.out.println("2. Add a new Scent (under construction)");
         System.out.println("3. ScentIn");
         System.out.println("4. ScentOut");
     }
-    
 
 }
