@@ -111,8 +111,25 @@ public class ScentUpUi {
                     System.out.println("Is it a day or a night scent?");
                     System.out.println("1. Day");
                     System.out.println("2. Night");
-                    String timeOfDay = reader.nextLine(); // 1 day, 2 night
-                     
+                    String timeOfDay = reader.nextLine(); 
+                    if (timeOfDay.matches("1|2")) {
+                    // this is good form, we shall continue
+                        System.out.println("What is the preferable time of year?");
+                        System.out.println("1. Winter");
+                        System.out.println("2. Spring");
+                        System.out.println("3. Summmer");
+                        System.out.println("4. Autumn");
+                        String season = reader.nextLine();
+                        if (season.matches("1|2|3|4")) {
+                            //this is good form, 
+                        }
+                       
+                      
+                      
+                    } else {
+                        System.out.println("Please choose either 1 or 2.");
+                        
+                    }
                      
                 } else {
                   
@@ -135,7 +152,7 @@ public class ScentUpUi {
 
     public static void menu3(Scanner reader, UserDao users) throws SQLException {
         //login
-        System.out.println("Pleas type your username and enter");
+        System.out.println("Please type your username and enter");
         String username = reader.nextLine();
 
         if (username.matches(".{5,200}")) {
