@@ -15,17 +15,17 @@ import java.util.Objects;
  */
 public class Scent {
 
-    private Integer scent_id;
+    private Integer scentId;
     private String scentName;
     private String brand;
     private Integer timeOfDay; // 1 day, 2 night
     private Integer season;  // 1 winter, 2 spring, 3 summer, 4 autumn
     private Integer gender; // 1 female, 1 male, 3 uni
 
-    public Scent(Integer scent_id, String scentName, String brand, Integer timeOfDay,
+    public Scent(Integer scentId, String scentName, String brand, Integer timeOfDay,
             Integer season, Integer gender) {
 
-        this.scent_id = scent_id;
+        this.scentId = scentId;
         this.scentName = scentName;
         this.brand = brand;
         this.timeOfDay = timeOfDay;
@@ -33,12 +33,12 @@ public class Scent {
         this.gender = gender;
     }
 
-    public Integer getScent_id() {
-        return scent_id;
+    public Integer getScentId() {
+        return scentId;
     }
 
-    public void setScent_id(Integer scent_id) {
-        this.scent_id = scent_id;
+    public void setScentId(Integer scentId) {
+        this.scentId = scentId;
     }
 
     public String getName() {
@@ -109,10 +109,10 @@ public class Scent {
         }
         return true;
     }
-    
+
     public static Scent rowToScent(ResultSet rs) throws SQLException {
         return new Scent(rs.getInt("scent_id"), rs.getString("scentName"),
                 rs.getString("brand"), rs.getInt("timeOfDay"), rs.getInt("season"),
-                rs.getInt("gender") );
+                rs.getInt("gender"));
     }
 }

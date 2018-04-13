@@ -12,5 +12,6 @@
 | 8.4. |30 min | checkstylen käyttöönottoa |
 | 9.4. |1 h | tekstikäyttöliittymän työstöä |
 | 11.4. |2 h 15 | tuoksun lisäystoiminto, userscentdaon työstämistä|
+| 13.4. |2 h 20 | uusi testi, mainin erottelu, serviceluokka |
 
 

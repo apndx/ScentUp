@@ -28,7 +28,7 @@ public class ScentUpTextUi {
     public ScentUpTextUi(Scanner reader) {
         
         this.reader = reader;
-        this.scentUpService = new ScentUpService();
+        //this.scentUpService = new ScentUpService();
         
     }
 

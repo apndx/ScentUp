@@ -27,12 +27,12 @@ public class UserScentDao {
         this.database = database;
     }
 
-    public boolean checkIfUserScentExists(Integer user_id, Integer scent_id) throws SQLException {
+    public boolean checkIfUserScentExists(Integer userId, Integer scentId) throws SQLException {
 
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE user_id = ? AND scent_id = ? ");
-        stmt.setInt(1, user_id);
-        stmt.setInt(2, scent_id);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, scentId);
 
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
@@ -70,12 +70,12 @@ public class UserScentDao {
 
     }
 
-    public void delete(Integer user_id, Integer scent_id) throws SQLException {
+    public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
 
-        stmt.setInt(1, user_id);
-        stmt.setInt(2, scent_id);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, scentId);
         stmt.executeUpdate();
 
         stmt.close();
@@ -86,7 +86,7 @@ public class UserScentDao {
         try (Connection c = database.getConnection()) {
             PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
             ps.setInt(1, userScent.getUser().getUserId());
-            ps.setInt(2, userScent.getScent().getScent_id());
+            ps.setInt(2, userScent.getScent().getScentId());
             ps.setDate(3, userScent.getChoiceDate());
             ps.setInt(4, userScent.getPreference());
             ps.setInt(5, userScent.getActive());

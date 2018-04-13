@@ -99,7 +99,7 @@ public class ScentDao {
         // if there is no key, the user has not been yet created to database
         // so it needs to be created
 
-        if (object.getScent_id() == null) {
+        if (object.getScentId() == null) {
             return save(object);
         } else {
             // otherwise update scent
@@ -173,7 +173,7 @@ public class ScentDao {
                 + " name = ?, brand = ?, WHERE scent_id = ?");
         stmt.setString(1, scent.getName());
         stmt.setString(2, scent.getBrand());
-        stmt.setInt(3, scent.getScent_id());
+        stmt.setInt(3, scent.getScentId());
 
         stmt.executeUpdate();
 

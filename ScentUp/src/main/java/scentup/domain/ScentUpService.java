@@ -5,25 +5,28 @@
  */
 package scentup.domain;
 
+import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
+import scentup.dao.UserScentDao;
 
 /**
  *
  * @author hdheli
  */
 public class ScentUpService {
-    
-/**
- * application logic is here
- */
+
+    /**
+     * application logic is here
+     */
     private User loggedIn;
-    private UserDao userDao;
-    private ScentDao scentDao;
-    
-    
-    public ScentUpService(){
-        
-    } 
-           
-    
+    private final UserDao userDao;
+    private final ScentDao scentDao;
+    private final UserScentDao userScentDao;
+
+    public ScentUpService(UserDao userDao, ScentDao scentDao, UserScentDao userScentDao) {
+        this.userDao = userDao;
+        this.scentDao = scentDao;
+        this.userScentDao = userScentDao;
+    }
+
 }
