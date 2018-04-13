@@ -11,4 +11,6 @@
 | 4.4. |1 h | tekstikäyttöliittymän hajuvesilisäystoimintoa|
 | 8.4. |30 min | checkstylen käyttöönottoa |
 | 9.4. |1 h | tekstikäyttöliittymän työstöä |
+| 11.4. |2 h 15 | tuoksun lisäystoiminto, userscentdaon työstämistä|
+
 

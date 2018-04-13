@@ -5,6 +5,8 @@
  */
 package scentup.domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Objects;
 public class Scent {
 
     private Integer scent_id;
-    private String name;
+    private String scentName;
     private String brand;
     private Integer timeOfDay; // 1 day, 2 night
     private Integer season;  // 1 winter, 2 spring, 3 summer, 4 autumn
@@ -24,7 +26,7 @@ public class Scent {
             Integer season, Integer gender) {
 
         this.scent_id = scent_id;
-        this.name = name;
+        this.scentName = scentName;
         this.brand = brand;
         this.timeOfDay = timeOfDay;
         this.season = season;
@@ -40,11 +42,11 @@ public class Scent {
     }
 
     public String getName() {
-        return name;
+        return scentName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.scentName = name;
     }
 
     public String getBrand() {
@@ -82,7 +84,7 @@ public class Scent {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.scentName);
         hash = 79 * hash + Objects.hashCode(this.brand);
         return hash;
     }
@@ -99,7 +101,7 @@ public class Scent {
             return false;
         }
         final Scent other = (Scent) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.scentName, other.scentName)) {
             return false;
         }
         if (!Objects.equals(this.brand, other.brand)) {
@@ -107,5 +109,10 @@ public class Scent {
         }
         return true;
     }
-
+    
+    public static Scent rowToScent(ResultSet rs) throws SQLException {
+        return new Scent(rs.getInt("scent_id"), rs.getString("scentName"),
+                rs.getString("brand"), rs.getInt("timeOfDay"), rs.getInt("season"),
+                rs.getInt("gender") );
+    }
 }
