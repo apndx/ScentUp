@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import scentup.domain.Scent;
 
-
 /**
  *
  * @author hdheli
@@ -114,6 +113,18 @@ public class ScentDao {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Scent WHERE scent_id = ?");
 
         stmt.setInt(1, key);
+        stmt.executeUpdate();
+
+        stmt.close();
+        conn.close();
+    }
+
+    public void delete(String name, String brandname) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Scent WHERE name = ?  AND brand = ? ");
+
+        stmt.setString(1, name);
+        stmt.setString(2, brandname);
         stmt.executeUpdate();
 
         stmt.close();

@@ -12,15 +12,27 @@ import scentup.dao.Database;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.domain.Scent;
+import scentup.domain.ScentUpService;
 import scentup.domain.User;
 
 /**
  *
  * @author hdheli
  */
-public class ScentUpUi {
+public class ScentUpTextUi {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    private Scanner reader;
+    private ScentUpService scentUpService;
+    
+
+    public ScentUpTextUi(Scanner reader) {
+        
+        this.reader = reader;
+        this.scentUpService = new ScentUpService();
+        
+    }
+
+    public static void start() throws ClassNotFoundException, SQLException {
         File file = new File("db", "ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
 
@@ -132,11 +144,11 @@ public class ScentUpUi {
                             String gender = reader.nextLine();
                             if (gender.matches("1|2|3")) {
                                 //this is good form, we are finally there, lets make it!
-                               
-                                Scent newScent = new Scent(null, scentName, brand, 
-                                        Integer.parseInt(timeOfDay), Integer.parseInt(season), 
+
+                                Scent newScent = new Scent(null, scentName, brand,
+                                        Integer.parseInt(timeOfDay), Integer.parseInt(season),
                                         Integer.parseInt(gender));
-                                
+
                                 scents.saveOrUpdate(newScent);
                                 System.out.println("This scent has now been registered.");
                                 printMenu();

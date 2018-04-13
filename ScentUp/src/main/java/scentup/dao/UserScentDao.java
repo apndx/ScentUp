@@ -72,7 +72,7 @@ public class UserScentDao {
 
     public void delete(Integer user_id, Integer scent_id) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_ide = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
 
         stmt.setInt(1, user_id);
         stmt.setInt(2, scent_id);
@@ -84,7 +84,7 @@ public class UserScentDao {
 
     public void add(UserScent userScent) throws SQLException {
         try (Connection c = database.getConnection()) {
-            PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (resepti_id, kategoria_id) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
             ps.setInt(1, userScent.getUser().getUserId());
             ps.setInt(2, userScent.getScent().getScent_id());
             ps.setDate(3, userScent.getChoiceDate());

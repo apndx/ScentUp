@@ -13,7 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import scentup.dao.Database;
 import scentup.dao.UserDao;
-import static scentup.ui.ScentUpUi.printMenu;
+import static scentup.ui.ScentUpTextUi.printMenu;
 
 /**
  *
