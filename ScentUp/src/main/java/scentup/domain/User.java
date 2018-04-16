@@ -5,6 +5,8 @@
  */
 package scentup.domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -55,5 +57,10 @@ public class User {
         hash = 31 * hash + Objects.hashCode(this.name);
         hash = 31 * hash + Objects.hashCode(this.username);
         return hash;
+    }
+
+    public static User rowToUser(ResultSet rs) throws SQLException {
+        return new User(rs.getInt("user_id"), rs.getString("name"),
+                rs.getString("username"));
     }
 }

@@ -11,17 +11,34 @@ import java.util.Scanner;
 import scentup.dao.Database;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
+import scentup.domain.Scent;
+import scentup.domain.ScentUpService;
 import scentup.domain.User;
 
 /**
  *
  * @author hdheli
  */
-public class ScentUpUi {
+public class ScentUpTextUi {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        File file = new File("db", "ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+    private Scanner reader;
+    private Database database;
+    private ScentUpService scentUpService;
+    private UserDao userDao;
+    private ScentDao scentDao;
+
+    public ScentUpTextUi(Scanner reader, Database database, UserDao userDao, ScentDao scentDao) {
+
+        this.reader = reader;
+        this.database = database;
+        //this.scentUpService = new ScentUpService();
+        this.userDao = userDao;
+        this.scentDao = scentDao;
+    }
+
+    public void start() throws ClassNotFoundException, SQLException {
+        //File file = new File("db", "ScentUp.db");
+        //Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
 
         UserDao users = new UserDao(database);
         ScentDao scents = new ScentDao(database);
@@ -107,36 +124,58 @@ public class ScentUpUi {
                 // check from the database by name and brand, if the scent already exist 
                 // if exists, we don't want a double
                 if (!scents.checkIfScentExists(scentName, brand)) {
-                     // lets ask the remaining details for the scent
+                    // lets ask the remaining details for the scent
                     System.out.println("Is it a day or a night scent?");
                     System.out.println("1. Day");
                     System.out.println("2. Night");
-                    String timeOfDay = reader.nextLine(); 
+                    String timeOfDay = reader.nextLine();
                     if (timeOfDay.matches("1|2")) {
-                    // this is good form, we shall continue
-                        System.out.println("What is the preferable time of year?");
+                        // this is good form, we shall continue
+                        System.out.println("What is the preferable time of year? "
+                                + "Please choose a number and hit enter.");
                         System.out.println("1. Winter");
                         System.out.println("2. Spring");
                         System.out.println("3. Summmer");
                         System.out.println("4. Autumn");
                         String season = reader.nextLine();
                         if (season.matches("1|2|3|4")) {
-                            //this is good form, 
+                            //this is good form, we shall continue
+                            System.out.println("What is the stereotypical gender"
+                                    + "for it? Please choose a number and hit enter.");
+                            System.out.println("1. Female");
+                            System.out.println("2. Male");
+                            System.out.println("3. Unisex");
+                            String gender = reader.nextLine();
+                            if (gender.matches("1|2|3")) {
+                                //this is good form, we are finally there, lets make it!
+
+                                Scent newScent = new Scent(null, scentName, brand,
+                                        Integer.parseInt(timeOfDay), Integer.parseInt(season),
+                                        Integer.parseInt(gender));
+
+                                scents.saveOrUpdate(newScent);
+                                System.out.println("This scent has now been registered.");
+                                printMenu();
+
+                            } else {
+                                System.out.println("Please choose either 1, 2 or 3.");
+                                printMenu();
+                            }
+
+                        } else {
+                            System.out.println("Please choose either 1, 2, 3 or 4.");
+                            printMenu();
                         }
-                       
-                      
-                      
+
                     } else {
                         System.out.println("Please choose either 1 or 2.");
-                        
+                        printMenu();
                     }
-                     
+
                 } else {
-                  
-                     System.out.println("This scent has already been registered.");
-                    
+                    System.out.println("This scent has already been registered.");
+                    printMenu();
                 }
-                
 
             } else {
                 System.out.println("Brand cannot be empty (and not too long either). ");
@@ -186,8 +225,8 @@ public class ScentUpUi {
         System.out.println(" ");
         System.out.println("What to do next?");
         System.out.println("1. Create a new User");
-        System.out.println("2. Add a new Scent (under construction)");
-        System.out.println("3. ScentIn");
+        System.out.println("2. Add a new Scent");
+        System.out.println("3. ScentIn (under construction)");
         System.out.println("4. ScentOut");
     }
 

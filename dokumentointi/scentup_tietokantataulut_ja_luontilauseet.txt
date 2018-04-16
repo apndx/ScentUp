@@ -1,5 +1,5 @@
-http://yuml.me/4dd7fe3c.png
-http://yuml.me/edit/4dd7fe3c
+https://yuml.me/aa82c476.png
+http://yuml.me/edit/aa82c476
 
 
 CREATE TABLE User (
@@ -10,7 +10,7 @@ CREATE TABLE User (
 
 
 CREATE TABLE Scent (
-    user_id integer PRIMARY KEY,
+    scent_id integer PRIMARY KEY,
     name varchar(200),
     brand varchar(200),
     timeofday integer,
@@ -24,6 +24,7 @@ CREATE TABLE UserScent (
     scent_id integer,
     choicedate integer,
     preference integer,
+    active integer,
     FOREIGN KEY (user_id) REFERENCES User(user_id),
     FOREIGN KEY (scent_id) REFERENCES Scent(scent_id)
 );
