@@ -9,6 +9,7 @@ Tämä on harjoitustyö kurssille ohjelmistotekniikan menetelmät.
 
 * [Vaatimusmäärittely](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 * [Työaikakirjanpito](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+* [Arkkitehtuurikuvaus](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
 ## Komentorivitoiminnot
 
