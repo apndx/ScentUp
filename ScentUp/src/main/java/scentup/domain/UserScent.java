@@ -112,7 +112,7 @@ public class UserScent {
     }
 
     public static UserScent rowToUserScent(ResultSet rs) throws SQLException {
-        return new UserScent(User.rowToScent(rs), Scent.rowToScent(rs), rs.getDate("choicedate"), rs.getInt("preference"), rs.getInt("active"));
+        return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"), rs.getInt("preference"), rs.getInt("active"));
 
     }
 

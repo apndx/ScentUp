@@ -31,41 +31,39 @@ public class ScentUpService {
         this.scentDao = scentDao;
         this.userScentDao = userScentDao;
     }
-    
+
     /**
      * the user who has been logged in chooses a new scent
      */
-    
-    
-      public boolean createUserScent(UserScent userScent) {
-        
-        try {   
+    public boolean createUserScent(UserScent userScent) {
+
+        try {
             userScentDao.add(userScent);
         } catch (Exception ex) {
             return false;
         }
         return true;
     }
-      
-      
-       /**
-    * list of active scents for this user
-    * 
-    * @return 
-    */
-    
+
+    /**
+     * list of active scents for this user
+     *
+     * @return
+     */
     public List<UserScent> getActive() {
+        List<UserScent> aktiiviset = new ArrayList<>();
+
         if (loggedIn == null) {
+            return aktiiviset;
+        }
+        try {
+
+            aktiiviset = userScentDao.findAllForUser(1, loggedIn.getUserId());
+        } catch (Exception ex) {
             return new ArrayList<>();
-        } try {
-          
-        List<UserScent> aktiiviset= userScentDao.findAllForUser(1,loggedIn.getUserId());
-        }catch(Exception ex) {
-            return new ArrayList<>();
-            
-        } 
-        
-         return aktiiviset;
+
+        }
+        return aktiiviset;
     }
 
 }

@@ -25,9 +25,7 @@ import scentup.domain.User;
  * @author hdheli
  */
 public class ScentDaoTest {
-    @Rule
-    File file;
-
+   
     public ScentDaoTest() {
     }
 
@@ -40,9 +38,7 @@ public class ScentDaoTest {
     }
 
     @Before
-    public void setUp() throws SQLException{
-       File file = new File("db", "ScentUp.db"); 
-        
+    public void setUp()  {
     }
 
     @After
@@ -51,19 +47,20 @@ public class ScentDaoTest {
 
     @Test
     public void isExistingScentIgnored() throws ClassNotFoundException, SQLException {
-        
+
+        File file = new File("db", "ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         ScentDao scents = new ScentDao(database);
-
+         
         String randomname = UUID.randomUUID().toString().substring(0, 6);
         String randombrand = UUID.randomUUID().toString().substring(0, 6);
         Integer testnumber = 1;
 
         Scent testscent = new Scent(null, randomname, randombrand, testnumber,
-            testnumber, testnumber);
-        
+                testnumber, testnumber);
+
         scents.saveOrUpdate(testscent);
-        
+
         assertEquals(true, scents.checkIfScentExists(randomname, randombrand));
         scents.delete(randomname, randombrand);
 

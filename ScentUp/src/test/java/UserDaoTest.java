@@ -44,9 +44,7 @@ public class UserDaoTest  {
     public void tearDown() {
     }
     
-   
-    
-    
+
     @Test
     public void isExistingUsernameIgnored() throws ClassNotFoundException, SQLException {
         
@@ -66,7 +64,6 @@ public class UserDaoTest  {
     }
     
     
-
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

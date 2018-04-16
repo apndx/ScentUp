@@ -6,9 +6,18 @@
 package scentup.ui;
 
 import java.io.File;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.UUID;
 import scentup.dao.Database;
+import scentup.dao.ScentDao;
+import scentup.dao.UserDao;
+import scentup.dao.UserScentDao;
+import scentup.domain.Scent;
+import scentup.domain.User;
+import scentup.domain.UserScent;
 
 /**
  *
@@ -21,12 +30,13 @@ public class Main {
         
         Scanner reader = new Scanner(System.in);
         
-        
         File file = new File("db", "ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         
-        
-        ScentUpTextUi textUi = new ScentUpTextUi(reader, database);
+        UserDao users = new UserDao(database);
+        ScentDao scents = new ScentDao(database);
+    
+        ScentUpTextUi textUi = new ScentUpTextUi(reader, database, users, scents);
         textUi.start();
         
     }

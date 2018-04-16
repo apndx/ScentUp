@@ -36,7 +36,6 @@ public class ScentDao {
             stmt.close();
             rs.close();
             conn.close();
-
             return null;
         }
 
@@ -46,7 +45,30 @@ public class ScentDao {
         stmt.close();
         rs.close();
         conn.close();
+        return scent;
+    }
 
+    public Scent findOne(String name, String brand) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE name = ? AND brand = ?");
+        stmt.setString(1, name);
+        stmt.setString(2, brand);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            stmt.close();
+            rs.close();
+            conn.close();
+            return null;
+        }
+
+        Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("name"),
+                rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
+
+        stmt.close();
+        rs.close();
+        conn.close();
         return scent;
     }
 
@@ -84,13 +106,11 @@ public class ScentDao {
             Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"),
                     rs.getString("brand"), rs.getInt("timeofday"),
                     rs.getInt("season"), rs.getInt("gender"));
-
             listOfAll.add(s);
         }
 
         stmt.close();
         rs.close();
-
         conn.close();
         return listOfAll;
     }
@@ -101,8 +121,7 @@ public class ScentDao {
 
         if (object.getScentId() == null) {
             return save(object);
-        } else {
-            // otherwise update scent
+        } else { // otherwise update scent       
             return update(object);
         }
 
@@ -126,7 +145,6 @@ public class ScentDao {
         stmt.setString(1, name);
         stmt.setString(2, brandname);
         stmt.executeUpdate();
-
         stmt.close();
         conn.close();
     }
@@ -160,9 +178,7 @@ public class ScentDao {
 
         stmt.close();
         rs.close();
-
         conn.close();
-
         return s;
     }
 
@@ -176,10 +192,8 @@ public class ScentDao {
         stmt.setInt(3, scent.getScentId());
 
         stmt.executeUpdate();
-
         stmt.close();
         conn.close();
-
         return scent;
     }
 

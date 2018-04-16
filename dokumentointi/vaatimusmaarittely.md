@@ -27,7 +27,7 @@ Sovellus koostuu viidestä näkymästä:
 ### Kirjautumisen jälkeen
 
    - Valittavana on näkymä, jossa voi lisätä uusia hajuvesiä
-       - Hajuvedelle määritellään nimi, merkki, vuorokaudenaika, vuodenaika, kategoria ja sukupuoli
+       - Hajuvedelle määritellään nimi, merkki, vuorokaudenaika, vuodenaika ja sukupuoli
    - Käyttäjä näkee oman sivunsa jossa on aiemmin tehdyt käyttäjäkohtaiset valinnat, joissa näkyy valintapäivä
        - Valintoihin voi myös merkitä käyttäjäkohtaisen tiedon onko valinta huono, ok, vai suosikki
    - Toisessa näkymässä valintoja voi poistaa ja lisätä	
@@ -41,3 +41,4 @@ Sovellus koostuu viidestä näkymästä:
    - Turvallisempi kirjautuminen
    - Sovellukseen pääkäyttäjä, ja hajuvesien lisäys vaatii pääkäyttäjän oikeudet
    - Toiminto jolla hajuvesiä voi lisätä useita kerralla tiedostosta 
+   - Hajuvesikategoriat

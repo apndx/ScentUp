@@ -92,7 +92,30 @@ public class UserScentDao {
 
         conn.close();
         return listOfAll;
+    }
 
+    public List<Scent> findAllScentsUserHasNot(Integer timeOfDay, Integer season, Integer userId) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent, UserScent WHERE scent.timeofday = ? AND scent.season = ? NOT userscent.user_id = ? ");
+
+        stmt.setInt(1, timeOfDay);
+        stmt.setInt(2, season);
+        stmt.setInt(3, userId);
+        stmt.executeUpdate();
+
+        ResultSet rs = stmt.executeQuery();
+
+        List<Scent> listOfAll = new ArrayList<>();
+
+        while (rs.next()) {
+            listOfAll.add(Scent.rowToScent(rs));
+        }
+
+        stmt.close();
+        conn.close();
+
+        return listOfAll;
     }
 
     public void delete(Integer userId, Integer scentId) throws SQLException {
@@ -110,6 +133,7 @@ public class UserScentDao {
     public void add(UserScent userScent) throws SQLException {
         try (Connection c = database.getConnection()) {
             PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
+
             ps.setInt(1, userScent.getUser().getUserId());
             ps.setInt(2, userScent.getScent().getScentId());
             ps.setDate(3, userScent.getChoiceDate());

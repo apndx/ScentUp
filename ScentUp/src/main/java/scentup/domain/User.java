@@ -59,7 +59,7 @@ public class User {
         return hash;
     }
 
-    public static User rowToScent(ResultSet rs) throws SQLException {
+    public static User rowToUser(ResultSet rs) throws SQLException {
         return new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
     }

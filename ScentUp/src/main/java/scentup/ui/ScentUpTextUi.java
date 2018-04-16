@@ -24,13 +24,16 @@ public class ScentUpTextUi {
     private Scanner reader;
     private Database database;
     private ScentUpService scentUpService;
+    private UserDao userDao;
+    private ScentDao scentDao;
 
-    public ScentUpTextUi(Scanner reader, Database database) {
+    public ScentUpTextUi(Scanner reader, Database database, UserDao userDao, ScentDao scentDao) {
 
         this.reader = reader;
         this.database = database;
         //this.scentUpService = new ScentUpService();
-
+        this.userDao = userDao;
+        this.scentDao = scentDao;
     }
 
     public void start() throws ClassNotFoundException, SQLException {
@@ -223,7 +226,7 @@ public class ScentUpTextUi {
         System.out.println("What to do next?");
         System.out.println("1. Create a new User");
         System.out.println("2. Add a new Scent");
-        System.out.println("3. ScentIn");
+        System.out.println("3. ScentIn (under construction)");
         System.out.println("4. ScentOut");
     }
 
