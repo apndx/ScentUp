@@ -22,19 +22,20 @@ import scentup.domain.User;
 public class ScentUpTextUi {
 
     private Scanner reader;
+    private Database database;
     private ScentUpService scentUpService;
-    
 
-    public ScentUpTextUi(Scanner reader) {
-        
+    public ScentUpTextUi(Scanner reader, Database database) {
+
         this.reader = reader;
+        this.database = database;
         //this.scentUpService = new ScentUpService();
-        
+
     }
 
-    public static void start() throws ClassNotFoundException, SQLException {
-        File file = new File("db", "ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+    public void start() throws ClassNotFoundException, SQLException {
+        //File file = new File("db", "ScentUp.db");
+        //Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
 
         UserDao users = new UserDao(database);
         ScentDao scents = new ScentDao(database);

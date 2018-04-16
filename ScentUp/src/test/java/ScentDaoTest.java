@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 import scentup.dao.Database;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
@@ -24,6 +25,8 @@ import scentup.domain.User;
  * @author hdheli
  */
 public class ScentDaoTest {
+    @Rule
+    File file;
 
     public ScentDaoTest() {
     }
@@ -37,7 +40,9 @@ public class ScentDaoTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException{
+       File file = new File("db", "ScentUp.db"); 
+        
     }
 
     @After
@@ -46,8 +51,7 @@ public class ScentDaoTest {
 
     @Test
     public void isExistingScentIgnored() throws ClassNotFoundException, SQLException {
-
-        File file = new File("db", "ScentUp.db");
+        
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         ScentDao scents = new ScentDao(database);
 

@@ -70,6 +70,31 @@ public class UserScentDao {
 
     }
 
+    public List<UserScent> findAllForUser(Integer active, Integer userId) throws SQLException {
+
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE Active = ? AND user_id = ? "
+                + "AND scent_id = ? ");
+
+        stmt.setInt(1, active);
+        stmt.setInt(2, userId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        List<UserScent> listOfAll = new ArrayList<>();
+
+        while (rs.next()) {
+            listOfAll.add(UserScent.rowToUserScent(rs));
+        }
+
+        stmt.close();
+        rs.close();
+
+        conn.close();
+        return listOfAll;
+
+    }
+
     public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
@@ -92,6 +117,9 @@ public class UserScentDao {
             ps.setInt(5, userScent.getActive());
 
             ps.executeUpdate();
+
+            ps.close();
+            c.close();
         }
     }
 

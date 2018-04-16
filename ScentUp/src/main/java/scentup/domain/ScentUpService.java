@@ -5,6 +5,9 @@
  */
 package scentup.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
@@ -27,6 +30,42 @@ public class ScentUpService {
         this.userDao = userDao;
         this.scentDao = scentDao;
         this.userScentDao = userScentDao;
+    }
+    
+    /**
+     * the user who has been logged in chooses a new scent
+     */
+    
+    
+      public boolean createUserScent(UserScent userScent) {
+        
+        try {   
+            userScentDao.add(userScent);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+      
+      
+       /**
+    * list of active scents for this user
+    * 
+    * @return 
+    */
+    
+    public List<UserScent> getActive() {
+        if (loggedIn == null) {
+            return new ArrayList<>();
+        } try {
+          
+        List<UserScent> aktiiviset= userScentDao.findAllForUser(1,loggedIn.getUserId());
+        }catch(Exception ex) {
+            return new ArrayList<>();
+            
+        } 
+        
+         return aktiiviset;
     }
 
 }
