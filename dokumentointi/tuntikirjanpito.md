@@ -14,7 +14,11 @@
 | 11.4. |2 h 15 min | tuoksun lisäystoiminto, userscentdaon työstämistä |
 | 13.4. |2 h 20 min | uusi testi, mainin erottelu, serviceluokka |
 | 16.4. |7 h 30 min | sovelluslogiikkaa, daoja ja testejä, debuggausta, pakkauskaavio |
+| 18.4. |3 h 30 min | käyttöliittymän ja sovelluslogiikan erottelua, logintoiminnon aloitus |
+| 20.4. |3 h 5 min | databasen luomislauseet ohjelmaan mukaan, jar-paketointi, sql-käskyjen suunnittelua |
 
-yht. 25 h 25 min  
+
+
+yht. 32 h 
 
 

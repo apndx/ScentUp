@@ -48,7 +48,7 @@ public class UserDaoTest  {
     @Test
     public void isExistingUsernameIgnored() throws ClassNotFoundException, SQLException {
         
-        File file = new File("db", "ScentUp.db");
+        File file = new File("ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         UserDao users = new UserDao(database);
         

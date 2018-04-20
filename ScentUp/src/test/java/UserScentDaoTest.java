@@ -80,7 +80,7 @@ public class UserScentDaoTest {
     @Test
     public void isExistingUserScentFound() throws ClassNotFoundException, SQLException {
 
-        File file = new File("db", "ScentUp.db");
+        File file = new File("ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         UserScentDao userScents = new UserScentDao(database);
         UserDao users = new UserDao(database);

@@ -5,12 +5,14 @@
  */
 package scentup.domain;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
+import static scentup.ui.ScentUpTextUi.printMenu;
 
 /**
  *
@@ -65,5 +67,48 @@ public class ScentUpService {
         }
         return aktiiviset;
     }
+
+    public boolean createUser(String username, String name) throws SQLException {
+        if (userDao.isUsernameFree(username)) {
+            // if the username is free
+            User newuser = new User(null, name, username);
+            userDao.saveOrUpdate(newuser);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean doesScentExist(String scentName, String brandName) throws SQLException {
+        if (!scentDao.checkIfScentExists(scentName, brandName)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void createScent(Scent scent) throws SQLException {
+
+        scentDao.saveOrUpdate(scent);
+
+    }
+
+    public boolean login(String username) throws SQLException {
+        User current = userDao.findOne(username);
+
+        if (current == null) {
+            return false;
+        } else {
+            // login and open userpage
+            // todo
+            
+            loggedIn = current;
+
+            return true;
+        }
+
+    }
+    
+    
 
 }

@@ -90,6 +90,15 @@ public class UserDao {
 
     public void delete(String username) throws SQLException {
         Connection conn = database.getConnection();
+
+        User poistettava = findOne(username);
+        Integer userId = poistettava.getUserId();
+
+        PreparedStatement stmtriippuvuudet = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ?");
+        stmtriippuvuudet.setInt(1, userId);
+        stmtriippuvuudet.executeUpdate();
+        stmtriippuvuudet.close();
+        
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM User WHERE username = ?");
 
         stmt.setString(1, username);
@@ -115,12 +124,11 @@ public class UserDao {
                 + " WHERE name = ?  AND username = ?");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-       
 
         ResultSet rs = stmt.executeQuery();
         rs.next(); // vain 1 tulos
 
-        User u = new User(rs.getInt("user_id"), rs.getString("name"), 
+        User u = new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
 
         stmt.close();

@@ -140,6 +140,14 @@ public class ScentDao {
 
     public void delete(String name, String brandname) throws SQLException {
         Connection conn = database.getConnection();
+        
+        Scent poistettava = findOne(name, brandname);
+        Integer scentId = poistettava.getScentId();
+
+        PreparedStatement stmtriippuvuudet = conn.prepareStatement("DELETE FROM UserScent WHERE scent_id = ?");
+        stmtriippuvuudet.setInt(1, scentId);
+        stmtriippuvuudet.executeUpdate();
+
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Scent WHERE name = ?  AND brand = ? ");
 
         stmt.setString(1, name);

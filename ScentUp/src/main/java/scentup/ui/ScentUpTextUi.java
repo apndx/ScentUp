@@ -5,65 +5,58 @@
  */
 package scentup.ui;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.Scanner;
-import scentup.dao.Database;
-import scentup.dao.ScentDao;
-import scentup.dao.UserDao;
 import scentup.domain.Scent;
 import scentup.domain.ScentUpService;
-import scentup.domain.User;
 
 /**
  *
  * @author hdheli
+ *
+ * This is a text user interface - Current menu options:
+ *
+ * "What to do next?" "1. Create a new User" "2. Add a new Scent" "3. ScentIn
+ * (under construction)" "4. ScentOut"
+ *
+ *
+ *
  */
 public class ScentUpTextUi {
 
     private Scanner reader;
-    private Database database;
     private ScentUpService scentUpService;
-    private UserDao userDao;
-    private ScentDao scentDao;
 
-    public ScentUpTextUi(Scanner reader, Database database, UserDao userDao, ScentDao scentDao) {
+    public ScentUpTextUi(Scanner reader, ScentUpService scentUpService) {
 
         this.reader = reader;
-        this.database = database;
-        //this.scentUpService = new ScentUpService();
-        this.userDao = userDao;
-        this.scentDao = scentDao;
+        this.scentUpService = scentUpService;
     }
 
     public void start() throws ClassNotFoundException, SQLException {
         //File file = new File("db", "ScentUp.db");
         //Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
 
-        UserDao users = new UserDao(database);
-        ScentDao scents = new ScentDao(database);
-
         System.out.println("Welcome to ScentUp! ");
         System.out.println(" ");
         printMenu();
-
-        Scanner reader = new Scanner(System.in);
 
         // here should be made sure that input is a number of the menu, otherwise declined
         while (true) {
             String chosen = reader.nextLine();
             if (chosen.matches("1")) {
 
-                menu1(reader, users);
+                menu1(reader, scentUpService);
 
             } else if (chosen.matches("2")) {
                 // add a new scent
-                // todo
-                menu2(reader, scents);
+
+                menu2(reader, scentUpService);
 
             } else if (chosen.matches("3")) {
                 // login
-                menu3(reader, users);
+                // todo
+                menu3(reader, scentUpService);
 
             } else if (chosen.matches("4")) {
                 menu4();
@@ -77,7 +70,7 @@ public class ScentUpTextUi {
 
     }
 
-    public static void menu1(Scanner reader, UserDao users) throws SQLException {
+    public static void menu1(Scanner reader, ScentUpService service) throws SQLException {
         // creates a new user to the database
 
         System.out.println("What is your name?");
@@ -88,12 +81,9 @@ public class ScentUpTextUi {
 
             if (username.matches(".{5,200}")) { // is it within the size limits
 
-                if (users.isUsernameFree(username)) {
-                    // if the username is free
-                    User newuser = new User(null, name, username);
-                    users.saveOrUpdate(newuser);
+                if (service.createUser(username, name)) {
                     System.out.println("Your username has now been registered.");
-                } else if (!users.isUsernameFree(username)) {
+                } else {
                     System.out.println("This username is already in use, please choose another. ");
                     printMenu();
                 }
@@ -108,7 +98,7 @@ public class ScentUpTextUi {
         }
     }
 
-    public static void menu2(Scanner reader, ScentDao scents) throws SQLException {
+    public static void menu2(Scanner reader, ScentUpService service) throws SQLException {
         // add a new scent. combination of a name and a brand must be unique.
         // the first version continues one step at a time, and aborts if
         // inputs do not meet the criteria
@@ -123,7 +113,7 @@ public class ScentUpTextUi {
             if (brand.matches(".{1,200}")) {
                 // check from the database by name and brand, if the scent already exist 
                 // if exists, we don't want a double
-                if (!scents.checkIfScentExists(scentName, brand)) {
+                if (!service.doesScentExist(scentName, brand)) {
                     // lets ask the remaining details for the scent
                     System.out.println("Is it a day or a night scent?");
                     System.out.println("1. Day");
@@ -152,8 +142,8 @@ public class ScentUpTextUi {
                                 Scent newScent = new Scent(null, scentName, brand,
                                         Integer.parseInt(timeOfDay), Integer.parseInt(season),
                                         Integer.parseInt(gender));
+                                service.createScent(newScent);
 
-                                scents.saveOrUpdate(newScent);
                                 System.out.println("This scent has now been registered.");
                                 printMenu();
 
@@ -189,23 +179,37 @@ public class ScentUpTextUi {
 
     }
 
-    public static void menu3(Scanner reader, UserDao users) throws SQLException {
+    public static void menu3(Scanner reader, ScentUpService service) throws SQLException {
         //login
         System.out.println("Please type your username and enter");
         String username = reader.nextLine();
 
         if (username.matches(".{5,200}")) {
 
-            User current = users.findOne(username);
-
-            if (current == null) {
+            if (!service.login(username)) {
                 System.out.println("This username was not found.");
                 printMenu();
-
             } else {
                 //todo login and open userpage
-                System.out.println("Welcome to ScentUp " + current.getName());
-                printMenu();
+                System.out.println("Welcome to ScentUp " + username);
+                afterLogin();
+                while (true) {
+
+                    String afterLoginChoice = reader.nextLine();
+                    if (afterLoginChoice.matches("1|2|3")) {
+                        
+                        if(afterLoginChoice.matches("3")) {
+                            //logout
+                            System.out.println("Goodbye "+ username);
+                            break;
+                        }
+                        // todo listing or browse or logout
+                    } else  {
+                        System.out.println("Please choose either 1, 2 or 3");
+                    }
+
+                }
+
             }
 
         } else {
@@ -228,6 +232,15 @@ public class ScentUpTextUi {
         System.out.println("2. Add a new Scent");
         System.out.println("3. ScentIn (under construction)");
         System.out.println("4. ScentOut");
+    }
+
+    public static void afterLogin() {
+        System.out.println(" ");
+        System.out.println("What to do next?");
+        System.out.println("1. Print what I have chosen (under construction)");
+        System.out.println("2. Browse and add to collection (under construction)");
+        System.out.println("3. Logout");
+
     }
 
 }

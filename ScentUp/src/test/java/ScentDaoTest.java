@@ -48,7 +48,7 @@ public class ScentDaoTest {
     @Test
     public void isExistingScentIgnored() throws ClassNotFoundException, SQLException {
 
-        File file = new File("db", "ScentUp.db");
+        File file = new File("ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         ScentDao scents = new ScentDao(database);
          

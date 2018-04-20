@@ -16,6 +16,7 @@ import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
 import scentup.domain.Scent;
+import scentup.domain.ScentUpService;
 import scentup.domain.User;
 import scentup.domain.UserScent;
 
@@ -24,20 +25,23 @@ import scentup.domain.UserScent;
  * @author hdheli
  */
 public class Main {
-    
-    
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        
+
         Scanner reader = new Scanner(System.in);
-        
-        File file = new File("db", "ScentUp.db");
+
+        File file = new File("ScentUp.db");
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        
+        database.init();
+
         UserDao users = new UserDao(database);
         ScentDao scents = new ScentDao(database);
-    
-        ScentUpTextUi textUi = new ScentUpTextUi(reader, database, users, scents);
+        UserScentDao userScents = new UserScentDao(database);
+
+        ScentUpService scentUpService = new ScentUpService(users, scents, userScents);
+
+        ScentUpTextUi textUi = new ScentUpTextUi(reader, scentUpService);
         textUi.start();
-        
+
     }
 }
