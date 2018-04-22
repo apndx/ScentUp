@@ -250,14 +250,14 @@ public class ScentUpTextUi {
         System.out.println("What to do next?");
         System.out.println("1. Create a new User");
         System.out.println("2. Add a new Scent");
-        System.out.println("3. ScentIn (under construction)");
+        System.out.println("3. ScentIn");
         System.out.println("4. ScentOut");
     }
 
     public static void afterLogin() {
         System.out.println(" ");
         System.out.println("What to do next?");
-        System.out.println("1. Print what I have chosen (under construction)");
+        System.out.println("1. Print what I have chosen");
         System.out.println("2. Browse and add to collection (under construction)");
         System.out.println("3. Logout");
 

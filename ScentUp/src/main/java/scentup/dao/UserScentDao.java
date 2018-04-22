@@ -115,10 +115,6 @@ public class UserScentDao {
         stmt.close();
         conn.close();
 
-        listOfAll.stream()
-                .map(scent -> scent.getName())
-                .forEach(scent -> System.out.println(scent));
-
         return listOfAll;
     }
 
