@@ -6,6 +6,7 @@
 package scentup.ui;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 import scentup.domain.Scent;
 import scentup.domain.ScentUpService;
@@ -192,19 +193,38 @@ public class ScentUpTextUi {
             } else {
                 //todo login and open userpage
                 System.out.println("Welcome to ScentUp " + username);
+                service.login(username);
                 afterLogin();
                 while (true) {
 
                     String afterLoginChoice = reader.nextLine();
                     if (afterLoginChoice.matches("1|2|3")) {
-                        
-                        if(afterLoginChoice.matches("3")) {
+                        if (afterLoginChoice.matches("1")) {
+                            //list of all scents user has
+                            List<Scent> userHasTheseScents = service.getScentsUserHas();
+
+                            userHasTheseScents.stream()
+                                    .map(scent -> scent.getName())
+                                    .forEach(scent -> System.out.println(scent));
+
+                        }
+                        if (afterLoginChoice.matches("2")) {
+                            //list of all scents user has not
+                            List<Scent> userHasNotTheseScents = service.getScentsUserHasNot();
+
+                            userHasNotTheseScents.stream()
+                                    .map(scent -> scent.getName())
+                                    .forEach(scent -> System.out.println(scent));
+                        }
+
+                        if (afterLoginChoice.matches("3")) {
                             //logout
-                            System.out.println("Goodbye "+ username);
+                            System.out.println("See you soon " + username + "!");
+                            printMenu();
                             break;
                         }
                         // todo listing or browse or logout
-                    } else  {
+                    } else {
                         System.out.println("Please choose either 1, 2 or 3");
                     }
 

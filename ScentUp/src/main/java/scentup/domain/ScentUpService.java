@@ -53,19 +53,53 @@ public class ScentUpService {
      * @return
      */
     public List<UserScent> getActive() {
-        List<UserScent> aktiiviset = new ArrayList<>();
+        List<UserScent> active = new ArrayList<>();
 
         if (loggedIn == null) {
-            return aktiiviset;
+            return active;
         }
         try {
 
-            aktiiviset = userScentDao.findAllForUser(1, loggedIn.getUserId());
+            active = userScentDao.findAllForUser(1, loggedIn.getUserId());
         } catch (Exception ex) {
             return new ArrayList<>();
 
         }
-        return aktiiviset;
+        return active;
+    }
+
+    // list all scent this user has
+    public List<Scent> getScentsUserHas() {
+        List<Scent> scentsHas = new ArrayList<>();
+
+        if (loggedIn == null) {
+            return scentsHas;
+        }
+        try {
+
+            scentsHas = userScentDao.findAllScentsUserHas(loggedIn.getUserId());
+        } catch (Exception ex) {
+            return scentsHas;
+
+        }
+        return scentsHas;
+    }
+
+    // list all scent this user has not
+    public List<Scent> getScentsUserHasNot() {
+        List<Scent> hasNot = new ArrayList<>();
+
+        if (loggedIn == null) {
+            return hasNot;
+        }
+        try {
+
+            hasNot = userScentDao.findAllScentsUserHasNot(loggedIn.getUserId());
+        } catch (Exception ex) {
+            return new ArrayList<>();
+
+        }
+        return hasNot;
     }
 
     public boolean createUser(String username, String name) throws SQLException {
@@ -101,14 +135,12 @@ public class ScentUpService {
         } else {
             // login and open userpage
             // todo
-            
+
             loggedIn = current;
 
             return true;
         }
 
     }
-    
-    
 
 }

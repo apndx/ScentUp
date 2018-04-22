@@ -94,7 +94,35 @@ public class UserScentDao {
         return listOfAll;
     }
 
-    public List<Scent> findAllScentsUserHasNotByCriteria(Integer timeOfDay, 
+    public List<Scent> findAllScentsUserHas(Integer userId) throws SQLException {
+
+        Connection conn = database.getConnection();
+        // sql not working yet
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent "
+                + "LEFT JOIN UserScent ON Scent.scent_id = userscent.scent_id  "
+                + "WHERE userscent.user_id = ? ");
+
+        stmt.setInt(1, userId);
+        //stmt.executeUpdate();
+
+        ResultSet rs = stmt.executeQuery();
+        List<Scent> listOfAll = new ArrayList<>();
+
+        while (rs.next()) {
+            listOfAll.add(Scent.rowToScent(rs));
+        }
+
+        stmt.close();
+        conn.close();
+
+        listOfAll.stream()
+                .map(scent -> scent.getName())
+                .forEach(scent -> System.out.println(scent));
+
+        return listOfAll;
+    }
+
+    public List<Scent> findAllScentsUserHasNotByCriteria(Integer timeOfDay,
             Integer season, Integer userId) throws SQLException {
 
         Connection conn = database.getConnection();
@@ -121,17 +149,16 @@ public class UserScentDao {
 
         return listOfAll;
     }
-    
-       public List<Scent> findAllScentsUserHasNot(Integer userId) throws SQLException {
+
+    public List<Scent> findAllScentsUserHasNot(Integer userId) throws SQLException {
 
         Connection conn = database.getConnection();
-        
-        
+
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE NOT EXISTS "
                 + "(SELECT * FROM userScent where user_id = ? AND scent.scent_id = userScent.scent_id);");
 
         stmt.setInt(1, userId);
-        stmt.executeUpdate();
+        //stmt.executeUpdate();
 
         ResultSet rs = stmt.executeQuery();
 
@@ -146,7 +173,6 @@ public class UserScentDao {
 
         return listOfAll;
     }
-    
 
     public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
