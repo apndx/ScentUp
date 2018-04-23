@@ -5,11 +5,13 @@
  */
 package scentup.ui;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import scentup.domain.Scent;
 import scentup.domain.ScentUpService;
+import scentup.domain.UserScent;
 
 /**
  *
@@ -132,7 +134,7 @@ public class ScentUpTextUi {
                         if (season.matches("1|2|3|4")) {
                             //this is good form, we shall continue
                             System.out.println("What is the stereotypical gender"
-                                    + "for it? Please choose a number and hit enter.");
+                                    + " for it? Please choose a number and hit enter.");
                             System.out.println("1. Female");
                             System.out.println("2. Male");
                             System.out.println("3. Unisex");
@@ -187,12 +189,12 @@ public class ScentUpTextUi {
 
         if (username.matches(".{5,200}")) {
 
-            if (!service.login(username)) {
+            if (service.login(username) == null) {
                 System.out.println("This username was not found.");
                 printMenu();
             } else {
                 //todo login and open userpage
-                System.out.println("Welcome to ScentUp " + username);
+                System.out.println("Welcome to ScentUp " + service.login(username).getName());
                 service.login(username);
                 afterLogin();
                 while (true) {
@@ -213,13 +215,39 @@ public class ScentUpTextUi {
                             List<Scent> userHasNotTheseScents = service.getScentsUserHasNot();
 
                             userHasNotTheseScents.stream()
-                                    .map(scent -> scent.getName())
-                                    .forEach(scent -> System.out.println(scent));
+                                    //.map(scent -> scent.getName())
+                                    .forEach(scent -> System.out.println(scent.toString()));
+                            System.out.println("If you want to add a scent to your collection, "
+                                    + "please type the number of the scent ");
+
+                            String lisattava = reader.nextLine();
+                            if (lisattava.matches("[1-999]")) {
+                                preferences();
+                                String preference = reader.nextLine();
+                                if (preference.matches("1|2|3")) {
+                                    if(service.createUserScent(service.login(username).getUserId(),
+                                            Integer.parseInt(lisattava), new Date((int) new java.util.Date().getTime()),
+                                            Integer.parseInt(preference), 1)) {
+                                        System.out.println("This scent has now been added to your collection.");
+                                    } else {
+                                        System.out.println("This scent was not added, maybe one of these"
+                                                + " is enough in one collection.");
+                                        afterLogin();
+                                    }
+                                } else {
+                                    System.out.println("Please type a number mentioned in the list.");
+                                    preferences();
+                                }
+
+                            } else {
+                                System.out.println("Please type a number mentioned in the list.");
+                                afterLogin();
+                            }
                         }
 
                         if (afterLoginChoice.matches("3")) {
                             //logout
-                            System.out.println("See you soon " + username + "!");
+                            System.out.println("See you soon " + service.login(username).getName() + "!");
                             printMenu();
                             break;
                         }
@@ -261,6 +289,14 @@ public class ScentUpTextUi {
         System.out.println("2. Browse and add to collection (under construction)");
         System.out.println("3. Logout");
 
+    }
+
+    public static void preferences() {
+        System.out.println("");
+        System.out.println("What do you think of this scent?");
+        System.out.println("1. Dislike");
+        System.out.println("2. Neutral");
+        System.out.println("3. Love");
     }
 
 }

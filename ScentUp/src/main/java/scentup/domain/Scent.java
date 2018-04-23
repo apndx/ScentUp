@@ -115,4 +115,9 @@ public class Scent {
                 rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"),
                 rs.getInt("gender"));
     }
+
+    @Override
+    public String toString() {
+        return this.scentId + ". " + this.scentName + ", " + this.brand;
+    }
 }

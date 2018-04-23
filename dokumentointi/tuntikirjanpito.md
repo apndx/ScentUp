@@ -16,9 +16,8 @@
 | 16.4. |7 h 30 min | sovelluslogiikkaa, daoja ja testejä, debuggausta, pakkauskaavio |
 | 18.4. |3 h 30 min | käyttöliittymän ja sovelluslogiikan erottelua, logintoiminnon aloitus |
 | 20.4. |3 h 5 min | databasen luomislauseet ohjelmaan mukaan, jar-paketointi, sql-käskyjen suunnittelua |
+| 22.4. |4 h 45 min | loginin jälkeiset listaukset toimimaan, sekvenssikaavio loginista, graafisen käyttiksen aloitus |
 
-
-
-yht. 32 h 
+yht. 36 h 45 min 
 
 

@@ -5,6 +5,7 @@
  */
 package scentup.domain;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,23 @@ public class ScentUpService {
     /**
      * the user who has been logged in chooses a new scent
      */
-    public boolean createUserScent(UserScent userScent) {
+    public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
+            Integer pref, Integer act) throws SQLException {
 
-        try {
-            userScentDao.add(userScent);
-        } catch (Exception ex) {
+        //adding a new scent for the user logged in
+        UserScent addForUser = new UserScent(loggedIn, scentDao.findOne(scentIdFor), dateNow, pref, act);
+
+        if (!userScentDao.checkIfUserScentExists(userId, scentIdFor)) {
+            try {
+                userScentDao.add(addForUser);
+            } catch (Exception ex) {
+                return false;
+            }
+            return true;
+        } else {
             return false;
         }
-        return true;
+
     }
 
     /**
@@ -127,18 +137,18 @@ public class ScentUpService {
 
     }
 
-    public boolean login(String username) throws SQLException {
+    public User login(String username) throws SQLException {
         User current = userDao.findOne(username);
 
         if (current == null) {
-            return false;
+            return null;
         } else {
             // login and open userpage
             // todo
 
             loggedIn = current;
 
-            return true;
+            return current;
         }
 
     }

@@ -19,7 +19,7 @@ public class UserScent {
     private User user;
     private Scent scent;
     private Date choiceDate;     //when was this choice last activated
-    private Integer preference; // 1 dislike, 2 like, 3 love
+    private Integer preference; // 1 dislike, 2 neutral, 3 love
     private Integer active;     // is this choice active for this user 0 no, 1 yes
 
     public UserScent(User user, Scent scent, Date choiceDate, Integer preference, Integer active) {
