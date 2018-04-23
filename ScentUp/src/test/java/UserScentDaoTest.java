@@ -29,7 +29,20 @@ import scentup.domain.UserScent;
  */
 public class UserScentDaoTest {
 
-    public UserScentDaoTest() {
+    private final File file;
+    private final Database database;
+    private final UserDao users;
+    private final ScentDao scents;
+    private final UserScentDao userScents;
+
+    public UserScentDaoTest() throws ClassNotFoundException {
+
+        this.file = new File("ScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        this.users = new UserDao(database);
+        this.scents = new ScentDao(database);
+        this.userScents = new UserScentDao(database);
+
     }
 
     @BeforeClass
@@ -80,19 +93,13 @@ public class UserScentDaoTest {
     @Test
     public void isExistingUserScentFound() throws ClassNotFoundException, SQLException {
 
-        File file = new File("db", "ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        UserScentDao userScents = new UserScentDao(database);
-        UserDao users = new UserDao(database);
-        ScentDao scents = new ScentDao(database);
-
         String randomuser = UUID.randomUUID().toString().substring(0, 6);
         String randomname = UUID.randomUUID().toString().substring(0, 6);
 
         User testuser = new User(null, randomname, randomuser);
         users.saveOrUpdate(testuser);
         testuser = users.findOne(randomuser);
-        
+
         String randomscent = UUID.randomUUID().toString().substring(0, 6);
         String randombrand = UUID.randomUUID().toString().substring(0, 6);
         Integer testnumber = 1;
@@ -102,17 +109,60 @@ public class UserScentDaoTest {
 
         scents.saveOrUpdate(testscent);
         testscent = scents.findOne(randomscent, randombrand);
-        
-        UserScent testUserScent= new UserScent(testuser, testscent, new Date(new java.util.Date().getDate()), 2, 1);
+
+        UserScent testUserScent = new UserScent(testuser, testscent, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent);
-        
+
         assertEquals(true, userScents.checkIfUserScentExists(users.findOne(randomuser).getUserId(), testscent.getScentId()));
-        
+
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
         userScents.delete(testuser.getUserId(), testscent.getScentId());
+
+    }
+
+    @Test
+    public void isHasScentsListingCorrect() throws ClassNotFoundException, SQLException {
+
+        String randomuser = UUID.randomUUID().toString().substring(0, 6);
+        String randomname = UUID.randomUUID().toString().substring(0, 6);
+
+        User testuser = new User(null, randomname, randomuser);
+        users.saveOrUpdate(testuser);
+        testuser = users.findOne(randomuser);
+
+        String randomscent = UUID.randomUUID().toString().substring(0, 6);
+        String randombrand = UUID.randomUUID().toString().substring(0, 6);
+        Integer testnumber = 1;
+
+        String randomscent2 = UUID.randomUUID().toString().substring(0, 6);
+        String randombrand2 = UUID.randomUUID().toString().substring(0, 6);
+        Integer testnumber2 = 2;
+
+        Scent testscent = new Scent(null, randomscent, randombrand, testnumber,
+                testnumber, testnumber);
+
+        Scent testscent2 = new Scent(null, randomscent2, randombrand2, testnumber2,
+                testnumber2, testnumber2);
+
+        scents.saveOrUpdate(testscent);
+        scents.saveOrUpdate(testscent2);
+        testscent = scents.findOne(randomscent, randombrand);
+        testscent2 = scents.findOne(randomscent2, randombrand2);
+
+        UserScent testUserScent = new UserScent(testuser, testscent, new Date(new java.util.Date().getDate()), 2, 1);
+        userScents.add(testUserScent);
+
+        assertEquals(true, userScents.findAllScentsUserHas(testuser.getUserId()).get(0).equals(testscent));
+
+        
+        users.delete(randomuser);
+        scents.delete(testscent.getScentId());
+        scents.delete(testscent2.getScentId());
+        userScents.delete(testuser.getUserId(), testscent.getScentId());
         
     }
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
