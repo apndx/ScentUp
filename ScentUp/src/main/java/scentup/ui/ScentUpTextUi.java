@@ -288,7 +288,7 @@ public class ScentUpTextUi {
         System.out.println(" ");
         System.out.println("What to do next?");
         System.out.println("1. Print what I have chosen");
-        System.out.println("2. Browse and add to collection (under construction)");
+        System.out.println("2. Browse and add to collection");
         System.out.println("3. Logout");
 
     }
