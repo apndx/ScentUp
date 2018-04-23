@@ -28,7 +28,6 @@ public class UserScentDao {
     }
 
     public boolean checkIfUserScentExists(Integer userId, Integer scentId) throws SQLException {
-
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE user_id = ? AND scent_id = ? ");
         stmt.setInt(1, userId);
@@ -198,5 +197,4 @@ public class UserScentDao {
             c.close();
         }
     }
-
 }

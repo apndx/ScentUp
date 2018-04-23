@@ -65,7 +65,6 @@ public class ScentDao {
 
         Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("name"),
                 rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
-
         stmt.close();
         rs.close();
         conn.close();
@@ -85,14 +84,12 @@ public class ScentDao {
             stmt.close();
             rs.close();
             conn.close();
-
             return false;
         }
 
         stmt.close();
         rs.close();
         conn.close();
-
         return true;
     }
 
@@ -118,7 +115,6 @@ public class ScentDao {
     public Scent saveOrUpdate(Scent object) throws SQLException {
         // if there is no key, the user has not been yet created to database
         // so it needs to be created
-
         if (object.getScentId() == null) {
             return save(object);
         } else { // otherwise update scent       
@@ -133,17 +129,15 @@ public class ScentDao {
 
         stmt.setInt(1, key);
         stmt.executeUpdate();
-
         stmt.close();
         conn.close();
     }
 
     public void delete(String name, String brandname) throws SQLException {
         Connection conn = database.getConnection();
-        
+
         Scent poistettava = findOne(name, brandname);
         Integer scentId = poistettava.getScentId();
-
         PreparedStatement stmtriippuvuudet = conn.prepareStatement("DELETE FROM UserScent WHERE scent_id = ?");
         stmtriippuvuudet.setInt(1, scentId);
         stmtriippuvuudet.executeUpdate();
@@ -198,11 +192,9 @@ public class ScentDao {
         stmt.setString(1, scent.getName());
         stmt.setString(2, scent.getBrand());
         stmt.setInt(3, scent.getScentId());
-
         stmt.executeUpdate();
         stmt.close();
         conn.close();
         return scent;
     }
-
 }
