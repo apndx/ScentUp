@@ -86,6 +86,7 @@ public class ScentUpTextUi {
 
                 if (service.createUser(username, name)) {
                     System.out.println("Your username has now been registered.");
+                    printMenu();
                 } else {
                     System.out.println("This username is already in use, please choose another. ");
                     printMenu();
@@ -225,7 +226,7 @@ public class ScentUpTextUi {
                                 preferences();
                                 String preference = reader.nextLine();
                                 if (preference.matches("1|2|3")) {
-                                    if(service.createUserScent(service.login(username).getUserId(),
+                                    if (service.createUserScent(service.login(username).getUserId(),
                                             Integer.parseInt(lisattava), new Date((int) new java.util.Date().getTime()),
                                             Integer.parseInt(preference), 1)) {
                                         System.out.println("This scent has now been added to your collection.");
@@ -254,6 +255,7 @@ public class ScentUpTextUi {
                         // todo listing or browse or logout
                     } else {
                         System.out.println("Please choose either 1, 2 or 3");
+                        afterLogin();
                     }
 
                 }
