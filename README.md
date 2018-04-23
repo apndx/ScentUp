@@ -52,6 +52,6 @@ Tiedostoon [checkstyle.xml](https://github.com/mluukkai/OtmTodoApp/blob/master/c
 
 Ohjelmasta tehdyt julkaisut:
 
-* [Ensimmäinen julkaisu] (https://github.com/apndx/otm-harjoitustyo/releases/tag/0.1)
+* [Ensimmäinen julkaisu](https://github.com/apndx/otm-harjoitustyo/releases/tag/0.1)
 
 
