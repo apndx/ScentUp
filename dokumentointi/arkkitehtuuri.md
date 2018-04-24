@@ -30,7 +30,7 @@ What to do next?
 
 Kun käyttäjä kirjoittaa "3", etenee ohjelman suoritus seuraavasti:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpLogin.png" width="750">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpLogin.png" width="1000">
 
 Käyttäjän syötteeseen reagoiva tekstikäyttöliittymä kutsuu sovelluslogiikan metodia login antaen parametriksi kirjautuneen käyttäjätunnuksen.
 Sovelluslogiikka selvittää userDao:n avulla, onko käyttäjätunnus olevmassa. Jos on, kirjautuminen onnistuu.
