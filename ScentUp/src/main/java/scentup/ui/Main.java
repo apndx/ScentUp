@@ -30,23 +30,23 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
         ////when using GUI, these textUI rows should be commented away
-        Scanner reader = new Scanner(System.in);  
-        File file = new File("ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        database.init();
-        UserDao users = new UserDao(database);
-        ScentDao scents = new ScentDao(database);
-        UserScentDao userScents = new UserScentDao(database);
-        ScentUpService scentUpService = new ScentUpService(users, scents, userScents);
-        ScentUpTextUi textUi = new ScentUpTextUi(reader, scentUpService);
-        textUi.start(); 
+//        Scanner reader = new Scanner(System.in);  
+//        File file = new File("ScentUp.db");
+//        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+//        database.init();
+//        UserDao users = new UserDao(database);
+//        ScentDao scents = new ScentDao(database);
+//        UserScentDao userScents = new UserScentDao(database);
+//        ScentUpService scentUpService = new ScentUpService(users, scents, userScents);
+//        ScentUpTextUi textUi = new ScentUpTextUi(reader, scentUpService);
+//        textUi.start(); 
         
         
         
          ////GUI needs to create file, ddatabase and  daos in the class itself unlike txtUi
          //// when using textUI these two rows below should be commented away
-//        ScentUpGui scentUpGui = new ScentUpGui();
-//        launch(ScentUpGui.class);
+        ScentUpGui scentUpGui = new ScentUpGui();
+        launch(ScentUpGui.class);
 
     }
 }

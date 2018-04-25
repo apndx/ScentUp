@@ -190,12 +190,12 @@ public class ScentUpTextUi {
 
         if (username.matches(".{5,200}")) {
 
-            if (service.login(username) == null) {
+            if (service.login(username) == false) {
                 System.out.println("This username was not found.");
                 printMenu();
             } else {
                 //todo login and open userpage
-                System.out.println("Welcome to ScentUp " + service.login(username).getName());
+                System.out.println("Welcome to ScentUp " + service.getLoggedIn().getName());
                 service.login(username);
                 afterLogin();
                 while (true) {
@@ -226,7 +226,7 @@ public class ScentUpTextUi {
                                 preferences();
                                 String preference = reader.nextLine();
                                 if (preference.matches("1|2|3")) {
-                                    if (service.createUserScent(service.login(username).getUserId(),
+                                    if (service.createUserScent(service.getLoggedIn().getUserId(),
                                             Integer.parseInt(lisattava), new Date((int) new java.util.Date().getTime()),
                                             Integer.parseInt(preference), 1)) {
                                         System.out.println("This scent has now been added to your collection.");
@@ -248,7 +248,7 @@ public class ScentUpTextUi {
 
                         if (afterLoginChoice.matches("3")) {
                             //logout
-                            System.out.println("See you soon " + service.login(username).getName() + "!");
+                            System.out.println("See you soon " + service.getLoggedIn().getName() + "!");
                             printMenu();
                             break;
                         }
