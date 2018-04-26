@@ -6,11 +6,13 @@
 package scentup.ui;
 
 import java.io.File;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -20,16 +22,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -51,11 +45,14 @@ public class ScentUpGui extends Application {
     private ScentUpService scentUpService;
 
     private VBox scentNodes;
+    private VBox browseableScentNodes;
     private Scene sceneLoggedIn;
     private Scene newUserScene;
     private Scene loginScene;
     private Scene newScentScene;
+    private Scene browseScene;
     private Label menuLabel;
+    private Label browseMenuLabel;
 
     @Override
     public void init() throws ClassNotFoundException {
@@ -69,10 +66,10 @@ public class ScentUpGui extends Application {
 
         scentUpService = new ScentUpService(users, scents, userScents);
         menuLabel = new Label();
+        browseMenuLabel = new Label();
     }
 
     public void redrawUserHasScentsList() {
-        // this needs to be implemented
 
         scentNodes.getChildren().clear();
 
@@ -98,7 +95,62 @@ public class ScentUpGui extends Application {
 
         box.getChildren().addAll(label, spacer);
         return box;
+    }
 
+    public void redrawUserHasNotScentsList() {
+
+        browseableScentNodes.getChildren().clear();
+
+        List<Scent> scentsUserHasNot = scentUpService.getScentsUserHasNot();
+        scentsUserHasNot.forEach(scent -> {
+            browseableScentNodes.getChildren().add(createScentNodeToBrowse(scent));
+        });
+    }
+
+    public Node createScentNodeToBrowse(Scent scent) {
+        HBox box = new HBox(10);
+        Label label = new Label(scent.toString());
+        label.setMinHeight(28);
+
+//        HBox newScentBrowsePane = new HBox(10);
+//        ToggleGroup scentPrefChoices = new ToggleGroup();   // scent gender
+//        //Label newPrefLabel = new Label("How is it?");
+//        RadioButton dislike = new RadioButton("female");
+//        RadioButton neutral = new RadioButton("male");
+//        RadioButton love = new RadioButton("unisex");
+//        dislike.setToggleGroup(scentPrefChoices);
+//        neutral.setToggleGroup(scentPrefChoices);
+//        love.setToggleGroup(scentPrefChoices);
+//        neutral.setSelected(true);
+//        newScentBrowsePane.getChildren().addAll(dislike, neutral, love);
+//
+//        Integer preference = 2;
+//
+//        if (scentPrefChoices.getSelectedToggle() == dislike) {
+//            preference = 1;
+//        } else if (scentPrefChoices.getSelectedToggle() == neutral) {
+//            preference = 2;
+//        } else {
+//            preference = 3;
+//        }
+
+        Button button = new Button("I want");
+        button.setOnAction((ActionEvent e) -> {
+            try {
+                scentUpService.createUserScent(scentUpService.getLoggedIn().getUserId(), scent.getScentId(),
+                        new Date((int) new java.util.Date().getTime()), 2, 1);
+            } catch (SQLException ex) {
+                Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            redrawUserHasScentsList();
+        });
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        box.setPadding(new Insets(0, 5, 0, 5));
+
+        box.getChildren().addAll(label, spacer,button);
+        return box;
     }
 
     @Override
@@ -109,7 +161,6 @@ public class ScentUpGui extends Application {
         Label loginMessage = new Label();
 
         // stuff needed to login, add user's collection page
-        //componentGroup.getChildren().add(loginButton);
         HBox loginGroup = new HBox(10);
         TextField userNameLogin = new TextField("username");
         Button loginButton = new Button("ScentIn");  //loginbutton
@@ -121,7 +172,6 @@ public class ScentUpGui extends Application {
             // first setup
             String username = userNameLogin.getText();
             menuLabel.setText("Welcome " + username + "! Here is your current collection: ");
-            //menuLabel.setText(username + " logged in...");
             try {
                 if (scentUpService.login(username)) {
                     loginMessage.setText("");
@@ -129,7 +179,7 @@ public class ScentUpGui extends Application {
                     primaryStage.setScene(sceneLoggedIn);
                     userNameLogin.setText("");
                 } else {
-                    loginMessage.setText("use does not exist");
+                    loginMessage.setText("user does not exist");
                     loginMessage.setTextFill(Color.RED);
                 }
             } catch (SQLException ex) {
@@ -157,7 +207,6 @@ public class ScentUpGui extends Application {
 
             System.out.println("Painettu!");
         });
-
 
         loginPane.getChildren().addAll(loginMessage, loginGroup, newScentButton, addNewUserButton);
         loginScene = new Scene(loginPane);
@@ -209,7 +258,7 @@ public class ScentUpGui extends Application {
         });
 
         newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton);
-        newUserScene = new Scene(newUserPane, 300, 250);
+        newUserScene = new Scene(newUserPane, 400, 250);
 
         // stuff for new scent page
         VBox newScentPane = new VBox(10); // group pane for all the elements
@@ -324,21 +373,28 @@ public class ScentUpGui extends Application {
         newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane,
                 newScentTimeOfDayPane, newScentSeasonPane, newScentGenderPane, createTheScentButton);  // putting  all scent stuff together
 
-        newScentScene = new Scene(newScentPane, 300, 250);
+        newScentScene = new Scene(newScentPane, 400, 250);
 
         // main scene
         ScrollPane scentScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(scentScrollbar);
-        sceneLoggedIn = new Scene(mainPane, 300, 250);
+        sceneLoggedIn = new Scene(mainPane, 500, 250);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
         Button logoutButton = new Button("logout");
-        menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
+        Button browseButton = new Button("browse");
+        menuPane.getChildren().addAll(menuLabel, menuSpacer, browseButton, logoutButton);
         logoutButton.setOnAction(e -> {
             scentUpService.logout();
             primaryStage.setScene(loginScene);
+        });
+
+        browseButton.setOnAction(e -> {
+            browseMenuLabel.setText("Choose a new scent for your collection");
+            primaryStage.setScene(browseScene);
+
         });
 
         scentNodes = new VBox(10);
@@ -348,6 +404,31 @@ public class ScentUpGui extends Application {
 
         scentScrollbar.setContent(scentNodes);
         mainPane.setTop(menuPane);
+
+        //browse page 
+        ScrollPane browseScrollbar = new ScrollPane();
+        BorderPane browsePane = new BorderPane(browseScrollbar);
+        browseScene = new Scene(browsePane);     
+
+        HBox browseMenuPane = new HBox(10);
+        Region browseMenuSpacer = new Region();
+        HBox.setHgrow(browseMenuSpacer, Priority.ALWAYS);
+        Button outBrowseButton = new Button("back");
+       
+        browseMenuPane.getChildren().addAll(browseMenuLabel, browseMenuSpacer, outBrowseButton);
+        
+        outBrowseButton.setOnAction(e -> {
+
+            primaryStage.setScene(sceneLoggedIn);
+        });
+
+        browseableScentNodes = new VBox(10);
+        browseableScentNodes.setMaxWidth(500);
+        browseableScentNodes.setMinWidth(280);
+        redrawUserHasNotScentsList();
+
+        browseScrollbar.setContent(browseableScentNodes);
+        browsePane.setTop(browseMenuPane);
 
         // seutp primary stage
         primaryStage.setTitle("ScentUp");
