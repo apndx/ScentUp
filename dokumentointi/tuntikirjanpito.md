@@ -19,7 +19,7 @@
 | 22.4. |4 h 45 min | loginin jälkeiset listaukset toimimaan, sekvenssikaavio loginista, graafisen käyttiksen aloitus |
 | 23.4. |2 h 30 min | tekstikäyttöliittymään loput toiminnallisuudet, release |
 | 25.4. |5 h 45 min | GUI:n työstämistä: login-toiminto ja loginin jälkeinen näkymä valmiiksi |
-
-yht. 45 h 
+| 26.4. |1 h | GUI:n työstämistä: käyttäjän lisäys toimimaan|
+yht. 46 h 
 
 

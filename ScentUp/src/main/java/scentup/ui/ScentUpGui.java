@@ -51,9 +51,10 @@ public class ScentUpGui extends Application {
     private ScentUpService scentUpService;
 
     private VBox scentNodes;
-    private Scene scentScene;
+    private Scene sceneLoggedIn;
     private Scene newUserScene;
     private Scene loginScene;
+    private Scene newScentScene;
     private Label menuLabel;
 
     @Override
@@ -125,7 +126,7 @@ public class ScentUpGui extends Application {
                 if (scentUpService.login(username)) {
                     loginMessage.setText("");
                     redrawUserHasScentsList();
-                    primaryStage.setScene(scentScene);
+                    primaryStage.setScene(sceneLoggedIn);
                     userNameLogin.setText("");
                 } else {
                     loginMessage.setText("use does not exist");
@@ -140,6 +141,14 @@ public class ScentUpGui extends Application {
         // add a new scent takes to another page, button for it
         Button newScentButton = new Button("Add a new Scent");  //add a new scent button
 
+        newScentButton.setOnAction((event) -> {
+
+            userNameLogin.setText("");
+            primaryStage.setScene(newScentScene);
+
+            System.out.println("Painettu!");
+        });
+
         Button addNewUserButton = new Button("Add a new User");
         addNewUserButton.setOnAction((event) -> {
 
@@ -149,13 +158,7 @@ public class ScentUpGui extends Application {
             System.out.println("Painettu!");
         });
 
-//        HBox scentGroup = new HBox(10);
-//        scentGroup.getChildren().addAll(newScentButton);
-//        HBox addUserGroup = new HBox(10);
-//        addUserGroup.setSpacing(20);
-//        addUserGroup.getChildren().addAll(addNewUserButton);
-        // this is where we put things together 
-        //loginPane.getChildren().addAll(loginGroup, addUserGroup, newScentButton, addNewUserButton);  //my original
+
         loginPane.getChildren().addAll(loginMessage, loginGroup, newScentButton, addNewUserButton);
         loginScene = new Scene(loginPane);
 
@@ -209,21 +212,21 @@ public class ScentUpGui extends Application {
         newUserScene = new Scene(newUserPane, 300, 250);
 
         // stuff for new scent page
-        VBox newScentPane = new VBox(10); // group pane
+        VBox newScentPane = new VBox(10); // group pane for all the elements
 
         HBox newScentNamePane = new HBox(10);  // scent name
         newScentNamePane.setPadding(new Insets(10));
         TextField ScentNameInput = new TextField();
-        Label newScentNameLabel = new Label("name of the scent");
+        Label newScentNameLabel = new Label("Name");
         newScentNameLabel.setPrefWidth(100);
         newScentNamePane.getChildren().addAll(newScentNameLabel, ScentNameInput);
 
         HBox newScentBrandPane = new HBox(10);  // scent brand
         newScentBrandPane.setPadding(new Insets(10));
-        TextField ScentBrandInput = new TextField();
-        Label newScentBrandLabel = new Label("name of the scent");
+        TextField scentBrandInput = new TextField();
+        Label newScentBrandLabel = new Label("Brand");
         newScentBrandLabel.setPrefWidth(100);
-        newScentBrandPane.getChildren().addAll(newScentBrandLabel, ScentBrandInput);
+        newScentBrandPane.getChildren().addAll(newScentBrandLabel, scentBrandInput);
 
         HBox newScentTimeOfDayPane = new HBox(10);
         ToggleGroup scentTimeofDayChoices = new ToggleGroup();   // scent time of day
@@ -235,16 +238,98 @@ public class ScentUpGui extends Application {
         day.setSelected(true);  //  is this needed?
         newScentTimeOfDayPane.getChildren().addAll(newTimeOLabel, day, night);
 
-        newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane, newScentTimeOfDayPane);
+        HBox newScentSeasonPane = new HBox(10);
+        ToggleGroup scentSeasonChoices = new ToggleGroup();   // scent season
+        Label newSeasonLabel = new Label("Season?");
+        RadioButton winter = new RadioButton("winter");
+        RadioButton spring = new RadioButton("spring");
+        RadioButton summer = new RadioButton("summer");
+        RadioButton autumn = new RadioButton("autumn");
+        winter.setToggleGroup(scentSeasonChoices);
+        spring.setToggleGroup(scentSeasonChoices);
+        summer.setToggleGroup(scentSeasonChoices);
+        autumn.setToggleGroup(scentSeasonChoices);
+        winter.setSelected(true);
+        newScentSeasonPane.getChildren().addAll(newSeasonLabel, winter, spring, summer, autumn);
 
-        scentScene = new Scene(newScentPane, 300, 250);
+        HBox newScentGenderPane = new HBox(10);
+        ToggleGroup scentGenderChoices = new ToggleGroup();   // scent gender
+        Label newGenderLabel = new Label("Gender stereotypes?");
+        RadioButton female = new RadioButton("female");
+        RadioButton male = new RadioButton("male");
+        RadioButton unisex = new RadioButton("unisex");
+        female.setToggleGroup(scentGenderChoices);
+        male.setToggleGroup(scentGenderChoices);
+        unisex.setToggleGroup(scentGenderChoices);
+        female.setSelected(true);
+        newScentGenderPane.getChildren().addAll(newGenderLabel, female, male, unisex);
 
-        
-        
+        Button createTheScentButton = new Button("I'm ready, let's do it!");
+        createTheScentButton.setPadding(new Insets(10));
+
+        createTheScentButton.setOnAction((event) -> {
+            String scentname = ScentNameInput.getText();
+            String scentbrand = scentBrandInput.getText();
+
+            if (scentname.length() < 1 || scentbrand.length() < 1) {
+                userCreationMessage.setText("username or name too short");
+                userCreationMessage.setTextFill(Color.RED);
+            } else {
+                try {
+                    if (!scentUpService.doesScentExist(scentname, scentbrand)) {
+                        Integer timeOfDay = 0;
+                        Integer season = 0;
+                        Integer gender = 0;
+                        //luodaan scent
+                        if (scentTimeofDayChoices.getSelectedToggle() == day) {
+                            timeOfDay = 1;
+                        } else {
+                            timeOfDay = 2;
+                        }
+                        if (scentSeasonChoices.getSelectedToggle() == winter) {
+                            season = 1;
+                        } else if (scentSeasonChoices.getSelectedToggle() == spring) {
+                            season = 2;
+                        } else if (scentSeasonChoices.getSelectedToggle() == summer) {
+                            season = 3;
+                        } else {
+                            season = 4;
+                        }
+
+                        if (scentGenderChoices.getSelectedToggle() == female) {
+                            gender = 1;
+                        } else if (scentGenderChoices.getSelectedToggle() == male) {
+                            gender = 2;
+                        } else {
+                            gender = 3;
+                        }
+                        Scent scentAdded = new Scent(null, scentname, scentbrand, timeOfDay,
+                                season, gender);
+                        scentUpService.createScent(scentAdded);
+                        userCreationMessage.setText("");
+                        loginMessage.setText("new scent added");
+                        loginMessage.setTextFill(Color.GREEN);
+                        primaryStage.setScene(loginScene);
+                    } else {
+                        userCreationMessage.setText("scent has to be unique");
+                        userCreationMessage.setTextFill(Color.RED);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            System.out.println("Painettu!");
+        });
+
+        newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane,
+                newScentTimeOfDayPane, newScentSeasonPane, newScentGenderPane, createTheScentButton);  // putting  all scent stuff together
+
+        newScentScene = new Scene(newScentPane, 300, 250);
+
         // main scene
         ScrollPane scentScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(scentScrollbar);
-        scentScene = new Scene(mainPane, 300, 250);
+        sceneLoggedIn = new Scene(mainPane, 300, 250);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
