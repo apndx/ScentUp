@@ -33,6 +33,42 @@ public class Scent {
         this.gender = gender;
     }
 
+    public String scentSeasonString(Integer season) {
+
+        if (season == 1) {
+            return "winter";
+        }
+        if (season == 2) {
+            return "spring";
+        }
+        if (season == 3) {
+            return "summer";
+        } else {
+            return "autumn";
+        }
+    }
+
+    public String scentTimeOfDayString(Integer time) {
+
+        if (time == 1) {
+            return "day";
+        } else {
+            return "night";
+        }
+    }
+
+    public String scentGenderString(Integer gender) {
+
+        if (gender == 1) {
+            return "female";
+        }
+        if (gender == 2) {
+            return "male";
+        } else {
+            return "unisex";
+        }
+    }
+
     public Integer getScentId() {
         return scentId;
     }
@@ -118,6 +154,8 @@ public class Scent {
 
     @Override
     public String toString() {
-        return this.scentId + ". " + this.scentName + ", " + this.brand;
+        return this.scentId + ". " + this.scentName + ", " + this.brand + ", " 
+                +scentTimeOfDayString(this.timeOfDay) + ", " +  scentSeasonString(this.season) + ", " 
+                +scentGenderString(this.gender);
     }
 }

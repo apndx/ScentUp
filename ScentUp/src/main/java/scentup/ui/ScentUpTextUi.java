@@ -17,12 +17,13 @@ import scentup.domain.UserScent;
  *
  * @author hdheli
  *
- * This is a text user interface - Current menu options:
+ * This is a text user interface - Main menu options:
  *
- * "What to do next?" "1. Create a new User" "2. Add a new Scent" "3. ScentIn
- * (under construction)" "4. ScentOut"
- *
- *
+ * "What to do next?" 
+ * "1. Create a new User" 
+ * "2. Add a new Scent" 
+ * "3. ScentIn" 
+ * "4. ScentOut"
  *
  */
 public class ScentUpTextUi {
