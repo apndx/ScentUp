@@ -20,10 +20,23 @@ public class UserDao {
 
     private Database database;
 
+     /**
+     * Makes a new UserDao. This is used to communicate with the user table in
+     * database.
+     *
+     * @param database database
+     */
     public UserDao(Database database) {
         this.database = database;
     }
 
+    /**
+     * Finds a user from the database.
+     *
+     * @param username  username of the user that needs to be found
+     * @throws  SQLException 
+     * @return User  user is returned if found, else null is returned.
+     */
     public User findOne(String username) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
@@ -49,6 +62,13 @@ public class UserDao {
         return user;
     }
 
+     /**
+     * Finds if a username is already in the database
+     *
+     * @param username  username that needs to be checked
+     * @throws  SQLException 
+     * @return boolean if username is free, returns true, else false
+     */
     public boolean isUsernameFree(String username) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
@@ -67,14 +87,27 @@ public class UserDao {
             conn.close();
             return false;
         }
-
     }
 
+      /**
+     * Not implemented yet - finds all users in the database
+     *
+     * @throws  SQLException
+     * @return List of all users 
+     */
     public List<User> findAll() throws SQLException {
-
+        //this is not yet needed, can be implemented later
         return null;
     }
 
+     /**
+     * Saves or updates a user
+     *
+     * @param object user that needs to be saved or updated (updating not yet needed)
+     * @throws  SQLException 
+     * @return object. If the userId of the user is null, private method save is used and a saved user is returned
+     * otherwise the user is updated using private update method, and updated user is returned
+     */
     public User saveOrUpdate(User object) throws SQLException {
         // if there is no key, the user has not been yet created to database
         // so it needs to be created
@@ -85,12 +118,18 @@ public class UserDao {
             // otherwise update user
             return update(object);
         }
-
     }
 
+    /**
+     * Deletes a user and all the UserScents the user has from the database
+     *
+     * @param username username of the user that needs to be deleted
+     * 
+     *@throws SQLException
+     * 
+     */
     public void delete(String username) throws SQLException {
         Connection conn = database.getConnection();
-
         User poistettava = findOne(username);
         Integer userId = poistettava.getUserId();
 
@@ -103,7 +142,6 @@ public class UserDao {
 
         stmt.setString(1, username);
         stmt.executeUpdate();
-
         stmt.close();
         conn.close();
     }
@@ -116,7 +154,6 @@ public class UserDao {
                 + " VALUES (?, ?)");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-
         stmt.executeUpdate();
         stmt.close();
 
@@ -124,18 +161,14 @@ public class UserDao {
                 + " WHERE name = ?  AND username = ?");
         stmt.setString(1, user.getName());
         stmt.setString(2, user.getUsername());
-
         ResultSet rs = stmt.executeQuery();
-        rs.next(); // vain 1 tulos
-
+        rs.next(); // just one row
         User u = new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
 
         stmt.close();
         rs.close();
-
         conn.close();
-
         return u;
     }
 
@@ -149,10 +182,8 @@ public class UserDao {
         stmt.setInt(3, user.getUserId());
 
         stmt.executeUpdate();
-
         stmt.close();
         conn.close();
-
         return user;
     }
 
