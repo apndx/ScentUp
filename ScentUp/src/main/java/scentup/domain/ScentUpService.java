@@ -29,6 +29,16 @@ public class ScentUpService {
     private final ScentDao scentDao;
     private final UserScentDao userScentDao;
 
+    /**
+     * Constructor for ScentUpService
+     * ScentUpService is for the application logic
+     * 
+     * @param userDao 
+     * @param scentDao
+     * @param userScentDao
+     *
+     * @return todennäköisyys kalibroituna
+     */
     public ScentUpService(UserDao userDao, ScentDao scentDao, UserScentDao userScentDao) {
         this.userDao = userDao;
         this.scentDao = scentDao;
@@ -37,10 +47,14 @@ public class ScentUpService {
 
     /**
      * the user who has been logged in chooses a new scent
+     *
      * @param userId this is the id of the user
      * @param scentIdFor this is the id of the scent
+     * @param dateNow date when the scent was chosen by the user, added automatically
+     * @param pref tells user's preference (1 dislike, 2 neutral, 3 love)
+     * @param act tells if this scent is active in user's collection (true when created)
      * 
-     * 
+     * @return boolean - did the creation succeed
      */
     public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
             Integer pref, Integer act) throws SQLException {
@@ -64,7 +78,7 @@ public class ScentUpService {
     public User getLoggedIn() {
         return loggedIn;
     }
- 
+
     /**
      * list of active scents for this user
      *
@@ -160,9 +174,9 @@ public class ScentUpService {
         }
 
     }
-    
+
     public void logout() {
-        loggedIn = null;  
+        loggedIn = null;
     }
 
 }

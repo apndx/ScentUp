@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import scentup.dao.Database;
 import scentup.dao.ScentDao;
-import scentup.dao.UserDao;
 import scentup.domain.Scent;
 import scentup.domain.User;
 
@@ -25,8 +24,17 @@ import scentup.domain.User;
  * @author hdheli
  */
 public class ScentDaoTest {
-   
-    public ScentDaoTest() {
+
+    private final File file;
+    private final Database database;
+    private final ScentDao scents;
+
+    public ScentDaoTest() throws ClassNotFoundException {
+
+        this.file = new File("ScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        this.scents = new ScentDao(database);
+
     }
 
     @BeforeClass
@@ -38,7 +46,7 @@ public class ScentDaoTest {
     }
 
     @Before
-    public void setUp()  {
+    public void setUp() {
     }
 
     @After
@@ -48,10 +56,6 @@ public class ScentDaoTest {
     @Test
     public void isExistingScentIgnored() throws ClassNotFoundException, SQLException {
 
-        File file = new File("ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        ScentDao scents = new ScentDao(database);
-         
         String randomname = UUID.randomUUID().toString().substring(0, 6);
         String randombrand = UUID.randomUUID().toString().substring(0, 6);
         Integer testnumber = 1;
@@ -65,6 +69,27 @@ public class ScentDaoTest {
         scents.delete(randomname, randombrand);
 
     }
+
+    @Test
+    public void isScentFoundById() throws SQLException {
+
+        String randomname = UUID.randomUUID().toString().substring(0, 6);
+        String randombrand = UUID.randomUUID().toString().substring(0, 6);
+        Integer testnumber = 1;
+
+        Scent testscent = new Scent(null, randomname, randombrand, testnumber,
+                testnumber, testnumber);
+
+        testscent = scents.saveOrUpdate(testscent);
+
+        Integer testScentId = testscent.getScentId();
+
+        assertEquals(randomname, scents.findOne(testScentId).getName());
+
+        scents.delete(randomname, randombrand);
+
+    }
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
