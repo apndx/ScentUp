@@ -18,10 +18,20 @@ public class UserScent {
 
     private User user;
     private Scent scent;
-    private Date choiceDate;     //when was this choice last activated
-    private Integer preference; // 1 dislike, 2 neutral, 3 love
-    private Integer active;     // is this choice active for this user 0 no, 1 yes
+    private Date choiceDate;
+    private Integer preference;
+    private Integer active;
 
+    /**
+     * Makes a new UserScent - this means a certain user has a certain scent
+     *
+     * @param user user who is logged in
+     * @param scent scent that was chosen
+     * @param choiceDate  timestamp of when this choice wast last activated
+     * @param preference  1 dislike, 2 neutral, 3 love
+     * @param active  is this choice active for this user? 0 no, 1 yes. Active is 
+     * yes when a UserScent is created
+     */
     public UserScent(User user, Scent scent, Date choiceDate, Integer preference, Integer active) {
         this.user = user;
         this.scent = scent;
@@ -111,9 +121,16 @@ public class UserScent {
         return true;
     }
 
+    /**
+     * Makes a UserScent, this method is used to make listings in Dao
+     *
+     * @param rs  result set from user table of the database
+     * @throws SQLException
+     * @return UserScent  returns a UserScent
+     */
     public static UserScent rowToUserScent(ResultSet rs) throws SQLException {
-        return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"), rs.getInt("preference"), rs.getInt("active"));
+        return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"), 
+                rs.getInt("preference"), rs.getInt("active"));
 
     }
-
 }

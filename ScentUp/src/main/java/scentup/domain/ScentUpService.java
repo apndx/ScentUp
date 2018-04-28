@@ -9,11 +9,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
-import static scentup.ui.ScentUpTextUi.printMenu;
 
 /**
  *
@@ -30,14 +28,12 @@ public class ScentUpService {
     private final UserScentDao userScentDao;
 
     /**
-     * Constructor for ScentUpService
-     * ScentUpService is for the application logic
-     * 
-     * @param userDao 
+     * Constructor for ScentUpService ScentUpService is for the application
+     * logic
+     *
+     * @param userDao
      * @param scentDao
      * @param userScentDao
-     *
-     * @return todennäköisyys kalibroituna
      */
     public ScentUpService(UserDao userDao, ScentDao scentDao, UserScentDao userScentDao) {
         this.userDao = userDao;
@@ -46,14 +42,17 @@ public class ScentUpService {
     }
 
     /**
-     * the user who has been logged in chooses a new scent
+     * The user who has been logged in chooses a new scent, scent is added to
+     * user's collection
      *
      * @param userId this is the id of the user
      * @param scentIdFor this is the id of the scent
-     * @param dateNow date when the scent was chosen by the user, added automatically
+     * @param dateNow date when the scent was chosen by the user, added
+     * automatically
      * @param pref tells user's preference (1 dislike, 2 neutral, 3 love)
-     * @param act tells if this scent is active in user's collection (true when created)
-     * 
+     * @param act tells if this scent is active in user's collection (true when
+     * created)
+     * @throws SQLException
      * @return boolean - did the creation succeed
      */
     public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
@@ -72,52 +71,58 @@ public class ScentUpService {
         } else {
             return false;
         }
-
     }
 
+    /**
+     * Who has logged in
+     *
+     * @return who has logged in
+     */
     public User getLoggedIn() {
         return loggedIn;
     }
 
     /**
-     * list of active scents for this user
+     * List of active scents for this user
      *
-     * @return
+     * @return list of active scents for this user
      */
     public List<UserScent> getActive() {
         List<UserScent> active = new ArrayList<>();
-
         if (loggedIn == null) {
             return active;
         }
         try {
-
             active = userScentDao.findAllForUser(1, loggedIn.getUserId());
         } catch (Exception ex) {
             return new ArrayList<>();
-
         }
         return active;
     }
 
-    // list all scent this user has
+    /**
+     * List all scent this user has
+     *
+     * @return list of scents this user has
+     */
     public List<Scent> getScentsUserHas() {
         List<Scent> scentsHas = new ArrayList<>();
-
         if (loggedIn == null) {
             return scentsHas;
         }
         try {
-
             scentsHas = userScentDao.findAllScentsUserHas(loggedIn.getUserId());
         } catch (Exception ex) {
             return scentsHas;
-
         }
         return scentsHas;
     }
 
-    // list all scent this user has not
+    /**
+     * List all scent this user does not have
+     *
+     * @return list of scents user does not have
+     */
     public List<Scent> getScentsUserHasNot() {
         List<Scent> hasNot = new ArrayList<>();
 
@@ -134,6 +139,14 @@ public class ScentUpService {
         return hasNot;
     }
 
+    /**
+     * If the username is free, creates a new user
+     *
+     * @param username  username for the user
+     * @param name  name for the user
+     * @return boolean, returns true if the creation succeeded
+     * @throws SQLException
+     */
     public boolean createUser(String username, String name) throws SQLException {
         if (userDao.isUsernameFree(username)) {
             // if the username is free
@@ -145,6 +158,14 @@ public class ScentUpService {
         }
     }
 
+    /**
+     * Does the scent exist already in the database?
+     *
+     * @param scentName  name of the scent
+     * @param brandName  brand of the scent
+     * @throws SQLException
+     * @return boolean  returns true if the scent already exists
+     */
     public boolean doesScentExist(String scentName, String brandName) throws SQLException {
         if (!scentDao.checkIfScentExists(scentName, brandName)) {
             return false;
@@ -153,30 +174,39 @@ public class ScentUpService {
         }
     }
 
+    /**
+     * Add a scent in the database
+     *
+     * @param scent - scent to be added
+     * @throws SQLException
+     *
+     */
     public void createScent(Scent scent) throws SQLException {
-
         scentDao.saveOrUpdate(scent);
-
     }
 
+    /**
+     * user login
+     *
+     * @param username  username of the user who is logging in
+     * @throws SQLException
+     * @return boolean  returns true if the login is successful
+     */
     public boolean login(String username) throws SQLException {
         User current = userDao.findOne(username);
 
         if (current == null) {
             return false;
         } else {
-            // login and open userpage
-            // todo
-
             loggedIn = current;
-
             return true;
         }
-
     }
 
+    /**
+     * User logout
+     */
     public void logout() {
         loggedIn = null;
     }
-
 }
