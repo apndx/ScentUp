@@ -18,7 +18,9 @@
 | 20.4. |3 h 5 min | databasen luomislauseet ohjelmaan mukaan, jar-paketointi, sql-käskyjen suunnittelua |
 | 22.4. |4 h 45 min | loginin jälkeiset listaukset toimimaan, sekvenssikaavio loginista, graafisen käyttiksen aloitus |
 | 23.4. |2 h 30 min | tekstikäyttöliittymään loput toiminnallisuudet, release |
-
-yht. 39 h 15 min 
+| 25.4. |5 h 45 min | GUI:n työstämistä: login-toiminto ja loginin jälkeinen näkymä valmiiksi |
+| 26.4. |4 h | GUI:n työstämistä: käyttäjän lisäys toimimaan, hajuveden lisäys toimimaan, browse-toiminnon aloitus |
+| 28.4. |15 min | GUI:n työstämistä: browse toimimaan, testausta  |
+yht. 49 h 15 min
 
 

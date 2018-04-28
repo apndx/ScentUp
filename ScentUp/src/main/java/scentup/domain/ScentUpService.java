@@ -37,6 +37,10 @@ public class ScentUpService {
 
     /**
      * the user who has been logged in chooses a new scent
+     * @param userId this is the id of the user
+     * @param scentIdFor this is the id of the scent
+     * 
+     * 
      */
     public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
             Integer pref, Integer act) throws SQLException {
@@ -57,6 +61,10 @@ public class ScentUpService {
 
     }
 
+    public User getLoggedIn() {
+        return loggedIn;
+    }
+ 
     /**
      * list of active scents for this user
      *
@@ -137,20 +145,24 @@ public class ScentUpService {
 
     }
 
-    public User login(String username) throws SQLException {
+    public boolean login(String username) throws SQLException {
         User current = userDao.findOne(username);
 
         if (current == null) {
-            return null;
+            return false;
         } else {
             // login and open userpage
             // todo
 
             loggedIn = current;
 
-            return current;
+            return true;
         }
 
+    }
+    
+    public void logout() {
+        loggedIn = null;  
     }
 
 }
