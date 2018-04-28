@@ -143,6 +143,7 @@ public class ScentUpGui extends Application {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
             redrawUserHasScentsList();
+            redrawUserHasNotScentsList();
         });
 
         Region spacer = new Region();
@@ -176,6 +177,7 @@ public class ScentUpGui extends Application {
                 if (scentUpService.login(username)) {
                     loginMessage.setText("");
                     redrawUserHasScentsList();
+                    redrawUserHasNotScentsList();
                     primaryStage.setScene(sceneLoggedIn);
                     userNameLogin.setText("");
                 } else {

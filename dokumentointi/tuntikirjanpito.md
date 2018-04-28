@@ -20,6 +20,7 @@
 | 23.4. |2 h 30 min | tekstikäyttöliittymään loput toiminnallisuudet, release |
 | 25.4. |5 h 45 min | GUI:n työstämistä: login-toiminto ja loginin jälkeinen näkymä valmiiksi |
 | 26.4. |4 h | GUI:n työstämistä: käyttäjän lisäys toimimaan, hajuveden lisäys toimimaan, browse-toiminnon aloitus |
-yht. 49 h 
+| 28.4. |15 min | GUI:n työstämistä: browse toimimaan, testausta  |
+yht. 49 h 15 min
 
 
