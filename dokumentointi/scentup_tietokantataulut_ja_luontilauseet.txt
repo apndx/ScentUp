@@ -1,5 +1,10 @@
+Tietokantakaavio:
 https://yuml.me/aa82c476.png
 http://yuml.me/edit/aa82c476
+
+Luokkakaavio javakoodille:
+http://yuml.me/6124b046.png
+http://yuml.me/edit/6124b046
 
 
 CREATE TABLE User (
