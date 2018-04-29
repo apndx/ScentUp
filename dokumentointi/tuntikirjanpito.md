@@ -21,7 +21,8 @@
 | 25.4. |5 h 45 min | GUI:n työstämistä: login-toiminto ja loginin jälkeinen näkymä valmiiksi |
 | 26.4. |4 h | GUI:n työstämistä: käyttäjän lisäys toimimaan, hajuveden lisäys toimimaan, browse-toiminnon aloitus |
 | 28.4. |4 h 40 min | GUI:n työstämistä: browse toimimaan, testausta, testeja domainille ja servicelle, javadoc  |
+| 29.4. |1 h 20 min | arkkitehtuurikuvauksen laatimista |
 
-yht. 53 h 40 min
+yht. 55 h 
 
 
