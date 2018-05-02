@@ -52,7 +52,7 @@ Tästä näkymästä voi joko kirjautua ulos painikkeella _ScentOut_ tai siirty�
 
 ## Uusien hajuvesien valitseminen käyttäjän kokoelmaan
 
-Tämän näkymän listaukseen tulevat ne tietokantaan lisätyt hajuvedet, joita käyttäjällä ei vielä ole. Näkymästä voi palata käyttäjän omaan näkymään painikkeella  _back_, tai listauksesta voi valita itselleen uuden hajuveden klikkaamalla painiketta _I want_ hajuveden kohdalla. Jos hajuveden lisäys kokoelmaan onnistuu, palataan käyttäjän omaan näkymään.
+Tämän näkymän listaukseen tulevat ne tietokantaan lisätyt hajuvedet, joita käyttäjällä ei vielä ole. Näkymästä voi palata käyttäjän omaan näkymään painikkeella  _back_, tai listauksesta voi valita itselleen uuden hajuveden klikkaamalla painiketta _I want_ hajuveden kohdalla. Näkymässä on myös painike _it's not on the list_, josta pääsee uuden hajuveden lisäykseen. Kun listalta valitun hajuveden lisäys kokoelmaan onnistuu, palataan käyttäjän omaan näkymään. 
 
 <img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/browse.jpg" width="400">
 
