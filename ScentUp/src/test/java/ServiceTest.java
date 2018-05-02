@@ -160,4 +160,22 @@ public class ServiceTest {
 
     }
 
+    @Test
+    public void isGetScentsUserHasNotListCorrect() throws SQLException {
+
+        String randomuser = UUID.randomUUID().toString().substring(0, 6);
+        String randomname = UUID.randomUUID().toString().substring(0, 6);
+
+        User testuser = new User(null, randomname, randomuser);
+        users.saveOrUpdate(testuser);
+        testuser = users.findOne(randomuser);
+
+        int listSize = scents.findAll().size();
+        service.login(randomuser);
+
+        assertEquals(listSize, service.getScentsUserHasNot().size());
+        service.logout();
+        users.delete(randomuser);
+
+    }
 }
