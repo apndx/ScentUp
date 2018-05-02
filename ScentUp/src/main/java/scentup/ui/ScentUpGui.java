@@ -133,7 +133,6 @@ public class ScentUpGui extends Application {
 //        } else {
 //            preference = 3;
 //        }
-
         Button button = new Button("I want");
         button.setOnAction((ActionEvent e) -> {
             try {
@@ -150,7 +149,7 @@ public class ScentUpGui extends Application {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0, 5, 0, 5));
 
-        box.getChildren().addAll(label, spacer,button);
+        box.getChildren().addAll(label, spacer, button);
         return box;
     }
 
@@ -233,7 +232,13 @@ public class ScentUpGui extends Application {
         Label userCreationMessage = new Label();
 
         Button createUserButton = new Button("Add a new User");  //add a new user button
+        Button outFromCreateUserButton = new Button("back");
         createUserButton.setPadding(new Insets(10));
+        outFromCreateUserButton.setPadding(new Insets(10));
+        outFromCreateUserButton.setOnAction(e -> {
+
+            primaryStage.setScene(loginScene);
+        });
         createUserButton.setOnAction((event) -> {
             String username = userAddInput.getText();
             String name = newNameInput.getText();
@@ -259,7 +264,7 @@ public class ScentUpGui extends Application {
             System.out.println("Click!");
         });
 
-        newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton);
+        newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);
         newUserScene = new Scene(newUserPane, 400, 250);
 
         // stuff for new scent page
@@ -314,6 +319,14 @@ public class ScentUpGui extends Application {
         unisex.setToggleGroup(scentGenderChoices);
         female.setSelected(true);
         newScentGenderPane.getChildren().addAll(newGenderLabel, female, male, unisex);
+
+        Button outOfScentCreation = new Button("back");
+        outOfScentCreation.setPadding(new Insets(10));
+
+        outOfScentCreation.setOnAction(e -> {
+
+            primaryStage.setScene(loginScene);
+        });
 
         Button createTheScentButton = new Button("I'm ready, let's do it!");
         createTheScentButton.setPadding(new Insets(10));
@@ -373,9 +386,9 @@ public class ScentUpGui extends Application {
         });
 
         newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane,
-                newScentTimeOfDayPane, newScentSeasonPane, newScentGenderPane, createTheScentButton);  // putting  all scent stuff together
+                newScentTimeOfDayPane, newScentSeasonPane, newScentGenderPane, createTheScentButton, outOfScentCreation);  // putting  all scent stuff together
 
-        newScentScene = new Scene(newScentPane, 400, 250);
+        newScentScene = new Scene(newScentPane, 400, 300);
 
         // main scene
         ScrollPane scentScrollbar = new ScrollPane();
@@ -410,15 +423,15 @@ public class ScentUpGui extends Application {
         //browse page 
         ScrollPane browseScrollbar = new ScrollPane();
         BorderPane browsePane = new BorderPane(browseScrollbar);
-        browseScene = new Scene(browsePane);     
+        browseScene = new Scene(browsePane);
 
         HBox browseMenuPane = new HBox(10);
         Region browseMenuSpacer = new Region();
         HBox.setHgrow(browseMenuSpacer, Priority.ALWAYS);
         Button outBrowseButton = new Button("back");
-       
+
         browseMenuPane.getChildren().addAll(browseMenuLabel, browseMenuSpacer, outBrowseButton);
-        
+
         outBrowseButton.setOnAction(e -> {
 
             primaryStage.setScene(sceneLoggedIn);
