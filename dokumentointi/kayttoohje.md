@@ -34,7 +34,7 @@ Jos käyttäjän luominen onnistuu, palataan kirjautumisnäkymään.
 
 ## Uuden hajuveden luominen
 
-Kirjautumisnäkymästä on mahdollista siirtyä myös uuden käyttäjän luomisnäkymään painikkeella _Add a new Scent_.
+Kirjautumisnäkymästä on mahdollista siirtyä myös uuden hajuveden luomisnäkymään painikkeella _Add a new Scent_.
 
 <img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/createscent.jpg" width="400">
 
