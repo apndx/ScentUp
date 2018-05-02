@@ -187,7 +187,7 @@ public class ScentUpGui extends Application {
             } catch (SQLException ex) {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Painettu!");
+            System.out.println("Click!");
         });
 
         // add a new scent takes to another page, button for it
@@ -198,7 +198,7 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newScentScene);
 
-            System.out.println("Painettu!");
+            System.out.println("Click!");
         });
 
         Button addNewUserButton = new Button("Add a new User");
@@ -207,10 +207,10 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newUserScene);
 
-            System.out.println("Painettu!");
+            System.out.println("Click!");
         });
 
-        loginPane.getChildren().addAll(loginMessage, loginGroup, newScentButton, addNewUserButton);
+        loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton);
         loginScene = new Scene(loginPane);
 
         // stuff needed for add new user page
@@ -256,7 +256,7 @@ public class ScentUpGui extends Application {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("Painettu!");
+            System.out.println("Click!");
         });
 
         newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton);
@@ -385,8 +385,8 @@ public class ScentUpGui extends Application {
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
-        Button logoutButton = new Button("logout");
-        Button browseButton = new Button("browse");
+        Button logoutButton = new Button("ScentOut");
+        Button browseButton = new Button("Browse");
         menuPane.getChildren().addAll(menuLabel, menuSpacer, browseButton, logoutButton);
         logoutButton.setOnAction(e -> {
             scentUpService.logout();

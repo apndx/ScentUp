@@ -31,9 +31,9 @@ public class ScentUpService {
      * Constructor for ScentUpService ScentUpService is for the application
      * logic
      *
-     * @param userDao
-     * @param scentDao
-     * @param userScentDao
+     * @param userDao gives ScentUpService access to userDao
+     * @param scentDao gives ScentUpService access to scentDao
+     * @param userScentDao gives ScentUpService access to userScentDao
      */
     public ScentUpService(UserDao userDao, ScentDao scentDao, UserScentDao userScentDao) {
         this.userDao = userDao;
@@ -52,7 +52,7 @@ public class ScentUpService {
      * @param pref tells user's preference (1 dislike, 2 neutral, 3 love)
      * @param act tells if this scent is active in user's collection (true when
      * created)
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return boolean - did the creation succeed
      */
     public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
@@ -145,7 +145,7 @@ public class ScentUpService {
      * @param username  username for the user
      * @param name  name for the user
      * @return boolean, returns true if the creation succeeded
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      */
     public boolean createUser(String username, String name) throws SQLException {
         if (userDao.isUsernameFree(username)) {
@@ -163,7 +163,7 @@ public class ScentUpService {
      *
      * @param scentName  name of the scent
      * @param brandName  brand of the scent
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return boolean  returns true if the scent already exists
      */
     public boolean doesScentExist(String scentName, String brandName) throws SQLException {
@@ -178,7 +178,7 @@ public class ScentUpService {
      * Add a scent in the database
      *
      * @param scent - scent to be added
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      *
      */
     public void createScent(Scent scent) throws SQLException {
@@ -189,7 +189,7 @@ public class ScentUpService {
      * user login
      *
      * @param username  username of the user who is logging in
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return boolean  returns true if the login is successful
      */
     public boolean login(String username) throws SQLException {
