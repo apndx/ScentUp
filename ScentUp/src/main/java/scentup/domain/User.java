@@ -70,7 +70,7 @@ public class User {
      * Makes a user, this method is used to make listings in Dao
      *
      * @param rs  result set from user table of the database
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return User  returns a user
      */
     public static User rowToUser(ResultSet rs) throws SQLException {

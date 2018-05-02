@@ -177,7 +177,7 @@ public class Scent {
      * Makes a scent, this method is used to make listings in dao
      *
      * @param rs result set from scent table of the database
-     * @throws SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return Scent  returns a scent
      */
     public static Scent rowToScent(ResultSet rs) throws SQLException {

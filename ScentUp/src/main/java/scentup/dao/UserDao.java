@@ -34,7 +34,7 @@ public class UserDao {
      * Finds a user from the database.
      *
      * @param username  username of the user that needs to be found
-     * @throws  SQLException 
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return User  user is returned if found, else null is returned.
      */
     public User findOne(String username) throws SQLException {
@@ -66,7 +66,7 @@ public class UserDao {
      * Finds if a username is already in the database
      *
      * @param username  username that needs to be checked
-     * @throws  SQLException 
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return boolean if username is free, returns true, else false
      */
     public boolean isUsernameFree(String username) throws SQLException {
@@ -92,7 +92,7 @@ public class UserDao {
       /**
      * Not implemented yet - finds all users in the database
      *
-     * @throws  SQLException
+     * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return List of all users 
      */
     public List<User> findAll() throws SQLException {
@@ -104,7 +104,7 @@ public class UserDao {
      * Saves or updates a user
      *
      * @param object user that needs to be saved or updated (updating not yet needed)
-     * @throws  SQLException 
+     * @throws  SQLException if this database query does not succeed, this exception is thrown
      * @return object. If the userId of the user is null, private method save is used and a saved user is returned
      * otherwise the user is updated using private update method, and updated user is returned
      */
@@ -125,7 +125,7 @@ public class UserDao {
      *
      * @param username username of the user that needs to be deleted
      * 
-     *@throws SQLException
+     *@throws SQLException if this database query does not succeed, this exception is thrown
      * 
      */
     public void delete(String username) throws SQLException {
