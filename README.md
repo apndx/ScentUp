@@ -20,6 +20,7 @@ Sovelluksen runko on kaikille käyttäjille yhteinen tietokanta, johon on koottu
 Ohjelmasta tehdyt julkaisut:
 
 * [Ensimmäinen julkaisu](https://github.com/apndx/otm-harjoitustyo/releases/tag/0.1)
+* [Toinen julkaisu](https://github.com/apndx/otm-harjoitustyo/releases/tag/0.2)
 
 
 ## Komentorivitoiminnot
