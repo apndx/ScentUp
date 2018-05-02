@@ -325,7 +325,13 @@ public class ScentUpGui extends Application {
 
         outOfScentCreation.setOnAction(e -> {
 
-            primaryStage.setScene(loginScene);
+            if (scentUpService.getLoggedIn() == null) {
+                primaryStage.setScene(loginScene);
+            } else {
+                
+                primaryStage.setScene(browseScene);
+            }
+
         });
 
         Button createTheScentButton = new Button("I'm ready, let's do it!");
@@ -371,9 +377,16 @@ public class ScentUpGui extends Application {
                                 season, gender);
                         scentUpService.createScent(scentAdded);
                         userCreationMessage.setText("");
-                        loginMessage.setText("new scent added");
+                        
                         loginMessage.setTextFill(Color.GREEN);
-                        primaryStage.setScene(loginScene);
+                        if (scentUpService.getLoggedIn() == null) {
+                            loginMessage.setText("new scent added");
+                            primaryStage.setScene(loginScene);
+                        } else {
+                            redrawUserHasNotScentsList();
+                            primaryStage.setScene(browseScene);
+                        }
+
                     } else {
                         userCreationMessage.setText("scent has to be unique");
                         userCreationMessage.setTextFill(Color.RED);
@@ -429,12 +442,19 @@ public class ScentUpGui extends Application {
         Region browseMenuSpacer = new Region();
         HBox.setHgrow(browseMenuSpacer, Priority.ALWAYS);
         Button outBrowseButton = new Button("back");
+        Button addToDatabase = new Button("it's not on the list");
 
-        browseMenuPane.getChildren().addAll(browseMenuLabel, browseMenuSpacer, outBrowseButton);
+        browseMenuPane.getChildren().addAll(browseMenuLabel, browseMenuSpacer, addToDatabase, outBrowseButton);
 
         outBrowseButton.setOnAction(e -> {
 
             primaryStage.setScene(sceneLoggedIn);
+        });
+
+        //add a new scent because what you want is not on the list
+        addToDatabase.setOnAction(e -> {
+
+            primaryStage.setScene(newScentScene);
         });
 
         browseableScentNodes = new VBox(10);
