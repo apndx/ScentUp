@@ -55,11 +55,12 @@ public class ScentUpService {
      * @throws SQLException if this database query does not succeed, this exception is thrown
      * @return boolean - did the creation succeed
      */
-    public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
+    public boolean createUserScent(Integer userId, Integer scentIdFor, 
             Integer pref, Integer act) throws SQLException {
 
         //adding a new scent for the user logged in
-        UserScent addForUser = new UserScent(loggedIn, scentDao.findOne(scentIdFor), dateNow, pref, act);
+        UserScent addForUser = new UserScent(loggedIn, scentDao.findOne(scentIdFor), 
+                new Date((int) new java.util.Date().getTime()), pref, act);
 
         if (!userScentDao.checkIfUserScentExists(userId, scentIdFor)) {
             try {

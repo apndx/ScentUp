@@ -22,8 +22,11 @@
 | 26.4. |4 h | GUI:n työstämistä: käyttäjän lisäys toimimaan, hajuveden lisäys toimimaan, browse-toiminnon aloitus |
 | 28.4. |4 h 40 min | GUI:n työstämistä: browse toimimaan, testausta, testeja domainille ja servicelle, javadoc  |
 | 29.4. |1 h 20 min | arkkitehtuurikuvauksen laatimista |
-| 2.5.  |3 h| testi servicelle, javadoc, read.md päivitys, käyttöohje, paluunappuloita, pääsy browsesta hajuveden luomissivulle|
+| 2.5.  |3 h | testi servicelle, javadoc, read.md päivitys, käyttöohje, paluunappuloita, pääsy browsesta hajuveden luomissivulle |
+| 4.5.  |15 min| koodikatselmuspalautteen lukemista, muuttujien uudelleennimeämistä |
+| 6.5.  |1 h| koodikatselmuspalautteen ehdotusten toteutusta, refaktorointia ja javadoceja |
 
-yht. 58 h
+
+yht. 59 h 15 min
 
 

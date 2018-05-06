@@ -101,15 +101,12 @@ public class ServiceTest {
         service.createScent(testscent);
         testscent = scents.findOne(randomscent, randombrand);
 
-        service.createUserScent(testuser.getUserId(), testscent.getScentId(),
-                new Date(new java.util.Date().getDate()), 2, 1);
+        service.createUserScent(testuser.getUserId(), testscent.getScentId(), 2, 1);
 
-        assertEquals(false, service.createUserScent(testuser.getUserId(), testscent.getScentId(),
-                new Date(new java.util.Date().getDate()), 2, 1));
+        assertEquals(false, service.createUserScent(testuser.getUserId(), testscent.getScentId(), 2, 1));
 
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
-        userScents.delete(testuser.getUserId(), testscent.getScentId());
 
     }
 
@@ -154,8 +151,7 @@ public class ServiceTest {
 
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
-        scents.delete(testscent2.getScentId());
-        userScents.delete(testuser.getUserId(), testscent.getScentId());
+        scents.delete(testscent2.getScentId());     
         service.logout();
 
     }

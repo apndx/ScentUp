@@ -48,14 +48,14 @@ public class Database {
     }
 
     private List<String> sqliteTables() {
-        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<String> tablesList = new ArrayList<>();
 
         // creating the datatables
-        lista.add("CREATE TABLE IF NOT EXISTS User (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS User (\n"
                 + "    user_id integer PRIMARY KEY,\n"
                 + "    name varchar(200),\n"
                 + "    username varchar(200));");
-        lista.add("CREATE TABLE IF NOT EXISTS Scent (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS Scent (\n"
                 + "    scent_id integer PRIMARY KEY,\n"
                 + "    name varchar(200),\n"
                 + "    brand varchar(200),\n"
@@ -63,7 +63,7 @@ public class Database {
                 + "    season integer,\n"
                 + "    gender integer\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS  UserScent (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS  UserScent (\n"
                 + "    user_id integer,\n"
                 + "    scent_id integer,\n"
                 + "    choicedate integer,\n"
@@ -72,19 +72,19 @@ public class Database {
                 + "    FOREIGN KEY (user_id) REFERENCES User(user_id),\n"
                 + "    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id)\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS Category (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS Category (\n"
                 + "    category_id integer PRIMARY KEY,     \n"
                 + "    name varchar(200),\n"
                 + "    weight integer	\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS ScentCategory (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS ScentCategory (\n"
                 + "    scent_id integer,\n"
                 + "    category_id integer,\n"
                 + "    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id),\n"
                 + "    FOREIGN KEY (category_id) REFERENCES Category(category_id)\n"
                 + ");");
 
-        return lista;
+        return tablesList;
     }
 
 }

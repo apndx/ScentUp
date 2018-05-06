@@ -19,10 +19,7 @@ import scentup.domain.UserScent;
  *
  * This is a text user interface - Main menu options:
  *
- * "What to do next?" 
- * "1. Create a new User" 
- * "2. Add a new Scent" 
- * "3. ScentIn" 
+ * "What to do next?" "1. Create a new User" "2. Add a new Scent" "3. ScentIn"
  * "4. ScentOut"
  *
  */
@@ -228,7 +225,7 @@ public class ScentUpTextUi {
                                 String preference = reader.nextLine();
                                 if (preference.matches("1|2|3")) {
                                     if (service.createUserScent(service.getLoggedIn().getUserId(),
-                                            Integer.parseInt(lisattava), new Date((int) new java.util.Date().getTime()),
+                                            Integer.parseInt(lisattava),
                                             Integer.parseInt(preference), 1)) {
                                         System.out.println("This scent has now been added to your collection.");
                                     } else {

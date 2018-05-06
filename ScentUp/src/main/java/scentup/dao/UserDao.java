@@ -130,13 +130,13 @@ public class UserDao {
      */
     public void delete(String username) throws SQLException {
         Connection conn = database.getConnection();
-        User poistettava = findOne(username);
-        Integer userId = poistettava.getUserId();
+        User removable = findOne(username);
+        Integer userId = removable.getUserId();
 
-        PreparedStatement stmtriippuvuudet = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ?");
-        stmtriippuvuudet.setInt(1, userId);
-        stmtriippuvuudet.executeUpdate();
-        stmtriippuvuudet.close();
+        PreparedStatement stmtRelated = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ?");
+        stmtRelated.setInt(1, userId);
+        stmtRelated.executeUpdate();
+        stmtRelated.close();
         
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM User WHERE username = ?");
 

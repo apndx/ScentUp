@@ -137,7 +137,7 @@ public class ScentUpGui extends Application {
         button.setOnAction((ActionEvent e) -> {
             try {
                 scentUpService.createUserScent(scentUpService.getLoggedIn().getUserId(), scent.getScentId(),
-                        new Date((int) new java.util.Date().getTime()), 2, 1);
+                        2, 1);
             } catch (SQLException ex) {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -328,7 +328,7 @@ public class ScentUpGui extends Application {
             if (scentUpService.getLoggedIn() == null) {
                 primaryStage.setScene(loginScene);
             } else {
-                
+
                 primaryStage.setScene(browseScene);
             }
 
@@ -377,7 +377,7 @@ public class ScentUpGui extends Application {
                                 season, gender);
                         scentUpService.createScent(scentAdded);
                         userCreationMessage.setText("");
-                        
+
                         loginMessage.setTextFill(Color.GREEN);
                         if (scentUpService.getLoggedIn() == null) {
                             loginMessage.setText("new scent added");

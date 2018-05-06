@@ -118,7 +118,6 @@ public class UserScentDaoTest {
 
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
-        userScents.delete(testuser.getUserId(), testscent.getScentId());
 
     }
 
@@ -161,7 +160,6 @@ public class UserScentDaoTest {
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
         scents.delete(testscent2.getScentId());
-        userScents.delete(testuser.getUserId(), testscent.getScentId());
 
     }
 
