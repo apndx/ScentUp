@@ -1,3 +1,5 @@
+package scentup.domain;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -134,8 +136,8 @@ public class ServiceTest {
         Scent testscent2 = new Scent(null, randomscent2, randombrand2, testnumber2,
                 testnumber2, testnumber2);
 
-        scents.saveOrUpdate(testscent);
-        scents.saveOrUpdate(testscent2);
+        scents.saveOrNot(testscent);
+        scents.saveOrNot(testscent2);
         testscent = scents.findOne(randomscent, randombrand);
         testscent2 = scents.findOne(randomscent2, randombrand2);
 
@@ -164,7 +166,6 @@ public class ServiceTest {
 
         User testuser = new User(null, randomname, randomuser);
         users.saveOrNot(testuser);
-        testuser = users.findOne(randomuser);
 
         int listSize = scents.findAll().size();
         service.login(randomuser);

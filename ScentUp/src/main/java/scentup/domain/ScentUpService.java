@@ -183,7 +183,7 @@ public class ScentUpService {
      *
      */
     public void createScent(Scent scent) throws SQLException {
-        scentDao.saveOrUpdate(scent);
+        scentDao.saveOrNot(scent);
     }
 
     /**

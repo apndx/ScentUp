@@ -1,3 +1,5 @@
+package scentup.dao;
+
 /*
  * This class tests class UserDao
  */

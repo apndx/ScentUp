@@ -1,3 +1,5 @@
+package scentup.dao;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -63,7 +65,7 @@ public class ScentDaoTest {
         Scent testscent = new Scent(null, randomname, randombrand, testnumber,
                 testnumber, testnumber);
 
-        scents.saveOrUpdate(testscent);
+        scents.saveOrNot(testscent);
 
         assertEquals(true, scents.checkIfScentExists(randomname, randombrand));
         scents.delete(randomname, randombrand);
@@ -80,7 +82,7 @@ public class ScentDaoTest {
         Scent testscent = new Scent(null, randomname, randombrand, testnumber,
                 testnumber, testnumber);
 
-        testscent = scents.saveOrUpdate(testscent);
+        testscent = scents.saveOrNot(testscent);
 
         Integer testScentId = testscent.getScentId();
 
