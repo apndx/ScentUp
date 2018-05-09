@@ -8,15 +8,15 @@ import java.util.Objects;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class UserScent {
 
-    private User user;
-    private Scent scent;
-    private Date choiceDate;
-    private Integer preference;
-    private Integer active;
+    private final User user;
+    private final Scent scent;
+    private final Date choiceDate;
+    private final Integer preference;
+    private final Integer active;
 
     /**
      * Makes a new UserScent - this means a certain user has a certain scent

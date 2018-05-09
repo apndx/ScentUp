@@ -11,7 +11,7 @@ import scentup.dao.UserScentDao;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentUpService {
 

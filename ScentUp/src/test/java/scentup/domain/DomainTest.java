@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * This test class is for testing the classes in the domain package
  *
- * @author hdheli
+ * @author apndx
  */
 public class DomainTest {
 

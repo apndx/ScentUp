@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class User {
 

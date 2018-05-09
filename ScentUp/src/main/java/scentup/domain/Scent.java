@@ -11,16 +11,16 @@ import java.util.Objects;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class Scent {
 
     private Integer scentId;
-    private String scentName;
-    private String brand;
-    private Integer timeOfDay;
-    private Integer season;
-    private Integer gender;
+    private final String scentName;
+    private final String brand;
+    private final Integer timeOfDay;
+    private final Integer season;
+    private final Integer gender;
 
     /**
      * Makes a new scent

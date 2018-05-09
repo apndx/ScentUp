@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import scentup.domain.Scent;
-import scentup.domain.User;
 import scentup.domain.UserScent;
 
 /**
  * This class is for making database queries for the UserScent table
  *
- * @author hdheli
+ * @author apndx
  */
 public class UserScentDao {
 

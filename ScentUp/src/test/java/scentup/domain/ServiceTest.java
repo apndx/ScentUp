@@ -1,10 +1,5 @@
 package scentup.domain;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.io.File;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -20,14 +15,10 @@ import scentup.dao.Database;
 import scentup.dao.ScentDao;
 import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
-import scentup.domain.Scent;
-import scentup.domain.ScentUpService;
-import scentup.domain.User;
-import scentup.domain.UserScent;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class ServiceTest {
 

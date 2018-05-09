@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import scentup.domain.User;
 
 /**
  * This class is for making database queries for the User table
  *
- * @author hdheli
+ * @author apndx
  */
 public class UserDao {
 

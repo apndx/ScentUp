@@ -1,14 +1,8 @@
 package scentup.dao;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import java.io.File;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import org.junit.After;
@@ -17,17 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import scentup.dao.Database;
-import scentup.dao.ScentDao;
-import scentup.dao.UserDao;
-import scentup.dao.UserScentDao;
 import scentup.domain.Scent;
 import scentup.domain.User;
 import scentup.domain.UserScent;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class UserScentDaoTest {
 

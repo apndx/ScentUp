@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * This class is for the database connection and creation (if needed)
  *
- * @author hdheli
+ * @author apndx
  */
 public class Database {
 

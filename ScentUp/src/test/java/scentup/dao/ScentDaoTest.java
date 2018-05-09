@@ -5,7 +5,6 @@ package scentup.dao;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.File;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -15,15 +14,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Rule;
-import scentup.dao.Database;
-import scentup.dao.ScentDao;
 import scentup.domain.Scent;
-import scentup.domain.User;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentDaoTest {
 

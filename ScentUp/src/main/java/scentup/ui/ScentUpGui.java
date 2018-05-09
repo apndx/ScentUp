@@ -1,9 +1,17 @@
 package scentup.ui;
 
 import java.io.File;
-import java.sql.Date;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -34,7 +42,7 @@ import scentup.domain.ScentUpService;
 /**
  * This is the graphic user interface for ScentUp
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentUpGui extends Application {
 
@@ -51,8 +59,22 @@ public class ScentUpGui extends Application {
     private Label browseMenuLabel;
 
     @Override
-    public void init() throws ClassNotFoundException {
-        File file = new File("ScentUp.db");
+    public void init() throws ClassNotFoundException, FileNotFoundException, IOException {
+
+        Properties properties = new Properties();
+        File config = new File("config.properties");
+
+        if (!config.exists()) {
+            config.createNewFile();
+            Path path = Paths.get("config.properties");
+            Files.write(path, Arrays.asList("database=ScentUp.db"), Charset.forName("UTF-8"));
+        }
+
+        properties.load(new FileInputStream("config.properties"));
+
+        String databaseFromConfig = properties.getProperty("database");
+
+        File file = new File(databaseFromConfig);
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         database.init();
 
@@ -167,7 +189,6 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newScentScene);
 
-            System.out.println("Click!");
         });
 
         Button addNewUserButton = new Button("Add a new User");
@@ -176,7 +197,6 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newUserScene);
 
-            System.out.println("Click!");
         });
 
         loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton);
