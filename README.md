@@ -13,6 +13,7 @@ Sovelluksen runko on kaikille käyttäjille yhteinen tietokanta, johon on koottu
 * [Käyttöohje](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
 * [Vaatimusmäärittely](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 * [Työaikakirjanpito](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+* [Testausdokumentti](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/testausdokumentti.md)
 * [Arkkitehtuurikuvaus](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
 ### Releaset

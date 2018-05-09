@@ -463,9 +463,7 @@ public class ScentUpGui extends Application {
             if (scentUpService.getLoggedIn() != null) {
                 e.consume();
             }
-
         });
-
     }
 
     @Override

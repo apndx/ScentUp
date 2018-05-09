@@ -18,11 +18,16 @@ import scentup.domain.User;
  */
 public class UserDaoTest {
 
+    private File file;
+    private Database database;
+    private UserDao users;
+    
     public UserDaoTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
+
     }
 
     @AfterClass
@@ -30,19 +35,20 @@ public class UserDaoTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException {
+        this.file = new File("TestScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        database.init();
+        this.users = new UserDao(database);
     }
 
     @After
     public void tearDown() {
+        file.delete();
     }
 
     @Test
     public void isExistingUsernameIgnored() throws ClassNotFoundException, SQLException {
-
-        File file = new File("ScentUp.db");
-        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        UserDao users = new UserDao(database);
 
         String randomuser = UUID.randomUUID().toString().substring(0, 6);
         String randomname = UUID.randomUUID().toString().substring(0, 6);

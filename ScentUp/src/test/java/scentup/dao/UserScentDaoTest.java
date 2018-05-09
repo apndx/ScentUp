@@ -21,19 +21,13 @@ import scentup.domain.UserScent;
  */
 public class UserScentDaoTest {
 
-    private final File file;
-    private final Database database;
-    private final UserDao users;
-    private final ScentDao scents;
-    private final UserScentDao userScents;
+    private File file;
+    private Database database;
+    private UserDao users;
+    private ScentDao scents;
+    private UserScentDao userScents;
 
-    public UserScentDaoTest() throws ClassNotFoundException {
-
-        this.file = new File("ScentUp.db");
-        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        this.users = new UserDao(database);
-        this.scents = new ScentDao(database);
-        this.userScents = new UserScentDao(database);
+    public UserScentDaoTest() {
 
     }
 
@@ -46,41 +40,19 @@ public class UserScentDaoTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException {
+        this.file = new File("TestScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        database.init();
+        this.users = new UserDao(database);
+        this.scents = new ScentDao(database);
+        this.userScents = new UserScentDao(database);
     }
 
     @After
     public void tearDown() {
+        file.delete();
     }
-//
-//    @Test
-//    public void isNewUserScentAdded() throws ClassNotFoundException, SQLException {
-//
-//        File file = new File("db", "ScentUp.db");
-//        Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-//        UserScentDao userScents = new UserScentDao(database);
-//        UserDao users = new UserDao(database);
-//        ScentDao scents = new ScentDao(database);
-//
-//        String randomuser = UUID.randomUUID().toString().substring(0, 6);
-//        String randomname = UUID.randomUUID().toString().substring(0, 6);
-//
-//        User testuser = new User(null, randomname, randomuser);
-//        users.saveOrUpdate(testuser);
-//
-//        String randomscent = UUID.randomUUID().toString().substring(0, 6);
-//        String randombrand = UUID.randomUUID().toString().substring(0, 6);
-//        Integer testnumber = 1;
-//
-//        Scent testscent = new Scent(null, randomscent, randombrand, testnumber,
-//                testnumber, testnumber);
-//        
-//        UserScent testUserScent = new UserScent(testuser, testscent, Date.valueOf(LocalDate.MAX), 2, 1);
-//        userScents.add(testUserScent);
-//
-//        assertEquals(testUserScent, userScents.)
-//        
-//    }
 
     @Test
     public void isExistingUserScentFound() throws ClassNotFoundException, SQLException {
@@ -157,10 +129,4 @@ public class UserScentDaoTest {
         scents.delete(testscent2.getScentId());
 
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

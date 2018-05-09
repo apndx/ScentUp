@@ -3,8 +3,9 @@
 
 ## Konfigurointi
 
-Jos haluat hyödyntää tietokantaan valmiiksi lisättyjä hajuvesiä, voit ottaa mukaan tiedoston ScentUp.db joka löytyy zip-paketista. 
-Oikea paikka tiedostolle ScentUp.db on ohjelman juurikansiossa. Jos tämä tiedosto puuttuu, luodaan siitä uusi versio ensimmäisen käynnistyksen yhteydessä.
+Jos haluat hyödyntää tietokantaan valmiiksi lisättyjä hajuvesiä, voit ottaa mukaan tiedoston ScentUp.db joka löytyy zip-paketista, sekä valmiinä löytyvän config.properties tiedosto. Oikea paikka näille tiedostoille on ohjelman juurikansiossa. Jos tiedostot puuttuvat, luodaan niistä uudet versiot ensimmäisen käynnistyksen yhteydessä.
+
+Jos haluat vaihtaa käyttöön eri tietokannan, voit vaihtaa sen muuttamalla config.properties tiedostoon "database =" jälkeen oman tietokantasi nimen.
 
 ## Ohjelman käynnistäminen
 
@@ -18,7 +19,7 @@ java -jar todoapp.jar
 
 Sovellus käynnistyy kirjautumisnäkymään:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/kirjautumisnakyma.jpg" width="400">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/kirjautumisnakyma.jpg" width="300">
 
 Kirjautuminen onnistuu kirjoittamalla olemassaoleva käyttäjätunnus syötekenttään ja painamalla ScentIn.
 

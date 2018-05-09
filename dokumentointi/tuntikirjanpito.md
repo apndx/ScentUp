@@ -25,9 +25,9 @@
 | 2.5.  |3 h | testi servicelle, javadoc, read.md päivitys, käyttöohje, paluunappuloita, pääsy browsesta hajuveden luomissivulle |
 | 4.5.  |15 min| koodikatselmuspalautteen lukemista, muuttujien uudelleennimeämistä |
 | 6.5.  |1 h| koodikatselmuspalautteen ehdotusten toteutusta, refaktorointia ja javadoceja |
-| 9.5.  |1 h| aloitus 12:50 |
+| 9.5.  |5 h| java.docs, refaktorointi ja koodin siistiminen, config.tiedosto, testitietokanta, testauskattavuutta lisää |
 
 
-yht. 59 h 15 min
+yht. 64 h 15 min
 
 

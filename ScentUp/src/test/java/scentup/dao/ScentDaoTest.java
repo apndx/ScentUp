@@ -22,16 +22,11 @@ import scentup.domain.Scent;
  */
 public class ScentDaoTest {
 
-    private final File file;
-    private final Database database;
-    private final ScentDao scents;
+    private File file;
+    private Database database;
+    private ScentDao scents;
 
     public ScentDaoTest() throws ClassNotFoundException {
-
-        this.file = new File("ScentUp.db");
-        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        this.scents = new ScentDao(database);
-
     }
 
     @BeforeClass
@@ -43,11 +38,16 @@ public class ScentDaoTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException {
+        this.file = new File("TestScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        database.init();
+        this.scents = new ScentDao(database);
     }
 
     @After
     public void tearDown() {
+          file.delete();
     }
 
     @Test
