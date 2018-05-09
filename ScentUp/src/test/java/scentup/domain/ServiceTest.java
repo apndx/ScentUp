@@ -5,7 +5,6 @@ package scentup.domain;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.File;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -153,7 +152,7 @@ public class ServiceTest {
 
         users.delete(randomuser);
         scents.delete(testscent.getScentId());
-        scents.delete(testscent2.getScentId());     
+        scents.delete(testscent2.getScentId());
         service.logout();
 
     }
@@ -173,6 +172,36 @@ public class ServiceTest {
         assertEquals(listSize, service.getScentsUserHasNot().size());
         service.logout();
         users.delete(randomuser);
+
+    }
+
+    @Test
+    public void doesServiceFoundIfScentExists() throws SQLException {
+
+        String randomscent = UUID.randomUUID().toString().substring(0, 6);
+        String randombrand = UUID.randomUUID().toString().substring(0, 6);
+        Integer testnumber = 1;
+
+        Scent testscent = new Scent(null, randomscent, randombrand, testnumber,
+                testnumber, testnumber);
+
+        scents.saveOrNot(testscent);
+
+        String randomuser = UUID.randomUUID().toString().substring(0, 6);
+        String randomname = UUID.randomUUID().toString().substring(0, 6);
+
+        User testuser = new User(null, randomname, randomuser);
+        users.saveOrNot(testuser);
+        testuser = users.findOne(randomuser);
+
+        service.login(randomuser);
+
+        assertEquals(true, service.doesScentExist(randomscent, randombrand));
+        assertEquals(false, service.doesScentExist("somename", "somebrand"));
+
+        service.logout();
+        users.delete(randomuser);
+        scents.delete(randomscent, randombrand);
 
     }
 }

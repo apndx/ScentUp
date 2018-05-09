@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package scentup.domain;
 
 import java.sql.Date;
@@ -27,9 +23,9 @@ public class UserScent {
      *
      * @param user user who is logged in
      * @param scent scent that was chosen
-     * @param choiceDate  timestamp of when this choice wast last activated
-     * @param preference  1 dislike, 2 neutral, 3 love
-     * @param active  is this choice active for this user? 0 no, 1 yes. Active is 
+     * @param choiceDate timestamp of when this choice wast last activated
+     * @param preference 1 dislike, 2 neutral, 3 love
+     * @param active is this choice active for this user? 0 no, 1 yes. Active is
      * yes when a UserScent is created
      */
     public UserScent(User user, Scent scent, Date choiceDate, Integer preference, Integer active) {
@@ -44,40 +40,20 @@ public class UserScent {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Scent getScent() {
         return scent;
-    }
-
-    public void setScent(Scent scent) {
-        this.scent = scent;
     }
 
     public Date getChoiceDate() {
         return choiceDate;
     }
 
-    public void setChoiceDate(Date choiceDate) {
-        this.choiceDate = choiceDate;
-    }
-
     public Integer getPreference() {
         return preference;
     }
 
-    public void setPreference(Integer preference) {
-        this.preference = preference;
-    }
-
     public Integer getActive() {
         return active;
-    }
-
-    public void setActive(Integer active) {
-        this.active = active;
     }
 
     @Override
@@ -124,12 +100,13 @@ public class UserScent {
     /**
      * Makes a UserScent, this method is used to make listings in Dao
      *
-     * @param rs  result set from user table of the database
-     * @throws SQLException if this database query does not succeed, this exception is thrown
-     * @return UserScent  returns a UserScent
+     * @param rs result set from user table of the database
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return UserScent returns a UserScent
      */
     public static UserScent rowToUserScent(ResultSet rs) throws SQLException {
-        return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"), 
+        return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"),
                 rs.getInt("preference"), rs.getInt("active"));
 
     }

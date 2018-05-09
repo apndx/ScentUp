@@ -15,7 +15,7 @@ import scentup.domain.Scent;
  */
 public class ScentDao {
 
-    private Database database;
+    private final Database database;
 
     public ScentDao(Database database) {
         this.database = database;

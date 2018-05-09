@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.dao;
 
 import java.sql.Connection;
@@ -16,17 +11,28 @@ import scentup.domain.User;
 import scentup.domain.UserScent;
 
 /**
+ * This class is for making database queries for the UserScent table
  *
  * @author hdheli
  */
 public class UserScentDao {
 
-    private Database database;
+    private final Database database;
 
     public UserScentDao(Database database) {
         this.database = database;
     }
 
+    /**
+     * Checks if a UserScent exists already
+     *
+     * @param userId id for the user
+     * @param scentId id for the scent
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return boolean returns true if the UserScent exists, false if it does
+     * not
+     */
     public boolean checkIfUserScentExists(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE user_id = ? AND scent_id = ? ");
@@ -43,66 +49,26 @@ public class UserScentDao {
             return false;
         }
 
-        stmt.close();
-        rs.close();
-        conn.close();
-
+        closingProceduresRs(conn, rs, stmt);
         return true;
     }
 
-    public List<UserScent> findAll() throws SQLException {
-        Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent");
-        ResultSet rs = stmt.executeQuery();
-
-        List<UserScent> listOfAll = new ArrayList<>();
-
-        while (rs.next()) {
-            listOfAll.add(UserScent.rowToUserScent(rs));
-        }
-
-        stmt.close();
-        rs.close();
-
-        conn.close();
-        return listOfAll;
-
-    }
-
-    public List<UserScent> findAllForUser(Integer active, Integer userId) throws SQLException {
-
-        Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE Active = ? AND user_id = ? "
-                + "AND scent_id = ? ");
-
-        stmt.setInt(1, active);
-        stmt.setInt(2, userId);
-
-        ResultSet rs = stmt.executeQuery();
-
-        List<UserScent> listOfAll = new ArrayList<>();
-
-        while (rs.next()) {
-            listOfAll.add(UserScent.rowToUserScent(rs));
-        }
-
-        stmt.close();
-        rs.close();
-
-        conn.close();
-        return listOfAll;
-    }
-
+    /**
+     * Lists all scents the user has
+     *
+     * @param userId id for the user
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return List returns a list of all scents the user has
+     */
     public List<Scent> findAllScentsUserHas(Integer userId) throws SQLException {
 
         Connection conn = database.getConnection();
-        // sql not working yet
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent "
                 + "LEFT JOIN UserScent ON Scent.scent_id = userscent.scent_id  "
                 + "WHERE userscent.user_id = ? ");
 
         stmt.setInt(1, userId);
-        //stmt.executeUpdate();
 
         ResultSet rs = stmt.executeQuery();
         List<Scent> listOfAll = new ArrayList<>();
@@ -110,51 +76,25 @@ public class UserScentDao {
         while (rs.next()) {
             listOfAll.add(Scent.rowToScent(rs));
         }
-
-        stmt.close();
-        conn.close();
-
+        closingProceduresRs(conn, rs, stmt);
         return listOfAll;
     }
 
-    public List<Scent> findAllScentsUserHasNotByCriteria(Integer timeOfDay,
-            Integer season, Integer userId) throws SQLException {
-
-        Connection conn = database.getConnection();
-        // sql not working yet
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE NOT EXISTS "
-                + "(SELECT * FROM userScent where user_id = 1 AND scent.scent_id = userScent.scent_id) "
-                + "AND scent.timeofday = ? AND scent.season = ?;");
-
-        stmt.setInt(1, timeOfDay);
-        stmt.setInt(2, season);
-        stmt.setInt(3, userId);
-        stmt.executeUpdate();
-
-        ResultSet rs = stmt.executeQuery();
-
-        List<Scent> listOfAll = new ArrayList<>();
-
-        while (rs.next()) {
-            listOfAll.add(Scent.rowToScent(rs));
-        }
-
-        stmt.close();
-        conn.close();
-
-        return listOfAll;
-    }
-
+    /**
+     * Lists all scents the user does not have
+     *
+     * @param userId id for the user
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return List returns a list of all scents the user does not have
+     */
     public List<Scent> findAllScentsUserHasNot(Integer userId) throws SQLException {
 
         Connection conn = database.getConnection();
-
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE NOT EXISTS "
                 + "(SELECT * FROM userScent where user_id = ? AND scent.scent_id = userScent.scent_id);");
 
         stmt.setInt(1, userId);
-        //stmt.executeUpdate();
-
         ResultSet rs = stmt.executeQuery();
 
         List<Scent> listOfAll = new ArrayList<>();
@@ -163,12 +103,18 @@ public class UserScentDao {
             listOfAll.add(Scent.rowToScent(rs));
         }
 
-        stmt.close();
-        conn.close();
-
+        closingProceduresRs(conn, rs, stmt);
         return listOfAll;
     }
 
+    /**
+     * Deletes a UserScent from the database
+     *
+     * @param userId id for the user
+     * @param scentId if for the scent
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
     public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
@@ -181,6 +127,13 @@ public class UserScentDao {
         conn.close();
     }
 
+    /**
+     * Adds a new UserScent in the database
+     *
+     * @param userScent userScent that is added
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
     public void add(UserScent userScent) throws SQLException {
         try (Connection c = database.getConnection()) {
             PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
@@ -196,5 +149,11 @@ public class UserScentDao {
             ps.close();
             c.close();
         }
+    }
+
+    private void closingProceduresRs(Connection conn, ResultSet rs, PreparedStatement stmt) throws SQLException {
+        stmt.close();
+        rs.close();
+        conn.close();
     }
 }

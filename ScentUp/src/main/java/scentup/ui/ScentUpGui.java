@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.ui;
 
 import java.io.File;
@@ -37,6 +32,7 @@ import scentup.domain.Scent;
 import scentup.domain.ScentUpService;
 
 /**
+ * This is the graphic user interface for ScentUp
  *
  * @author hdheli
  */
@@ -234,7 +230,7 @@ public class ScentUpGui extends Application {
                 } catch (SQLException ex) {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }            
+            }
         });
 
         newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);

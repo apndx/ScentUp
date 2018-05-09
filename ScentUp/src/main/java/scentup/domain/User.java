@@ -19,12 +19,13 @@ public class User {
     private final String name;
     private final String username;
 
-      /**
+    /**
      * makes a new user
      *
-     *@param userId  - userId is first null, it is created when user is added to the database
-     *@param name - name of the user
-     *@param username - username of the user, this is used for login
+     * @param userId - userId is first null, it is created when user is added to
+     * the database
+     * @param name - name of the user
+     * @param username - username of the user, this is used for login
      */
     public User(Integer userId, String name, String username) {
         this.userId = userId;
@@ -69,9 +70,10 @@ public class User {
     /**
      * Makes a user, this method is used to make listings in Dao
      *
-     * @param rs  result set from user table of the database
-     * @throws SQLException if this database query does not succeed, this exception is thrown
-     * @return User  returns a user
+     * @param rs result set from user table of the database
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return User returns a user
      */
     public static User rowToUser(ResultSet rs) throws SQLException {
         return new User(rs.getInt("user_id"), rs.getString("name"),

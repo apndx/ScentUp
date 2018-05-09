@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.dao;
 
 import java.sql.Connection;
@@ -13,6 +8,7 @@ import java.util.List;
 import scentup.domain.User;
 
 /**
+ * This class is for making database queries for the User table
  *
  * @author hdheli
  */
@@ -49,7 +45,6 @@ public class UserDao {
             stmt.close();
             rs.close();
             conn.close();
-
             return null;
         }
 
@@ -59,7 +54,6 @@ public class UserDao {
         stmt.close();
         rs.close();
         conn.close();
-
         return user;
     }
 
@@ -92,25 +86,14 @@ public class UserDao {
     }
 
     /**
-     * Not implemented yet - finds all users in the database
-     *
-     * @throws SQLException if this database query does not succeed, this
-     * exception is thrown
-     * @return List of all users
-     */
-    public List<User> findAll() throws SQLException {
-        //this is not yet needed, can be implemented later
-        return null;
-    }
-
-    /**
      * Saves a user if it does not exist already
      *
      * @param object user that needs to be saved
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      * @return object. If the userId of the user is null, private method save is
-     * used and a saved user is returned. If user is found with this id, method returns null.
+     * used and a saved user is returned. If user is found with this id, method
+     * returns null.
      */
     public User saveOrNot(User object) throws SQLException {
 

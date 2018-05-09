@@ -5,7 +5,6 @@ package scentup.dao;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.File;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -103,23 +102,27 @@ public class UserScentDaoTest {
         users.saveOrNot(testuser);
         testuser = users.findOne(randomuser);
 
-        String randomscent = UUID.randomUUID().toString().substring(0, 6);
+        String randomscent1 = UUID.randomUUID().toString().substring(0, 6);
+        String randomscent2 = UUID.randomUUID().toString().substring(0, 6);
         String randombrand = UUID.randomUUID().toString().substring(0, 6);
-        Integer testnumber = 1;
 
-        Scent testscent = new Scent(null, randomscent, randombrand, testnumber,
-                testnumber, testnumber);
+        Scent testscent1 = new Scent(null, randomscent1, randombrand, 1, 1, 1);
+        Scent testscent2 = new Scent(null, randomscent2, randombrand, 2, 2, 2);
 
-        scents.saveOrNot(testscent);
-        testscent = scents.findOne(randomscent, randombrand);
+        scents.saveOrNot(testscent1);
+        scents.saveOrNot(testscent2);
+        testscent1 = scents.findOne(randomscent1, randombrand);
+        testscent2 = scents.findOne(randomscent2, randombrand);
 
-        UserScent testUserScent = new UserScent(testuser, testscent, new Date(new java.util.Date().getDate()), 2, 1);
+        UserScent testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent);
 
-        assertEquals(true, userScents.checkIfUserScentExists(users.findOne(randomuser).getUserId(), testscent.getScentId()));
+        assertEquals(true, userScents.checkIfUserScentExists(users.findOne(randomuser).getUserId(), testscent1.getScentId()));
+        assertEquals(false, userScents.checkIfUserScentExists(users.findOne(randomuser).getUserId(), testscent2.getScentId()));
 
         users.delete(randomuser);
-        scents.delete(testscent.getScentId());
+        scents.delete(testscent1.getScentId());
+        scents.delete(testscent2.getScentId());
 
     }
 

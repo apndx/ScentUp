@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.dao;
 
 import java.sql.Connection;
@@ -13,21 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class is for the database connection and creation (if needed)
  *
  * @author hdheli
  */
 public class Database {
 
-    private String databaseAddress;
+    private final String databaseAddress;
 
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
 
+    /**
+     * Opens a connection to the database
+     *
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return Connection returns a Connection
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    /**
+     * Initialising procedures for the database. Creates the database and tables
+     * for it if they do not exist in the root folder of the program.
+     *
+     */
     public void init() {
         List<String> createTablesSencences = sqliteTables();
 
@@ -37,7 +45,6 @@ public class Database {
 
             //  execute command
             for (String sentence : createTablesSencences) {
-                //System.out.println("Running command >> " + sentence);
                 st.executeUpdate(sentence);
             }
 
