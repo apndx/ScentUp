@@ -83,11 +83,6 @@ public class ScentUpGui extends Application {
         HBox box = new HBox(10);
         Label label = new Label(scent.toString());
         label.setMinHeight(28);
-        //Button button = new Button("done");
-//        button.setOnAction(e->{
-//            todoService.markDone(todo.getId());
-//            redrawTodolist();
-//        });
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -112,27 +107,6 @@ public class ScentUpGui extends Application {
         Label label = new Label(scent.toString());
         label.setMinHeight(28);
 
-//        HBox newScentBrowsePane = new HBox(10);
-//        ToggleGroup scentPrefChoices = new ToggleGroup();   // scent gender
-//        //Label newPrefLabel = new Label("How is it?");
-//        RadioButton dislike = new RadioButton("female");
-//        RadioButton neutral = new RadioButton("male");
-//        RadioButton love = new RadioButton("unisex");
-//        dislike.setToggleGroup(scentPrefChoices);
-//        neutral.setToggleGroup(scentPrefChoices);
-//        love.setToggleGroup(scentPrefChoices);
-//        neutral.setSelected(true);
-//        newScentBrowsePane.getChildren().addAll(dislike, neutral, love);
-//
-//        Integer preference = 2;
-//
-//        if (scentPrefChoices.getSelectedToggle() == dislike) {
-//            preference = 1;
-//        } else if (scentPrefChoices.getSelectedToggle() == neutral) {
-//            preference = 2;
-//        } else {
-//            preference = 3;
-//        }
         Button button = new Button("I want");
         button.setOnAction((ActionEvent e) -> {
             try {
@@ -260,8 +234,7 @@ public class ScentUpGui extends Application {
                 } catch (SQLException ex) {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            System.out.println("Click!");
+            }            
         });
 
         newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);
@@ -395,7 +368,6 @@ public class ScentUpGui extends Application {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("Painettu!");
         });
 
         newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane,
@@ -485,6 +457,10 @@ public class ScentUpGui extends Application {
     public void stop() {
         // closing procedures
         System.out.println("Closing ScentUp");
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }

@@ -88,7 +88,7 @@ public class ServiceTest {
         String randomname = UUID.randomUUID().toString().substring(0, 6);
 
         User testuser = new User(null, randomname, randomuser);
-        users.saveOrUpdate(testuser);
+        users.saveOrNot(testuser);
         testuser = users.findOne(randomuser);
 
         String randomscent = UUID.randomUUID().toString().substring(0, 6);
@@ -117,7 +117,7 @@ public class ServiceTest {
         String randomname = UUID.randomUUID().toString().substring(0, 6);
 
         User testuser = new User(null, randomname, randomuser);
-        users.saveOrUpdate(testuser);
+        users.saveOrNot(testuser);
         testuser = users.findOne(randomuser);
 
         String randomscent = UUID.randomUUID().toString().substring(0, 6);
@@ -163,7 +163,7 @@ public class ServiceTest {
         String randomname = UUID.randomUUID().toString().substring(0, 6);
 
         User testuser = new User(null, randomname, randomuser);
-        users.saveOrUpdate(testuser);
+        users.saveOrNot(testuser);
         testuser = users.findOne(randomuser);
 
         int listSize = scents.findAll().size();

@@ -152,7 +152,7 @@ public class ScentUpService {
         if (userDao.isUsernameFree(username)) {
             // if the username is free
             User newuser = new User(null, name, username);
-            userDao.saveOrUpdate(newuser);
+            userDao.saveOrNot(newuser);
             return true;
         } else {
             return false;

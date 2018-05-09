@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This class tests class UserDao
  */
 
 import java.io.File;
@@ -56,17 +54,11 @@ public class UserDaoTest  {
         String randomname =UUID.randomUUID().toString().substring(0, 6);
         
         User newuser = new User(null, randomname, randomuser);
-        users.saveOrUpdate(newuser);
+        users.saveOrNot(newuser);
         
         assertEquals(false, users.isUsernameFree(randomuser));
         users.delete(randomuser);
 
     }
     
-    
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
