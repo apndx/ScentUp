@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package scentup.domain;
 
 import java.sql.Date;
@@ -15,7 +11,7 @@ import scentup.dao.UserScentDao;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentUpService {
 
@@ -47,24 +43,25 @@ public class ScentUpService {
      *
      * @param userId this is the id of the user
      * @param scentIdFor this is the id of the scent
-     * @param dateNow date when the scent was chosen by the user, added
-     * automatically
      * @param pref tells user's preference (1 dislike, 2 neutral, 3 love)
      * @param act tells if this scent is active in user's collection (true when
      * created)
-     * @throws SQLException if this database query does not succeed, this exception is thrown
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
      * @return boolean - did the creation succeed
      */
-    public boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow,
+    public boolean createUserScent(Integer userId, Integer scentIdFor,
             Integer pref, Integer act) throws SQLException {
 
         //adding a new scent for the user logged in
-        UserScent addForUser = new UserScent(loggedIn, scentDao.findOne(scentIdFor), dateNow, pref, act);
+        UserScent addForUser = new UserScent(loggedIn, scentDao.findOne(scentIdFor),
+                new Date((int) new java.util.Date().getTime()), pref, act);
 
         if (!userScentDao.checkIfUserScentExists(userId, scentIdFor)) {
             try {
                 userScentDao.add(addForUser);
             } catch (Exception ex) {
+                System.out.println("Scent could not be added.");
                 return false;
             }
             return true;
@@ -80,24 +77,6 @@ public class ScentUpService {
      */
     public User getLoggedIn() {
         return loggedIn;
-    }
-
-    /**
-     * List of active scents for this user
-     *
-     * @return list of active scents for this user
-     */
-    public List<UserScent> getActive() {
-        List<UserScent> active = new ArrayList<>();
-        if (loggedIn == null) {
-            return active;
-        }
-        try {
-            active = userScentDao.findAllForUser(1, loggedIn.getUserId());
-        } catch (Exception ex) {
-            return new ArrayList<>();
-        }
-        return active;
     }
 
     /**
@@ -142,18 +121,20 @@ public class ScentUpService {
     /**
      * If the username is free, creates a new user
      *
-     * @param username  username for the user
-     * @param name  name for the user
+     * @param username username for the user
+     * @param name name for the user
      * @return boolean, returns true if the creation succeeded
-     * @throws SQLException if this database query does not succeed, this exception is thrown
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
      */
     public boolean createUser(String username, String name) throws SQLException {
         if (userDao.isUsernameFree(username)) {
             // if the username is free
             User newuser = new User(null, name, username);
-            userDao.saveOrUpdate(newuser);
+            userDao.saveOrNot(newuser);
             return true;
         } else {
+            System.out.println("User could not be added.");
             return false;
         }
     }
@@ -161,10 +142,11 @@ public class ScentUpService {
     /**
      * Does the scent exist already in the database?
      *
-     * @param scentName  name of the scent
-     * @param brandName  brand of the scent
-     * @throws SQLException if this database query does not succeed, this exception is thrown
-     * @return boolean  returns true if the scent already exists
+     * @param scentName name of the scent
+     * @param brandName brand of the scent
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return boolean returns true if the scent already exists
      */
     public boolean doesScentExist(String scentName, String brandName) throws SQLException {
         if (!scentDao.checkIfScentExists(scentName, brandName)) {
@@ -178,19 +160,21 @@ public class ScentUpService {
      * Add a scent in the database
      *
      * @param scent - scent to be added
-     * @throws SQLException if this database query does not succeed, this exception is thrown
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
      *
      */
     public void createScent(Scent scent) throws SQLException {
-        scentDao.saveOrUpdate(scent);
+        scentDao.saveOrNot(scent);
     }
 
     /**
      * user login
      *
-     * @param username  username of the user who is logging in
-     * @throws SQLException if this database query does not succeed, this exception is thrown
-     * @return boolean  returns true if the login is successful
+     * @param username username of the user who is logging in
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return boolean returns true if the login is successful
      */
     public boolean login(String username) throws SQLException {
         User current = userDao.findOne(username);

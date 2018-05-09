@@ -1,14 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.ui;
 
 import java.io.File;
-import java.sql.Date;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -37,8 +40,9 @@ import scentup.domain.Scent;
 import scentup.domain.ScentUpService;
 
 /**
+ * This is the graphic user interface for ScentUp
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentUpGui extends Application {
 
@@ -55,8 +59,22 @@ public class ScentUpGui extends Application {
     private Label browseMenuLabel;
 
     @Override
-    public void init() throws ClassNotFoundException {
-        File file = new File("ScentUp.db");
+    public void init() throws ClassNotFoundException, FileNotFoundException, IOException {
+
+        Properties properties = new Properties();
+        File config = new File("config.properties");
+
+        if (!config.exists()) {
+            config.createNewFile();
+            Path path = Paths.get("config.properties");
+            Files.write(path, Arrays.asList("database=ScentUp.db"), Charset.forName("UTF-8"));
+        }
+
+        properties.load(new FileInputStream("config.properties"));
+
+        String databaseFromConfig = properties.getProperty("database");
+
+        File file = new File(databaseFromConfig);
         Database database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
         database.init();
 
@@ -83,11 +101,6 @@ public class ScentUpGui extends Application {
         HBox box = new HBox(10);
         Label label = new Label(scent.toString());
         label.setMinHeight(28);
-        //Button button = new Button("done");
-//        button.setOnAction(e->{
-//            todoService.markDone(todo.getId());
-//            redrawTodolist();
-//        });
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -112,32 +125,11 @@ public class ScentUpGui extends Application {
         Label label = new Label(scent.toString());
         label.setMinHeight(28);
 
-//        HBox newScentBrowsePane = new HBox(10);
-//        ToggleGroup scentPrefChoices = new ToggleGroup();   // scent gender
-//        //Label newPrefLabel = new Label("How is it?");
-//        RadioButton dislike = new RadioButton("female");
-//        RadioButton neutral = new RadioButton("male");
-//        RadioButton love = new RadioButton("unisex");
-//        dislike.setToggleGroup(scentPrefChoices);
-//        neutral.setToggleGroup(scentPrefChoices);
-//        love.setToggleGroup(scentPrefChoices);
-//        neutral.setSelected(true);
-//        newScentBrowsePane.getChildren().addAll(dislike, neutral, love);
-//
-//        Integer preference = 2;
-//
-//        if (scentPrefChoices.getSelectedToggle() == dislike) {
-//            preference = 1;
-//        } else if (scentPrefChoices.getSelectedToggle() == neutral) {
-//            preference = 2;
-//        } else {
-//            preference = 3;
-//        }
         Button button = new Button("I want");
         button.setOnAction((ActionEvent e) -> {
             try {
                 scentUpService.createUserScent(scentUpService.getLoggedIn().getUserId(), scent.getScentId(),
-                        new Date((int) new java.util.Date().getTime()), 2, 1);
+                        2, 1);
             } catch (SQLException ex) {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -197,7 +189,6 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newScentScene);
 
-            System.out.println("Click!");
         });
 
         Button addNewUserButton = new Button("Add a new User");
@@ -206,7 +197,6 @@ public class ScentUpGui extends Application {
             userNameLogin.setText("");
             primaryStage.setScene(newUserScene);
 
-            System.out.println("Click!");
         });
 
         loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton);
@@ -261,7 +251,6 @@ public class ScentUpGui extends Application {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("Click!");
         });
 
         newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);
@@ -328,7 +317,7 @@ public class ScentUpGui extends Application {
             if (scentUpService.getLoggedIn() == null) {
                 primaryStage.setScene(loginScene);
             } else {
-                
+
                 primaryStage.setScene(browseScene);
             }
 
@@ -377,7 +366,7 @@ public class ScentUpGui extends Application {
                                 season, gender);
                         scentUpService.createScent(scentAdded);
                         userCreationMessage.setText("");
-                        
+
                         loginMessage.setTextFill(Color.GREEN);
                         if (scentUpService.getLoggedIn() == null) {
                             loginMessage.setText("new scent added");
@@ -395,7 +384,6 @@ public class ScentUpGui extends Application {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            System.out.println("Painettu!");
         });
 
         newScentPane.getChildren().addAll(newScentNamePane, newScentBrandPane,
@@ -475,9 +463,7 @@ public class ScentUpGui extends Application {
             if (scentUpService.getLoggedIn() != null) {
                 e.consume();
             }
-
         });
-
     }
 
     @Override
@@ -485,6 +471,10 @@ public class ScentUpGui extends Application {
     public void stop() {
         // closing procedures
         System.out.println("Closing ScentUp");
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }

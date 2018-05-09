@@ -11,27 +11,27 @@ import java.util.Objects;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class Scent {
 
     private Integer scentId;
-    private String scentName;
-    private String brand;
-    private Integer timeOfDay;
-    private Integer season;
-    private Integer gender;
+    private final String scentName;
+    private final String brand;
+    private final Integer timeOfDay;
+    private final Integer season;
+    private final Integer gender;
 
     /**
      * Makes a new scent
      *
      * @param scentId - scentId is first null, it is created when scent is added
      * to the database
-     * @param scentName  name of the scent
-     * @param brand  brand of the scent
-     * @param timeOfDay  1 day, 2 night
-     * @param season  1 winter, 2 spring, 3 summer, 4 autumn
-     * @param gender  1 female, 1 male, 3 unisex
+     * @param scentName name of the scent
+     * @param brand brand of the scent
+     * @param timeOfDay 1 day, 2 night
+     * @param season 1 winter, 2 spring, 3 summer, 4 autumn
+     * @param gender 1 female, 2 male, 3 unisex
      */
     public Scent(Integer scentId, String scentName, String brand, Integer timeOfDay,
             Integer season, Integer gender) {
@@ -47,8 +47,8 @@ public class Scent {
     /**
      * Changes season integer to more understandable string form
      *
-     * @param season  1 winter, 2 spring, 3 summer, 4 autumn
-     * @return  returns string
+     * @param season 1 winter, 2 spring, 3 summer, 4 autumn
+     * @return returns string
      */
     public String scentSeasonString(Integer season) {
         if (season == 1) {
@@ -75,15 +75,15 @@ public class Scent {
         if (time == 1) {
             return "day";
         } else {
-            return "night"; 
+            return "night";
         }
     }
 
     /**
      * Changes gender integer to more understandable string form
      *
-     * @param gender  1 female, 1 male, 3 unisex
-     * @return  returns String
+     * @param gender 1 female, 1 male, 3 unisex
+     * @return returns String
      */
     public String scentGenderString(Integer gender) {
         if (gender == 1) {
@@ -108,40 +108,20 @@ public class Scent {
         return scentName;
     }
 
-    public void setName(String name) {
-        this.scentName = name;
-    }
-
     public String getBrand() {
         return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public Integer getTimeOfDay() {
         return timeOfDay;
     }
 
-    public void setTimeOfDay(Integer timeOfDay) {
-        this.timeOfDay = timeOfDay;
-    }
-
     public Integer getSeason() {
         return season;
     }
 
-    public void setSeason(Integer season) {
-        this.season = season;
-    }
-
     public Integer getGender() {
         return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
     }
 
     @Override
@@ -165,7 +145,7 @@ public class Scent {
         }
         final Scent other = (Scent) obj;
         if (!Objects.equals(this.scentName, other.scentName)) {
-            return false; 
+            return false;
         }
         if (!Objects.equals(this.brand, other.brand)) {
             return false;
@@ -177,8 +157,9 @@ public class Scent {
      * Makes a scent, this method is used to make listings in dao
      *
      * @param rs result set from scent table of the database
-     * @throws SQLException if this database query does not succeed, this exception is thrown
-     * @return Scent  returns a scent
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return Scent returns a scent
      */
     public static Scent rowToScent(ResultSet rs) throws SQLException {
         return new Scent(rs.getInt("scent_id"), rs.getString("name"),

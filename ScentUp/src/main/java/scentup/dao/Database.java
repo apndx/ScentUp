@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package scentup.dao;
 
 import java.sql.Connection;
@@ -13,21 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class is for the database connection and creation (if needed)
  *
- * @author hdheli
+ * @author apndx
  */
 public class Database {
 
-    private String databaseAddress;
+    private final String databaseAddress;
 
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
     }
 
+    /**
+     * Opens a connection to the database
+     *
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return Connection returns a Connection
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    /**
+     * Initialising procedures for the database. Creates the database and tables
+     * for it if they do not exist in the root folder of the program.
+     *
+     */
     public void init() {
         List<String> createTablesSencences = sqliteTables();
 
@@ -37,7 +45,6 @@ public class Database {
 
             //  execute command
             for (String sentence : createTablesSencences) {
-                //System.out.println("Running command >> " + sentence);
                 st.executeUpdate(sentence);
             }
 
@@ -48,14 +55,14 @@ public class Database {
     }
 
     private List<String> sqliteTables() {
-        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<String> tablesList = new ArrayList<>();
 
         // creating the datatables
-        lista.add("CREATE TABLE IF NOT EXISTS User (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS User (\n"
                 + "    user_id integer PRIMARY KEY,\n"
                 + "    name varchar(200),\n"
                 + "    username varchar(200));");
-        lista.add("CREATE TABLE IF NOT EXISTS Scent (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS Scent (\n"
                 + "    scent_id integer PRIMARY KEY,\n"
                 + "    name varchar(200),\n"
                 + "    brand varchar(200),\n"
@@ -63,7 +70,7 @@ public class Database {
                 + "    season integer,\n"
                 + "    gender integer\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS  UserScent (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS  UserScent (\n"
                 + "    user_id integer,\n"
                 + "    scent_id integer,\n"
                 + "    choicedate integer,\n"
@@ -72,19 +79,19 @@ public class Database {
                 + "    FOREIGN KEY (user_id) REFERENCES User(user_id),\n"
                 + "    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id)\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS Category (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS Category (\n"
                 + "    category_id integer PRIMARY KEY,     \n"
                 + "    name varchar(200),\n"
                 + "    weight integer	\n"
                 + ");");
-        lista.add("CREATE TABLE IF NOT EXISTS ScentCategory (\n"
+        tablesList.add("CREATE TABLE IF NOT EXISTS ScentCategory (\n"
                 + "    scent_id integer,\n"
                 + "    category_id integer,\n"
                 + "    FOREIGN KEY (scent_id) REFERENCES Scent(scent_id),\n"
                 + "    FOREIGN KEY (category_id) REFERENCES Category(category_id)\n"
                 + ");");
 
-        return lista;
+        return tablesList;
     }
 
 }

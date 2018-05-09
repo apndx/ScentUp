@@ -1,9 +1,10 @@
+package scentup.dao;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.File;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -13,28 +14,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Rule;
-import scentup.dao.Database;
-import scentup.dao.ScentDao;
 import scentup.domain.Scent;
-import scentup.domain.User;
 
 /**
  *
- * @author hdheli
+ * @author apndx
  */
 public class ScentDaoTest {
 
-    private final File file;
-    private final Database database;
-    private final ScentDao scents;
+    private File file;
+    private Database database;
+    private ScentDao scents;
 
     public ScentDaoTest() throws ClassNotFoundException {
-
-        this.file = new File("ScentUp.db");
-        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
-        this.scents = new ScentDao(database);
-
     }
 
     @BeforeClass
@@ -46,11 +38,16 @@ public class ScentDaoTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException {
+        this.file = new File("TestScentUp.db");
+        this.database = new Database("jdbc:sqlite:" + file.getAbsolutePath());
+        database.init();
+        this.scents = new ScentDao(database);
     }
 
     @After
     public void tearDown() {
+          file.delete();
     }
 
     @Test
@@ -63,7 +60,7 @@ public class ScentDaoTest {
         Scent testscent = new Scent(null, randomname, randombrand, testnumber,
                 testnumber, testnumber);
 
-        scents.saveOrUpdate(testscent);
+        scents.saveOrNot(testscent);
 
         assertEquals(true, scents.checkIfScentExists(randomname, randombrand));
         scents.delete(randomname, randombrand);
@@ -80,7 +77,7 @@ public class ScentDaoTest {
         Scent testscent = new Scent(null, randomname, randombrand, testnumber,
                 testnumber, testnumber);
 
-        testscent = scents.saveOrUpdate(testscent);
+        testscent = scents.saveOrNot(testscent);
 
         Integer testScentId = testscent.getScentId();
 
