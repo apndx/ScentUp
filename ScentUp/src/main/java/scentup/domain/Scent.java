@@ -162,7 +162,7 @@ public class Scent {
      * @return Scent returns a scent
      */
     public static Scent rowToScent(ResultSet rs) throws SQLException {
-        return new Scent(rs.getInt("scent_id"), rs.getString("name"),
+        return new Scent(rs.getInt("scent_id"), rs.getString("scentname"),
                 rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"),
                 rs.getInt("gender"));
     }

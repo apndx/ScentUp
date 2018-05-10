@@ -105,7 +105,35 @@ public class UserScentDao {
         closingProceduresRs(conn, rs, stmt);
         return listOfAll;
     }
+          /**
+     * Lists all active scents the user has
+     * @param userId id for the user
+     * @param active this tells that the scent is in an active collection
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return List returns a list of all active scents the user has
+     */
+    public List<UserScent> findAllForUser(Integer active, Integer userId) throws SQLException {
 
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent, User, Scent WHERE userscent.active = ? AND user.user_id = ? "
+                + "AND userscent.user_id=user.user_id AND userscent.scent_id=scent.scent_id");
+
+        stmt.setInt(1, active);
+        stmt.setInt(2, userId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        List<UserScent> listOfAll = new ArrayList<>();
+
+        while (rs.next()) {
+            listOfAll.add(UserScent.rowToUserScent(rs));
+        }
+        stmt.close();
+        rs.close();
+        conn.close();
+        return listOfAll;
+    }
     /**
      * Deletes a UserScent from the database
      *
@@ -148,6 +176,21 @@ public class UserScentDao {
             ps.close();
             c.close();
         }
+    }
+    
+    public void changePreference(UserScent userScent, Integer preference) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET preference =? WHERE user_id = ? AND scent_id = ?");
+        
+        stmt.setInt(1, preference);
+        stmt.setInt(2, userScent.getUser().getUserId());
+        stmt.setInt(3, userScent.getScent().getScentId());
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        conn.close();
+        
     }
 
     private void closingProceduresRs(Connection conn, ResultSet rs, PreparedStatement stmt) throws SQLException {

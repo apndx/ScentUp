@@ -13,7 +13,7 @@ import scentup.domain.Scent;
  *
  * @author apndx
  */
-public class ScentDao {
+public class ScentDao implements SDao {
 
     private final Database database;
 
@@ -45,9 +45,10 @@ public class ScentDao {
      * exception is thrown
      * @return returns the scent if it is found, otherwise returns null
      */
+    @Override
     public Scent findOne(String name, String brand) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE name = ? AND brand = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE scentname = ? AND brand = ?");
         stmt.setString(1, name);
         stmt.setString(2, brand);
         return forFindOne(conn, stmt);
@@ -60,7 +61,7 @@ public class ScentDao {
             closingProceduresRs(conn, rs, stmt);
             return null;
         }
-        Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("name"),
+        Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("scentname"),
                 rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
         closingProceduresRs(conn, rs, stmt);
         return scent;
@@ -75,9 +76,10 @@ public class ScentDao {
      * exception is thrown
      * @return true if found, else false
      */
+    @Override
     public boolean checkIfScentExists(String name, String brand) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE name = ? AND brand = ? ");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Scent WHERE scentname = ? AND brand = ? ");
         stmt.setString(1, name);
         stmt.setString(2, brand);
         ResultSet rs = stmt.executeQuery();
@@ -103,7 +105,7 @@ public class ScentDao {
         ResultSet rs = stmt.executeQuery();
         List<Scent> listOfAll = new ArrayList<>();
         while (rs.next()) {
-            Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"), rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
+            Scent s = new Scent(rs.getInt("scent_id"), rs.getString("scentname"), rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
             listOfAll.add(s);
         }
         closingProceduresRs(conn, rs, stmt);
@@ -119,6 +121,7 @@ public class ScentDao {
      * @return object. If the scentId of the scent is null, private method save
      * is used and a saved scent is returned. If id is found, null is returned.
      */
+    @Override
     public Scent saveOrNot(Scent object) throws SQLException {
         if (object.getScentId() == null) {
             return save(object);
@@ -152,12 +155,13 @@ public class ScentDao {
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      */
+    @Override
     public void delete(String name, String brandname) throws SQLException {
         Connection conn = database.getConnection();
         Scent removable = findOne(name, brandname);
         Integer scentId = removable.getScentId();
         userScentDelete(conn, scentId);
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Scent WHERE name = ?  AND brand = ? ");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM Scent WHERE scentname = ?  AND brand = ? ");
         stmt.setString(1, name);
         stmt.setString(2, brandname);
         closingProceduresUpdate(conn, stmt);
@@ -171,7 +175,7 @@ public class ScentDao {
 
     private Scent save(Scent scent) throws SQLException {
         Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Scent (name, brand, timeofday, season, gender) VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO Scent (scentname, brand, timeofday, season, gender) VALUES (?, ?, ?, ?, ?)");
         stmt.setString(1, scent.getName());
         stmt.setString(2, scent.getBrand());
         stmt.setInt(3, scent.getTimeOfDay());
@@ -179,12 +183,12 @@ public class ScentDao {
         stmt.setInt(5, scent.getGender());
         stmt.executeUpdate();
         stmt.close();
-        stmt = conn.prepareStatement("SELECT * FROM Scent WHERE name = ?  AND brand = ?");
+        stmt = conn.prepareStatement("SELECT * FROM Scent WHERE scentname = ?  AND brand = ?");
         stmt.setString(1, scent.getName());
         stmt.setString(2, scent.getBrand());
         ResultSet rs = stmt.executeQuery();
         rs.next(); // only one row
-        Scent s = new Scent(rs.getInt("scent_id"), rs.getString("name"), rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
+        Scent s = new Scent(rs.getInt("scent_id"), rs.getString("scentname"), rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
         closingProceduresRs(conn, rs, stmt);
         return s;
     }

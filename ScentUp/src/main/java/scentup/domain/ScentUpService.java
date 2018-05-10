@@ -69,6 +69,24 @@ public class ScentUpService {
             return false;
         }
     }
+    
+         /**
+     * List of active UserScents for this User
+     *
+     * @return list of active UserScents for this User
+     */
+    public List<UserScent> getUserScentListforUser() {
+        List<UserScent> activeList = new ArrayList<>();
+        if (loggedIn == null) {
+            return activeList;
+        }
+        try {
+            activeList = userScentDao.findAllForUser(1, loggedIn.getUserId());
+        } catch (Exception ex) {
+            return new ArrayList<>();
+        }
+        return activeList;
+    }
 
     /**
      * Who has logged in
@@ -185,6 +203,10 @@ public class ScentUpService {
             loggedIn = current;
             return true;
         }
+    }
+    
+    public void changePreference(UserScent userScent, Integer preference) throws SQLException {
+        userScentDao.changePreference(userScent, preference);
     }
 
     /**

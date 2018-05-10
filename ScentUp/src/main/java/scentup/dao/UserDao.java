@@ -11,7 +11,7 @@ import scentup.domain.User;
  *
  * @author apndx
  */
-public class UserDao {
+public class UserDao implements UDao, USDao {
 
     private Database database;
 
@@ -33,6 +33,7 @@ public class UserDao {
      * exception is thrown
      * @return User user is returned if found, else null is returned.
      */
+    @Override
     public User findOne(String username) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
@@ -63,7 +64,8 @@ public class UserDao {
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      * @return boolean if username is free, returns true, else false
-     */
+     */  
+    @Override
     public boolean isUsernameFree(String username) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
@@ -94,6 +96,7 @@ public class UserDao {
      * used and a saved user is returned. If user is found with this id, method
      * returns null.
      */
+    @Override
     public User saveOrNot(User object) throws SQLException {
 
         if (object.getUserId() == null) {
@@ -112,6 +115,7 @@ public class UserDao {
      * exception is thrown
      *
      */
+    @Override
     public void delete(String username) throws SQLException {
         Connection conn = database.getConnection();
         User removable = findOne(username);

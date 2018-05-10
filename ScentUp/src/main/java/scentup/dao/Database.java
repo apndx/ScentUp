@@ -64,7 +64,7 @@ public class Database {
                 + "    username varchar(200));");
         tablesList.add("CREATE TABLE IF NOT EXISTS Scent (\n"
                 + "    scent_id integer PRIMARY KEY,\n"
-                + "    name varchar(200),\n"
+                + "    scentname varchar(200),\n"
                 + "    brand varchar(200),\n"
                 + "    timeofday integer,\n"
                 + "    season integer,\n"

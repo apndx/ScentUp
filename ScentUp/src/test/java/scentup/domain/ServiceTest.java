@@ -195,4 +195,41 @@ public class ServiceTest {
         scents.delete(randomscent, randombrand);
 
     }
+    
+     @Test
+    public void isUserScenttListCorrect() throws SQLException {
+
+        String randomuser = UUID.randomUUID().toString().substring(0, 6);
+        String randomname = UUID.randomUUID().toString().substring(0, 6);
+
+        User testuser = new User(null, randomname, randomuser);
+        users.saveOrNot(testuser);
+        testuser = users.findOne(randomuser);
+
+        String randomscent1 = UUID.randomUUID().toString().substring(0, 6);
+        String randomscent2 = UUID.randomUUID().toString().substring(0, 6);
+        String randombrand = UUID.randomUUID().toString().substring(0, 6);
+
+        Scent testscent1 = new Scent(null, randomscent1, randombrand, 1, 1, 1);
+        Scent testscent2 = new Scent(null, randomscent2, randombrand, 2, 2, 2);
+
+        scents.saveOrNot(testscent1);
+        scents.saveOrNot(testscent2);
+        testscent1 = scents.findOne(randomscent1, randombrand);
+        testscent2 = scents.findOne(randomscent2, randombrand);
+
+        UserScent testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
+        userScents.add(testUserScent);
+        UserScent testUserScent2 =  new UserScent(testuser, testscent2, new Date(new java.util.Date().getDate()), 2, 1);
+        userScents.add(testUserScent2);
+        
+        service.login(randomuser);
+        assertEquals(2, service.getUserScentListforUser().size());
+        service.logout();
+        users.delete(randomuser);
+        scents.delete(testscent1.getScentId());
+        scents.delete(testscent2.getScentId());
+        
+    }
+    
 }
