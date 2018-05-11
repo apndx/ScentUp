@@ -1,6 +1,6 @@
 # Käyttöohje
 
-Lataa tiedosto ScentUp.jar.
+Lataa tiedosto [ScentUp.jar](https://github.com/apndx/otm-harjoitustyo/releases/tag/1).
 
 ## Konfigurointi
 

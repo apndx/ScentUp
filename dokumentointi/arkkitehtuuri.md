@@ -27,7 +27,7 @@ Kun sovelluksessa käyttäjän hajuvesikokoelman tilanne muuttuu, eli kun käytt
 
 Sovelluksen loogisen datamallin muodostavat luokat User, Scent ja UserScent. Luokat kuvaavat käyttäjiä, hajuvesiä, ja käyttäjän valitsemia hajuvesiä.
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentLuokkakaavio.png" width="750">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentLuokkakaavio.png" width="500">
 
 Toiminnallisista kokonaisuuksista vastaa luokka ScentUpService. Luokka tarjoaa käyttöliittymän toiminnoille metodit. Näitä ovat esim:
 
@@ -47,7 +47,7 @@ _ScentUpService_ pääsee käsiksi käyttäjiin ja hajuvesiin tietojen tallennuk
 
 Ohjelman osien suhdetta kuvaava luokka/pakkauskaavio:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUp.png" width="750">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUp.png" width="700">
 
 ## Tietojen pysyväistallennus
 
@@ -57,7 +57,7 @@ Pakkauksen _scentup.dao_ luokat _ScentDao_, _UserDao_ ja _UserScentDao_ huolehti
 
 Sovellus tallettaa käyttäjien ja hajuvesien tiedot tietokantaan. Tietokanta on kuvattu oheisessa tietokantakaaviossa:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/scentUp_database_tables.png" width="750">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/scentUp_database_tables.png" width="700">
 
 Tietokannassa on jo valmiina taulut ScentCategory ja Category ohjelman mahdollista jatkokehitystä varten.
 
@@ -88,4 +88,17 @@ Kun uuden hajuveden luomisnäkymässä on syötetty hajuveden nimi ja merkki, va
 <img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpNewScentSec.png" width="800">
 
 [Tapahtumakäsittelijä](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/ui/ScentUpGui.java#L418) kutsuu sovelluslogiikan metodia [doesScentExist](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L161) ja ScentDao tarkistaa nimen ja merkin perusteella onko hajuvesi jo tietokannassa. Kun on varmistettu, että hajuvettä ei olla lisäämässä tuplana, tapahtumakäsittelijä luo scent-olion, ja kutsuu sovelluslogiikan metodia [createScent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L176) antaen scent olion tälle parametrina. _ScentDao_ tallentaa tämän jälkeen hajuveden tietokantaan käyttäen metodia _saveOrNot_. Tämän jälkeen tapahtumakäsittelijä palauttaa loginScene -näkymämän ja ilmoittaa _new scent added_.
+
+#### Muut toiminnallisuudet
+
+Sama periaate toistoo sovelluksen kaikissa toiminnallisuuksissa, käyttöliittymän tapahtumakäsittelijä kutsuu sopivaa sovelluslogiikan metodia, sovelluslogiikka päivittää listoja,  kirjautuneen käyttäjän tilaa tai userScent -hajuveden ominaisuuksia. Toiminnon päättyessä palataan käyttäliittymään ja päivitetään tarvittaessa listauksia sekä aktiivinen näkyvä.
+
+## Ohjelman rakenteeseen jääneet heikkoudet
+
+### Käyttöliittymä
+
+Graafinen käyttöliittymä on toteutettu määrittelemällä lähes koko käyttöliittymän struktuuri luokan _ScentUpGUi_ metodissa _start_. Toiminnallisuuksia olisi hyvä erottaa omiin metodeihin tai luokkiin. Yksi mahdollisuus olisi korjata nykyinen rakenne FXML-määrittelyllä. Lisäksi käyttöliittymä voisi olla paremmin eristetty, tällä hetkellä hajuveden luomistoiminnossa käyttöliittymä osallistuu olion luomiseen joka voitaisiin tehdä ennemmin kokokonaan ohjelmalogiikan puolella. Lisäksi luokan ScentUpService olisi voinut jakaa useampaan luokkaan, jotka olisivat käsitelleet erikseen käyttäjään, hajuveteen ja käyttäjän hajuveteen liittyviä toimintoja.
+
+
+
 
