@@ -20,7 +20,7 @@ DAO-luokkien toiminnallisuus on testattu luomalla testeissä tilapäinen tiedost
 
 Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen rivikattavuus on 94 % ja haaraumakattavuus on 76 %.
 
-<img scr= "https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/jacoco.jpg" width="800">
+[Jacoco-report](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/jacoco.jpg)
 
 Testaamatta jäivät osa equals-metodin haaroista, tilanteet joissa tietokanta on jostain syystä korruptoitunut, sekä osa catch-haaroista.
 
