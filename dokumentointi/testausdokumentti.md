@@ -10,7 +10,7 @@ Automatisoitujen testien ytimen moudostavat sovelluslogiikkaa, eli pakkauksen [s
 
 Integraatiotestit käyttävät datan pysyväistallennukseen testeissä muodostettavaa testitietokantaa TestScentUp.db.
 
-Sovelluslogiikkakerroksen luokille [User](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/User.java), [Scent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/Scent.java) ja [UserScent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/UserScent.java) on tehty joitakin yksittötestejä kattamaan tapauksia, joita integraatiotestit eivät kata (mm. olioiden _equals_- metodit).
+Sovelluslogiikkakerroksen luokille [User](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/User.java), [Scent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/Scent.java) ja [UserScent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/UserScent.java) on tehty joitakin yksikkötestejä kattamaan tapauksia, joita integraatiotestit eivät kata (mm. olioiden _equals_- metodit).
 
 ### DAO-luokat
 
