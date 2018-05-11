@@ -91,20 +91,6 @@ public class ScentUpGui extends Application {
     }
 
     /**
-     * Renders the scent list of the UserScents for the user logged in
-     *
-     */
-    public void redrawUserHasScentsList() {
-
-        scentNodes.getChildren().clear();
-
-        List<Scent> scentsUserHas = scentUpService.getScentsUserHas();
-        scentsUserHas.forEach(scent -> {
-            scentNodes.getChildren().add(createScentNode(scent));
-        });
-    }
-
-    /**
      * Renders the userScent list of the UserScents for the user logged in
      *
      */
@@ -170,7 +156,6 @@ public class ScentUpGui extends Application {
             } catch (SQLException ex) {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //redrawUserHasScentsList();
             redrawUserHasNotScentsList();
             redrawUserHasUserScentsList();
         });
@@ -254,13 +239,13 @@ public class ScentUpGui extends Application {
         // stuff needed to login, add user's collection page
         HBox loginGroup = new HBox(10);
         TextField userNameLogin = new TextField("username");
-        Button loginButton = new Button("ScentIn");  //loginbutton
+        Button loginButton = new Button("ScentIn");
         loginGroup.setSpacing(20);
         loginGroup.getChildren().addAll(userNameLogin, loginButton);
 
         loginButton.setOnAction(e -> {
 
-            // first setup
+            // button that takes to loggedIn scene
             String username = userNameLogin.getText();
             menuLabel.setText("Welcome " + username + "! Here is your current collection: ");
             try {
@@ -301,9 +286,6 @@ public class ScentUpGui extends Application {
         loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton);
         loginScene = new Scene(loginPane);
 
-        
-        
-        
         // stuff needed for add new user page
         VBox newUserPane = new VBox(10);
 
@@ -358,9 +340,6 @@ public class ScentUpGui extends Application {
         newUserPane.getChildren().addAll(creationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);
         newUserScene = new Scene(newUserPane, 400, 250);
 
-        
-        
-        
         // stuff for new scent page
         VBox newScentPane = new VBox(10); // group pane for all the elements
 
@@ -420,9 +399,14 @@ public class ScentUpGui extends Application {
         outOfScentCreation.setOnAction(e -> {
 
             if (scentUpService.getLoggedIn() == null) {
+
+                ScentNameInput.setText("");
+                scentBrandInput.setText("");
                 primaryStage.setScene(loginScene);
             } else {
-
+                ScentNameInput.setText("");
+                scentBrandInput.setText("");
+                      
                 primaryStage.setScene(browseScene);
             }
 
@@ -436,7 +420,7 @@ public class ScentUpGui extends Application {
             String scentbrand = scentBrandInput.getText();
 
             if (scentname.length() < 1 || scentbrand.length() < 1) {
-                creationMessage.setText("username or name too short");
+                creationMessage.setText("name or brand of the scent too short");
                 creationMessage.setTextFill(Color.RED);
             } else {
                 try {
@@ -501,10 +485,6 @@ public class ScentUpGui extends Application {
 
         newScentScene = new Scene(newScentPane, 400, 300);
 
-        
-        
-        
-        
         // main scene, logged in
         ScrollPane scentScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(scentScrollbar);
@@ -534,10 +514,7 @@ public class ScentUpGui extends Application {
         redrawUserHasUserScentsList();
         scentScrollbar.setContent(userScentNodes);
         mainPane.setTop(menuPane);
-        
-        
-        
-        
+
         //browse page 
         ScrollPane browseScrollbar = new ScrollPane();
         BorderPane browsePane = new BorderPane(browseScrollbar);
@@ -571,9 +548,6 @@ public class ScentUpGui extends Application {
         browseScrollbar.setContent(browseableScentNodes);
         browsePane.setTop(browseMenuPane);
 
-        
-        
-        
         // seutp primary stage
         primaryStage.setTitle("ScentUp");
         primaryStage.setScene(loginScene);

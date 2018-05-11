@@ -2,17 +2,25 @@
 
 ## Sovelluksen tarkoitus
 
-Sovellusta voi käyttää hajuveden valitsemiseen. Sovelluksella voi olla useampi rekisteröitynyt käyttäjä.
+Sovelluksessa on hajuvesitietokanta, josta käyttäjä voi valikoida oman kokoelmansa. Sovelluksella voi olla useampi rekisteröitynyt käyttäjä.
 
 ## Käyttäjät
 
-Alkuvaiheessa sovelluksella on vain peruskäyttäjä.
+Alkuvaiheessa sovelluksella on vain peruskäyttäjiä.
 
 ## Käyttöliittymäluonnos
 
 Sovellus koostuu viidestä näkymästä:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaar.jpg" width="750">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/kirjautumisnakyma.jpg" width="400">
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/uusikayttaja.jpg" width="400">
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/createscent.jpg" width="400">
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/loggedin.jpg" width="400">
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/browse.jpg" width="400">
 
 ## Perusversion tarjoama toiminnallisuus
 
@@ -23,22 +31,22 @@ Sovellus koostuu viidestä näkymästä:
    - Käyttäjä voi kirjautua järjestelmään
       - Kirjautuminen onnistuu syötettäessä käyttäjätunnus lomakkeelle
       - Jos käyttäjää ei ole, tulee virheilmoitus
+   - Käyttäjä voi luoda tietokantaan uusia hajuvesiä, näihin on näkyvyys kaikilla käyttäjillä
 
 ### Kirjautumisen jälkeen
 
-   - Valittavana on näkymä, jossa voi lisätä uusia hajuvesiä
-       - Hajuvedelle määritellään nimi, merkki, vuorokaudenaika, vuodenaika ja sukupuoli
-   - Käyttäjä näkee oman sivunsa jossa on aiemmin tehdyt käyttäjäkohtaiset valinnat, joissa näkyy valintapäivä
-       - Valintoihin voi myös merkitä käyttäjäkohtaisen tiedon onko valinta huono, ok, vai suosikki
-   - Toisessa näkymässä valintoja voi poistaa ja lisätä	
-   - Käyttäjä voi kirjautua ulos
+   - Kirjautumisen jälkeen tullaan käyttäjän omalle sivulle, jossa on listattu käyttäjän hajuvesikokoelma
+       - Hajuvedestä on listattu nimi, merkki, vuorokaudenaika, vuodenaika ja sukupuoli
+       - Listauksessa on myös vetovalikko jokaisen hajuveden kohdalla, siitä voi valita miten onnistunut valinta on kyseessä (dislike, neutral, love)
+   - Näkymästä voi siirtyä kokoelmaan kuulumattomien hajuvesien selaustoimintoon (Browse). Sen listauksesta käyttäjä voi lisätä hajuvesiä omaan kokoelmaansa, ja sivulta on myös mahdollista siirtyä uuden hajuveden lisäyssivulle.	
+   - Käyttäjä voi kirjautua ulos (ScentOut)
 
 ## Jatkokehitysideioita
 
-   - Hajuvesiin voi lisätä tuoksuominaisuuksia, näitä varten tehdään tietokantataulut valmiiksi
+   - Hajuvesiin voi lisätä kategorian, näitä varten tietokannassa on valmiina tietokantataulut Category ja ScentCategory
    - Olemassaolevien hajuvesien ominaisuuksien muokkaus
    - Hajuvesien hakutoimintoja eri ominaisuuksien perusteella
    - Turvallisempi kirjautuminen
    - Sovellukseen pääkäyttäjä, ja hajuvesien lisäys vaatii pääkäyttäjän oikeudet
-   - Toiminto jolla hajuvesiä voi lisätä useita kerralla tiedostosta 
-   - Hajuvesikategoriat
+   - Toiminto jolla hajuvesiä voi lisätä tietokantaan useita kerralla tiedostosta 
+  

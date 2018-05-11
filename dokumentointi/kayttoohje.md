@@ -1,11 +1,12 @@
 # Käyttöohje
 
+Lataa tiedosto ScentUp.jar.
 
 ## Konfigurointi
 
-Jos haluat hyödyntää tietokantaan valmiiksi lisättyjä hajuvesiä, voit ottaa mukaan tiedoston ScentUp.db joka löytyy zip-paketista, sekä valmiinä löytyvän config.properties tiedosto. Oikea paikka näille tiedostoille on ohjelman juurikansiossa. Jos tiedostot puuttuvat, luodaan niistä uudet versiot ensimmäisen käynnistyksen yhteydessä.
+Jos haluat hyödyntää tietokantaan valmiiksi lisättyjä hajuvesiä, voit ottaa mukaan tiedoston ScentUp.db joka löytyy zip-paketista, sekä valmiinä löytyvän config.properties tiedoston. Oikea paikka näille tiedostoille on ohjelman juurikansiossa. Jos tiedostot puuttuvat, luodaan niistä uudet versiot ensimmäisen käynnistyksen yhteydessä.
 
-Jos haluat vaihtaa käyttöön eri tietokannan, voit vaihtaa sen muuttamalla config.properties tiedostoon "database =" jälkeen oman tietokantasi nimen.
+Jos haluat vaihtaa käyttöön eri tietokannan, voit vaihtaa sen muuttamalla config.properties tiedostoon "database =" jälkeen oman tietokantasi nimen, ja lisätä oman tietokantasi ohjelman juureen.
 
 ## Ohjelman käynnistäminen
 
@@ -49,7 +50,7 @@ Kun käyttäjä on kirjautunut ohjelmaan olemassaolevalla käyttäjätunnuksella
 
 <img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/loggedin.jpg" width="400">
 
-Tästä näkymästä voi joko kirjautua ulos painikkeella _ScentOut_ tai siirtyä valitsemaan kokoelmaan lisää hajuvesiä painikkeella _Browse_.
+Tästä näkymästä voi joko kirjautua ulos painikkeella _ScentOut_ tai siirtyä valitsemaan kokoelmaan lisää hajuvesiä painikkeella _Browse_. Jokaisen hajuveden kohdalle voi myös merkitä vetovalikosta miten onnistunut valinta on kyseessä (dislike/neutral/love).
 
 ## Uusien hajuvesien valitseminen käyttäjän kokoelmaan
 

@@ -1,6 +1,6 @@
 Tietokantakaavio:
-https://yuml.me/aa82c476.png
-http://yuml.me/edit/aa82c476
+http://yuml.me/aa82c476.png
+http://yuml.me/edit/19c6fa7c
 
 Luokkakaavio javakoodille:
 http://yuml.me/6124b046.png

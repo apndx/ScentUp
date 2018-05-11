@@ -199,5 +199,14 @@ public class ServiceTest {
         userScents.delete(testuser.getUserId(), testscent2.getScentId());
 
     }
+    
+    @Test
+    public void loggedInHandledCorrectly() throws SQLException {
+        service.login(randomuser);
+        assertEquals(testuser, service.getLoggedIn());
+        service.logout();
+        assertNull(service.getLoggedIn());
+
+    }
 
 }
