@@ -26,11 +26,19 @@ Testaamatta jäivät osa equals-metodin haaroista, tilanteet joissa tietokanta o
 
 ## Järjestelmätestaus
 
+Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
+
 ### Asennus ja konfigurointi
 
+Sovellus on haettu ja sitä on testattu [käyttöohjeen](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/kayttoohje.md) kuvaamalla tavalla Linux-ympäristössä siten, että sovelluksen käynnistyshakemistossa on ollut käyttöohjeen kuvauksen mukainen config.properties-tiedosto ja tietokanta ScentUp.db. Sovellusta on testattu sekä tilanteissa, joissa käyttäjät ja työt tallettavat tiedostot ovat olleet olemassa ja joissa niitä ei ole ollut jolloin ohjelma on luonut ne itse.
 
-Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
 
 ### Toiminnallisuudet 
 
+Kaikki [määrittelydokumentin](https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md) ja käyttöohjeen listaamat toiminnallisuudet on käyty läpi. Kaikkien toiminnallisuuksien yhteydessä on syötekentät yritetty täyttää myös virheellisillä arvoilla kuten tyhjillä.
+
 ## Sovellukseen jääneet laatuongelmat
+
+Sovellus ei anna tällä hetkellä järkeviä virheilmoituksia, seuraavissa tilanteissa
+
+* konfiguraation määrittelemiin tiedostoihin ei ole luku/kirjoitusoikeuksia

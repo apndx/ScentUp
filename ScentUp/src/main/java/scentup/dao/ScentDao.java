@@ -11,7 +11,6 @@ import scentup.domain.Scent;
 /**
  * This class is for making database queries for the Scent table
  *
- * @author apndx
  */
 public class ScentDao implements SDao {
 
@@ -61,8 +60,7 @@ public class ScentDao implements SDao {
             closingProceduresRs(conn, rs, stmt);
             return null;
         }
-        Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("scentname"),
-                rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
+        Scent scent = new Scent(rs.getInt("scent_id"), rs.getString("scentname"), rs.getString("brand"), rs.getInt("timeofday"), rs.getInt("season"), rs.getInt("gender"));
         closingProceduresRs(conn, rs, stmt);
         return scent;
     }

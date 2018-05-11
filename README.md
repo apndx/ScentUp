@@ -22,7 +22,7 @@ Ohjelmasta tehdyt julkaisut:
 
 * [Ensimmäinen julkaisu](https://github.com/apndx/otm-harjoitustyo/releases/tag/0.1)
 * [Toinen julkaisu](https://github.com/apndx/otm-harjoitustyo/releases/tag/0.2)
-
+* [Loppupalautus](https://github.com/apndx/otm-harjoitustyo/releases/tag/1)
 
 ## Komentorivitoiminnot
 
@@ -67,7 +67,7 @@ JavaDocia voi tarkastella avaamalla selaimella tiedosto _target/site/apidocs/ind
 Tiedostoon [checkstyle.xml](https://github.com/mluukkai/OtmTodoApp/blob/master/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
 
 ```
- mvn jxr:jxr checkstyle:checkstyle
+mvn jxr:jxr checkstyle:checkstyle
 ```
 
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto target/site/checkstyle.html
