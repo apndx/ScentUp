@@ -13,7 +13,7 @@ Jos haluat vaihtaa käyttöön eri tietokannan, voit vaihtaa sen muuttamalla con
 Ohjelma käynnistetään komennolla 
 
 ```
-java -jar todoapp.jar
+java -jar ScentUp.jar
 ```
 
 ## Kirjautuminen
