@@ -25,9 +25,10 @@
 | 2.5.  |3 h | testi servicelle, javadoc, read.md päivitys, käyttöohje, paluunappuloita, pääsy browsesta hajuveden luomissivulle |
 | 4.5.  |15 min| koodikatselmuspalautteen lukemista, muuttujien uudelleennimeämistä |
 | 6.5.  |1 h| koodikatselmuspalautteen ehdotusten toteutusta, refaktorointia ja javadoceja |
-| 9.5.  |5 h| java.docs, refaktorointi ja koodin siistiminen, config.tiedosto, testitietokanta, testauskattavuutta lisää |
+| 9.5.  |5 h 30 min| java.docs, refaktorointi ja koodin siistiminen, config.tiedosto, testitietokanta, testauskattavuutta lisää, testi.db |
+| 10.5.  |7 h | käyttäjän kokoelmalistan olion vaihto scentistä userscentiin, preference-valikko, testejä uudelle toiminnallisuudelle |
+| 11.5.  |6 h 30 min | refaktorointia, testikattavuuden lisäystä, dokumentointia (päivitetty arkkitehtuuri, käyttöohje, vaatimusmäärittely) |
 
-
-yht. 64 h 15 min
+yht. 78 h 15 min 
 
 

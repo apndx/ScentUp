@@ -1,4 +1,3 @@
-
 package scentup.domain;
 
 import java.sql.Date;
@@ -7,7 +6,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- *
+ * Makes a new UserScent - this means a certain user has a certain scent
+ * 
  * @author apndx
  */
 public class UserScent {
@@ -15,7 +15,7 @@ public class UserScent {
     private final User user;
     private final Scent scent;
     private final Date choiceDate;
-    private final Integer preference;
+    private Integer preference;
     private final Integer active;
 
     /**
@@ -54,6 +54,27 @@ public class UserScent {
 
     public Integer getActive() {
         return active;
+    }
+
+    public void setPreference(Integer preference) {
+        this.preference = preference;
+    }
+
+    /**
+     * Changes preference integer to more understandable string form
+     *
+     * @param preference 1 dislike, 2 neutral, 3 love
+     * @return returns String
+     */
+    public String userScentPreferenceString(Integer preference) {
+        if (preference == 1) {
+            return "dislike";
+        }
+        if (preference == 2) {
+            return "neutral";
+        } else {
+            return "love";
+        }
     }
 
     @Override
@@ -109,5 +130,14 @@ public class UserScent {
         return new UserScent(User.rowToUser(rs), Scent.rowToScent(rs), rs.getDate("choicedate"),
                 rs.getInt("preference"), rs.getInt("active"));
 
+    }
+
+    @Override
+    public String toString() {
+        return this.scent.getName() + ", " + this.scent.getBrand() + ", "
+                + this.scent.scentTimeOfDayString(this.scent.getTimeOfDay()) + ", "
+                + this.scent.scentSeasonString(this.scent.getSeason()) + ", "
+                + this.scent.scentGenderString(this.scent.getGender());
+              
     }
 }

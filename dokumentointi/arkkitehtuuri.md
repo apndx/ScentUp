@@ -4,12 +4,9 @@
 
 Ohjelman rakenne noudattelee kolmitasoista kerrosarkkitehtuuria, ja koodin pakkausrakenne on seuraava:
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpPackages.png" width="300">
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpPackages.png" width="200">
 
-Pakkaus scentup.ui sisältää JavaFX:llä toteutetun käyttöliittymän, lisäksi löytyy vaihtoehtoinen tekstikäyttöliittymä.
-Käyttöliittymän voi valita kommentoimalla Main luokasta piiloon sen käyttöliittymän aloituskäskyt, jota ei haluta käyttää.
-
-Pakkaus scentup.domain sisältää sovelluslogiikan, ja scentup.dao tietojen pysyväistallennuksesta ja hausta vastaavan koodin.
+Pakkaus scentup.ui sisältää JavaFX:llä toteutetun käyttöliittymän. Pakkaus scentup.domain sisältää sovelluslogiikan, ja scentup.dao tietojen pysyväistallennuksesta ja hausta vastaavan koodin.
 
 ## Käyttöliittymä
 
@@ -20,11 +17,11 @@ Käyttöliittymä sisältää viisi erillistä näkymää:
  - kirjautumisen jälkeen käyttäjä näkee listauksen valitsemistaan hajuvesistä, sivulta voi myös siirtyä hakemaan uusia hajuvesiä
  - käyttäjäsivulta pääsee selaamaan hajuvesiä, joita ei ole vielä käyttäjän kokoelmassa, näistä käyttäjä voi valita omaan kokoelmaansa uuden hajuveden
 
-Jokainen näistä on toteutettu omana Scene -oliona.  Näkymistä yksi kerrallaan on näkyvissä, eli sijoitettuna sovelluksen stageen. Käyttöliittyä on rakennettu ohjelmallisesti luokassa scentup.ui.ScentUpGui.
+Jokainen näistä on toteutettu omana Scene -oliona. Näkymistä yksi kerrallaan on näkyvissä, eli sijoitettuna sovelluksen stageen. Käyttöliittyä on rakennettu ohjelmallisesti luokassa scentup.ui.ScentUpGui.
 
-Käyttöliittymä kutsuu sopivin parametrein sovelluslogiikan toteuttavan olion scentUpServicen metodeja.
+Käyttöliittymä kutsuu sopivin parametrein sovelluslogiikan toteuttavan olion _scentUpServicen_ metodeja.
 
-Kun sovelluksessa käyttäjän hajuvesikokoelman tilanne muuttuu, eli kun käyttäjä kirjautuu, tai uusi hajuvesi valitaan kokoelmaa, kutsutaan sovelluksen metodeja redrawUserHasScentsList ja redrawUserHasNotScentsList. Näin listausnäkyvät renderöityvät uudelleen sen mukaan, kumpaan listaukseen hajuvesi kuuluu.
+Kun sovelluksessa käyttäjän hajuvesikokoelman tilanne muuttuu, eli kun käyttäjä kirjautuu,  uusi hajuvesi valitaan kokoelmaan, tai hajuveden preferenssiä muututaan, kutsutaan sovelluksen metodeja redrawUserHasUserScentsList ja redrawUserHasNotScentsList. Näin listausnäkymät renderöityvät uudelleen sen mukaan, kumpaan listaukseen hajuvesi kuuluu.
 
 ## Sovelluslogiikka
 
@@ -33,17 +30,20 @@ Sovelluksen loogisen datamallin muodostavat luokat User, Scent ja UserScent. Luo
 <img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentLuokkakaavio.png" width="750">
 
 Toiminnallisista kokonaisuuksista vastaa luokka ScentUpService. Luokka tarjoaa käyttöliittymän toiminnoille metodit. Näitä ovat esim:
- - boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow, Integer pref, Integer act)
- - User getLoggedIn()
- - List<Scent> getScentsUserHas()
- - List<Scent> getScentsUserHasNot() 
+
  - boolean createUser(String username, String name)
  - boolean doesScentExist(String scentName, String brandName)
  - void createScent(Scent scent)
+ - boolean createUserScent(Integer userId, Integer scentIdFor, Date dateNow, Integer pref, Integer act)
+
+ - List<Scent> getScentsUserHas()
+ - List<Scent> getScentsUserHasNot() 
+
  - boolean login(String username)
+ - User getLoggedIn()
  - void logout() 
 
-_ScentUpService_ pääsee käsiksi käyttäjiin ja hajuvesiin tietojen tallennuksesta vastaavien pakkauksessa _scentup.dao_ sijaitsevien rajapinnat toteuttavien _ScentDao_ , _UserDao_ ja _UserScentDao_ luokkien kautta. Luokkien toteutuksen [injektoidaan](https://en.wikipedia.org/wiki/Dependency_injection) sovelluslogiikalle konstruktorikutsun yhteydessä.
+_ScentUpService_ pääsee käsiksi käyttäjiin ja hajuvesiin tietojen tallennuksesta vastaavien pakkauksessa _scentup.dao_ sijaitsevien rajapinnat _UDao_, SDao_ ja _USDao_ toteuttavien _UserDao_, _ScentDao_ ja _UserScentDao_ luokkien kautta. Luokkien toteutukset [injektoidaan](https://en.wikipedia.org/wiki/Dependency_injection) sovelluslogiikalle konstruktorikutsun yhteydessä.
 
 Ohjelman osien suhdetta kuvaava luokka/pakkauskaavio:
 
@@ -65,25 +65,27 @@ Tietokannassa on jo valmiina taulut ScentCategory ja Category ohjelman mahdollis
 
 Kuvataan seuraavaksi sovelluksen toimintalogiikka muutaman päätoiminnallisuuden osalta sekvenssikaaviona.
 
-#### Käyttäjän kirjautuminen tekstikäyttöliittymän kautta
+#### Käyttäjän kirjautuminen
 
-Tekstikäyttöliittymässä aukeaa ensin päävalikko:
+Kun kirjautumisnäkymässä on syötekenttään kirjoitettu käyttäjätunnus ja klikataan painiketta _ScentIn_ etenee sovelluksen kontrolli seuraavasti:
 
-What to do next?
-1. Create a new User
-2. Add a new Scent
-3. ScentIn
-4. ScentOut
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpLoginGUI.png" width="1000">
 
-Kun käyttäjä kirjoittaa "3", etenee ohjelman suoritus seuraavasti:
+Painikkeen painamiseen reagoiva [tapahtumankäsittelijä](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/ui/ScentUpGui.java#L247) kutsuu sovelluslogiikan _scentUpService_ metodia [login](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L188) antaen parametrina kirjautuneen käyttäjätunnuksen. Sovelluslogiikka selvittää _userDaon_:n avulla onko käyttäjätunnus olemassa. Jos on, eli kirjautuminen onnistuu, vaihtaa käyttöliittymä näkymäksi _sceneLoggedIn_ joka on sovelluksen päänäkymä. Näkymään renderöidään kirjautuneen käyttäjän hajuvesikokoeman listana.
 
-<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpLogin.png" width="1000">
+#### Uuden käyttäjän luominen
 
-Käyttäjän syötteeseen reagoiva tekstikäyttöliittymä kutsuu sovelluslogiikan metodia login antaen parametriksi kirjautuneen käyttäjätunnuksen.
-Sovelluslogiikka selvittää userDao:n avulla, onko käyttäjätunnus olevmassa. Jos on, kirjautuminen onnistuu.
-Tämän jälkeen tekstikäyttöliittymä toivottaa käyttäjän tervetulleeksi, ja tulostaa seuraavan valikon:
+Kun uuden käyttäjän luomisnäkymässä on syötetty käyttäjätunnus joka ei ole jo käytössä sekä nimi ja klikataan painiketta _Add a new User_ etenee sovelluksen kontrolli seuraavasti (tässä kaaviossa on daon ja tietokannan välinen toiminta abstrahoitu pois):
 
-What to do next?
-1. Print what I have chosen
-2. Browse and add to collection (under construction)
-3. Logout
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpNewUserSec.png" width="800">
+
+[Tapahtumakäsittelijä](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/ui/ScentUpGui.java#L316) kutsuu sovelluslogiikan metodia [createUser](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L140) antaen parametriksi luotavan käyttäjän tiedot. Sovelluslogiikka selvittää _userDao_:n avulla onko käyttäjätunnus olemassa. Jos ei, eli uuden käyttäjän luominen on mahdollista, luo sovelluslogiikka _User_-olion ja tallettaa sen kutsumalla _userDao_:n metodia _saveOrNot_. Tästä seurauksena on se, että käyttöliittymä vaihtaa näkymäksi _loginScenen_ eli kirjautumisnäkymän.
+
+#### Uuden hajuveden luominen
+
+Kun uuden hajuveden luomisnäkymässä on syötetty hajuveden nimi ja merkki, valittu vaihtoehdoista hajuveden ominaisuudet ja klikattu nappia _I'm ready, let's do it!_ etenee sovelluksen kontrolli seuraavasti (tässä kaaviossa on daon ja tietokannan välinen toiminta abstrahoitu pois):
+
+<img src="https://github.com/apndx/otm-harjoitustyo/blob/master/dokumentointi/ScentUpNewScentSec.png" width="800">
+
+[Tapahtumakäsittelijä](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/ui/ScentUpGui.java#L418) kutsuu sovelluslogiikan metodia [doesScentExist](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L161) ja ScentDao tarkistaa nimen ja merkin perusteella onko hajuvesi jo tietokannassa. Kun on varmistettu, että hajuvettä ei olla lisäämässä tuplana, tapahtumakäsittelijä luo scent-olion, ja kutsuu sovelluslogiikan metodia [createScent](https://github.com/apndx/otm-harjoitustyo/blob/master/ScentUp/src/main/java/scentup/domain/ScentUpService.java#L176) antaen scent olion tälle parametrina. _ScentDao_ tallentaa tämän jälkeen hajuveden tietokantaan käyttäen metodia _saveOrNot_. Tämän jälkeen tapahtumakäsittelijä palauttaa loginScene -näkymämän ja ilmoittaa _new scent added_.
+

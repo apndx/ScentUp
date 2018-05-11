@@ -99,4 +99,14 @@ public class DomainTest {
                 testscent4.toString());
 
     }
+    
+    @Test
+    public void userScentToString() {
+        
+        assertEquals(this.testscent1.getName() + ", " + this.testscent1.getBrand() + ", "
+                + this.testscent1.scentTimeOfDayString(this.testscent1.getTimeOfDay()) + ", "
+                + this.testscent1.scentSeasonString(this.testscent1.getSeason()) + ", "
+                + this.testscent1.scentGenderString(this.testscent1.getGender()), testUserScent.toString());
+
+    }
 }

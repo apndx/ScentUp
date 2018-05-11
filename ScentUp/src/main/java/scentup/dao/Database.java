@@ -33,7 +33,7 @@ public class Database {
 
     /**
      * Initialising procedures for the database. Creates the database and tables
-     * for it if they do not exist in the root folder of the program.
+     * for it if they do not exist in the root folder of the program
      *
      */
     public void init() {
@@ -64,7 +64,7 @@ public class Database {
                 + "    username varchar(200));");
         tablesList.add("CREATE TABLE IF NOT EXISTS Scent (\n"
                 + "    scent_id integer PRIMARY KEY,\n"
-                + "    name varchar(200),\n"
+                + "    scentname varchar(200),\n"
                 + "    brand varchar(200),\n"
                 + "    timeofday integer,\n"
                 + "    season integer,\n"
