@@ -29,6 +29,6 @@
 | 10.5.  |7 h | käyttäjän kokoelmalistan olion vaihto scentistä userscentiin, preference-valikko, testejä uudelle toiminnallisuudelle |
 | 11.5.  |10 h | refaktorointia, testikattavuuden lisäystä, dokumentointia (päivitetty arkkitehtuuri, käyttöohje, vaatimusmäärittely) loppurelease |
 
-yht. 78 h 15 min 
+yht. 81 h 45 min 
 
 
