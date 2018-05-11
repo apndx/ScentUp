@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import scentup.domain.User;
 
 /**
- * Interface for UserScent
+ * Interface for UserScentDao
  *
  * @author apndx
  */

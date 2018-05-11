@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- *
+ * Makes a new UserScent - this means a certain user has a certain scent
+ * 
  * @author apndx
  */
 public class UserScent {

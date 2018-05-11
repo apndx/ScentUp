@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import scentup.domain.Scent;
+import scentup.domain.User;
 import scentup.domain.UserScent;
 
 /**
@@ -23,7 +24,34 @@ public class UserScentDao {
     }
 
     /**
-     * Checks if a UserScent exists already
+     * Finds a user from the database by username
+     *
+     * @param userId userId of the user 
+     * @param scentId scentId of the scent
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     * @return userScent userScent is returned if found, else null is returned.
+     */
+    public UserScent findOne(Integer userId, Integer scentId) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent, Scent, User WHERE userscent.user_id = ? AND userscent.scent_id = ?"
+                + "AND userscent.user_id=user.user_id AND userscent.scent_id = scent.scent_id");
+        stmt.setInt(1, userId);
+        stmt.setInt(2, scentId);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            closingProceduresRs(conn, rs, stmt);
+            return null;
+        }
+        UserScent userScent = UserScent.rowToUserScent(rs); // only one row
+        closingProceduresRs(conn, rs, stmt);
+        return userScent;
+    }
+
+    /**
+     * Checks if a UserScent exists already by userId and scentId
      *
      * @param userId id for the user
      * @param scentId id for the scent
@@ -41,10 +69,7 @@ public class UserScentDao {
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
-            stmt.close();
-            rs.close();
-            conn.close();
-
+            closingProceduresRs(conn, rs, stmt);
             return false;
         }
 
@@ -53,7 +78,7 @@ public class UserScentDao {
     }
 
     /**
-     * Lists all scents the user has
+     * Lists all scents the user has by userId
      *
      * @param userId id for the user
      * @throws SQLException if this database query does not succeed, this
@@ -80,7 +105,7 @@ public class UserScentDao {
     }
 
     /**
-     * Lists all scents the user does not have
+     * Lists all scents the user does not have by userId
      *
      * @param userId id for the user
      * @throws SQLException if this database query does not succeed, this
@@ -95,18 +120,18 @@ public class UserScentDao {
 
         stmt.setInt(1, userId);
         ResultSet rs = stmt.executeQuery();
-
         List<Scent> listOfAll = new ArrayList<>();
 
         while (rs.next()) {
             listOfAll.add(Scent.rowToScent(rs));
         }
-
         closingProceduresRs(conn, rs, stmt);
         return listOfAll;
     }
-          /**
-     * Lists all active scents the user has
+
+    /**
+     * Lists all active scents the user has by userId
+     *
      * @param userId id for the user
      * @param active this tells that the scent is in an active collection
      * @throws SQLException if this database query does not succeed, this
@@ -118,24 +143,20 @@ public class UserScentDao {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent, User, Scent WHERE userscent.active = ? AND user.user_id = ? "
                 + "AND userscent.user_id=user.user_id AND userscent.scent_id=scent.scent_id");
-
         stmt.setInt(1, active);
         stmt.setInt(2, userId);
-
         ResultSet rs = stmt.executeQuery();
-
         List<UserScent> listOfAll = new ArrayList<>();
 
         while (rs.next()) {
             listOfAll.add(UserScent.rowToUserScent(rs));
         }
-        stmt.close();
-        rs.close();
-        conn.close();
+        closingProceduresRs(conn, rs, stmt);
         return listOfAll;
     }
+
     /**
-     * Deletes a UserScent from the database
+     * Deletes a UserScent from the database by userId and scentId
      *
      * @param userId id for the user
      * @param scentId if for the scent
@@ -145,13 +166,9 @@ public class UserScentDao {
     public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
-
         stmt.setInt(1, userId);
         stmt.setInt(2, scentId);
-        stmt.executeUpdate();
-
-        stmt.close();
-        conn.close();
+        closingProceduresUpdate(conn, stmt);
     }
 
     /**
@@ -162,40 +179,43 @@ public class UserScentDao {
      * exception is thrown
      */
     public void add(UserScent userScent) throws SQLException {
-        try (Connection c = database.getConnection()) {
-            PreparedStatement ps = c.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
-
-            ps.setInt(1, userScent.getUser().getUserId());
-            ps.setInt(2, userScent.getScent().getScentId());
-            ps.setDate(3, userScent.getChoiceDate());
-            ps.setInt(4, userScent.getPreference());
-            ps.setInt(5, userScent.getActive());
-
-            ps.executeUpdate();
-
-            ps.close();
-            c.close();
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
+            stmt.setInt(1, userScent.getUser().getUserId());
+            stmt.setInt(2, userScent.getScent().getScentId());
+            stmt.setDate(3, userScent.getChoiceDate());
+            stmt.setInt(4, userScent.getPreference());
+            stmt.setInt(5, userScent.getActive());
+            closingProceduresUpdate(conn, stmt);
         }
     }
-    
+
+    /**
+     * Changes the preference of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param preference the new preference: 1 dislike, 2 neutral, 3 love
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
     public void changePreference(UserScent userScent, Integer preference) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET preference =? WHERE user_id = ? AND scent_id = ?");
-        
         stmt.setInt(1, preference);
         stmt.setInt(2, userScent.getUser().getUserId());
         stmt.setInt(3, userScent.getScent().getScentId());
-        
-        stmt.executeUpdate();
-        
-        stmt.close();
-        conn.close();
-        
+        closingProceduresUpdate(conn, stmt);
     }
 
     private void closingProceduresRs(Connection conn, ResultSet rs, PreparedStatement stmt) throws SQLException {
         stmt.close();
         rs.close();
+        conn.close();
+    }
+
+    private void closingProceduresUpdate(Connection conn, PreparedStatement stmt) throws SQLException {
+        stmt.executeUpdate();
+        stmt.close();
         conn.close();
     }
 }

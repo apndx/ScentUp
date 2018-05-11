@@ -1,4 +1,3 @@
-
 package scentup.domain;
 
 import java.sql.Date;
@@ -10,27 +9,17 @@ import scentup.dao.UserDao;
 import scentup.dao.UserScentDao;
 
 /**
+ * ScentUpService is for the application logic
  *
  * @author apndx
  */
 public class ScentUpService {
 
-    /**
-     * application logic is here
-     */
     private User loggedIn;
     private final UserDao userDao;
     private final ScentDao scentDao;
     private final UserScentDao userScentDao;
 
-    /**
-     * Constructor for ScentUpService ScentUpService is for the application
-     * logic
-     *
-     * @param userDao gives ScentUpService access to userDao
-     * @param scentDao gives ScentUpService access to scentDao
-     * @param userScentDao gives ScentUpService access to userScentDao
-     */
     public ScentUpService(UserDao userDao, ScentDao scentDao, UserScentDao userScentDao) {
         this.userDao = userDao;
         this.scentDao = scentDao;
@@ -69,8 +58,8 @@ public class ScentUpService {
             return false;
         }
     }
-    
-         /**
+
+    /**
      * List of active UserScents for this User
      *
      * @return list of active UserScents for this User
@@ -83,6 +72,7 @@ public class ScentUpService {
         try {
             activeList = userScentDao.findAllForUser(1, loggedIn.getUserId());
         } catch (Exception ex) {
+            System.out.println("The list could not be found.");
             return new ArrayList<>();
         }
         return activeList;
@@ -110,6 +100,7 @@ public class ScentUpService {
         try {
             scentsHas = userScentDao.findAllScentsUserHas(loggedIn.getUserId());
         } catch (Exception ex) {
+            System.out.println("The list could not be found.");
             return scentsHas;
         }
         return scentsHas;
@@ -130,6 +121,7 @@ public class ScentUpService {
 
             hasNot = userScentDao.findAllScentsUserHasNot(loggedIn.getUserId());
         } catch (Exception ex) {
+            System.out.println("The list could not be found.");
             return new ArrayList<>();
 
         }
@@ -180,14 +172,13 @@ public class ScentUpService {
      * @param scent - scent to be added
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
-     *
      */
     public void createScent(Scent scent) throws SQLException {
         scentDao.saveOrNot(scent);
     }
 
     /**
-     * user login
+     * User login
      *
      * @param username username of the user who is logging in
      * @throws SQLException if this database query does not succeed, this
@@ -204,8 +195,17 @@ public class ScentUpService {
             return true;
         }
     }
-    
+
+    /**
+     * Change a preference of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param preference the new preference: 1 dislike, 2 neutral, 3 love
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
     public void changePreference(UserScent userScent, Integer preference) throws SQLException {
+        userScent.setPreference(preference);
         userScentDao.changePreference(userScent, preference);
     }
 

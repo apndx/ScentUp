@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- *
+ * Makes a new scent
+ * 
  * @author apndx
  */
 public class Scent {
@@ -82,7 +83,7 @@ public class Scent {
     /**
      * Changes gender integer to more understandable string form
      *
-     * @param gender 1 female, 1 male, 3 unisex
+     * @param gender 1 female, 2 male, 3 unisex
      * @return returns String
      */
     public String scentGenderString(Integer gender) {

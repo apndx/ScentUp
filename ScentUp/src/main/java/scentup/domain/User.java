@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- *
+ * Makes a new user
+ * 
  * @author apndx
  */
 public class User {
@@ -20,7 +21,7 @@ public class User {
     private final String username;
 
     /**
-     * makes a new user
+     * Makes a new user
      *
      * @param userId - userId is first null, it is created when user is added to
      * the database

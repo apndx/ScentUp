@@ -33,7 +33,7 @@ public class Database {
 
     /**
      * Initialising procedures for the database. Creates the database and tables
-     * for it if they do not exist in the root folder of the program.
+     * for it if they do not exist in the root folder of the program
      *
      */
     public void init() {

@@ -13,7 +13,7 @@ import scentup.domain.User;
  */
 public class UserDao implements UDao, USDao {
 
-    private Database database;
+    private final Database database;
 
     /**
      * Makes a new UserDao. This is used to communicate with the user table in
@@ -26,7 +26,7 @@ public class UserDao implements UDao, USDao {
     }
 
     /**
-     * Finds a user from the database.
+     * Finds a user from the database by username
      *
      * @param username username of the user that needs to be found
      * @throws SQLException if this database query does not succeed, this
@@ -42,18 +42,14 @@ public class UserDao implements UDao, USDao {
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
-            stmt.close();
-            rs.close();
-            conn.close();
+            closingProceduresRs(conn, rs, stmt);
             return null;
         }
 
         User user = new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
 
-        stmt.close();
-        rs.close();
-        conn.close();
+        closingProceduresRs(conn, rs, stmt);
         return user;
     }
 
@@ -64,7 +60,7 @@ public class UserDao implements UDao, USDao {
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      * @return boolean if username is free, returns true, else false
-     */  
+     */
     @Override
     public boolean isUsernameFree(String username) throws SQLException {
         Connection conn = database.getConnection();
@@ -74,14 +70,10 @@ public class UserDao implements UDao, USDao {
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
-            stmt.close();
-            rs.close();
-            conn.close();
+            closingProceduresRs(conn, rs, stmt);
             return true;
         } else {
-            stmt.close();
-            rs.close();
-            conn.close();
+            closingProceduresRs(conn, rs, stmt);
             return false;
         }
     }
@@ -129,9 +121,7 @@ public class UserDao implements UDao, USDao {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM User WHERE username = ?");
 
         stmt.setString(1, username);
-        stmt.executeUpdate();
-        stmt.close();
-        conn.close();
+        closingProceduresUpdate(conn, stmt);
     }
 
     private User save(User user) throws SQLException {
@@ -154,10 +144,20 @@ public class UserDao implements UDao, USDao {
         User u = new User(rs.getInt("user_id"), rs.getString("name"),
                 rs.getString("username"));
 
+        closingProceduresRs(conn, rs, stmt);
+        return u;
+    }
+
+    private void closingProceduresRs(Connection conn, ResultSet rs, PreparedStatement stmt) throws SQLException {
         stmt.close();
         rs.close();
         conn.close();
-        return u;
+    }
+
+    private void closingProceduresUpdate(Connection conn, PreparedStatement stmt) throws SQLException {
+        stmt.executeUpdate();
+        stmt.close();
+        conn.close();
     }
 
 }

@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import scentup.domain.Scent;
 
 /**
- *
+ * Interface for ScentDao
+ * 
  * @author apndx
  */
 public interface SDao {
