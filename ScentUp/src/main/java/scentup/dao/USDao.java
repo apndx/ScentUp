@@ -1,57 +1,60 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package scentup.dao;
 
 import java.sql.SQLException;
-import scentup.domain.User;
+import scentup.domain.UserScent;
 
 /**
  * Interface for UserScentDao
- *
+ * 
  * @author apndx
  */
 public interface USDao {
 
     /**
-     * Deletes a user and all the UserScents the user has from the database
+     * Adds a new UserScent in the database
      *
-     * @param username username of the user that needs to be deleted
-     *
+     * @param userScent userScent that is added
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
-     *
      */
-    void delete(String username) throws SQLException;
+    void add(UserScent userScent) throws SQLException;
 
     /**
-     * Finds a user from the database.
+     * Checks if a UserScent exists already by userId and scentId
      *
-     * @param username username of the user that needs to be found
+     * @param userId id for the user
+     * @param scentId id for the scent
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
-     * @return User user is returned if found, else null is returned.
+     * @return boolean returns true if the UserScent exists, false if it does
+     * not
      */
-    User findOne(String username) throws SQLException;
+    boolean checkIfUserScentExists(Integer userId, Integer scentId) throws SQLException;
 
     /**
-     * Finds if a username is already in the database
+     * Deletes a UserScent from the database by userId and scentId
      *
-     * @param username username that needs to be checked
+     * @param userId id for the user
+     * @param scentId if for the scent
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
-     * @return boolean if username is free, returns true, else false
      */
-    boolean isUsernameFree(String username) throws SQLException;
+    void delete(Integer userId, Integer scentId) throws SQLException;
 
     /**
-     * Saves a user if it does not exist already
+     * Finds a user from the database by username
      *
-     * @param object user that needs to be saved
+     * @param userId userId of the user
+     * @param scentId scentId of the scent
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
-     * @return object. If the userId of the user is null, private method save is
-     * used and a saved user is returned. If user is found with this id, method
-     * returns null.
+     * @return userScent userScent is returned if found, else null is returned.
      */
-    User saveOrNot(User object) throws SQLException;
+    UserScent findOne(Integer userId, Integer scentId) throws SQLException;
     
 }

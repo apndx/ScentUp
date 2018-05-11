@@ -11,7 +11,7 @@ import scentup.domain.User;
  *
  * @author apndx
  */
-public class UserDao implements UDao, USDao {
+public class UserDao implements UDao{
 
     private final Database database;
 

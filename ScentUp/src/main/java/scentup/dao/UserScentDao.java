@@ -15,7 +15,7 @@ import scentup.domain.UserScent;
  *
  * @author apndx
  */
-public class UserScentDao {
+public class UserScentDao implements USDao {
 
     private final Database database;
 
@@ -32,6 +32,7 @@ public class UserScentDao {
      * exception is thrown
      * @return userScent userScent is returned if found, else null is returned.
      */
+    @Override
     public UserScent findOne(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent, Scent, User WHERE userscent.user_id = ? AND userscent.scent_id = ?"
@@ -60,6 +61,7 @@ public class UserScentDao {
      * @return boolean returns true if the UserScent exists, false if it does
      * not
      */
+    @Override
     public boolean checkIfUserScentExists(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM UserScent WHERE user_id = ? AND scent_id = ? ");
@@ -163,6 +165,7 @@ public class UserScentDao {
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      */
+    @Override
     public void delete(Integer userId, Integer scentId) throws SQLException {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM UserScent WHERE user_id = ? AND scent_id = ?");
@@ -178,6 +181,7 @@ public class UserScentDao {
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      */
+    @Override
     public void add(UserScent userScent) throws SQLException {
         try (Connection conn = database.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO UserScent (user_id, scent_id, choicedate, preference, active) VALUES (?, ?, ?, ?, ?)");
