@@ -169,7 +169,7 @@ public class ServiceTest {
         testUserScent2= userScents.findOne(testuser.getUserId(), testscent2.getScentId());
 
         service.login(randomuser);
-        assertEquals(2, service.getUserScentListforUser().size());
+        assertEquals(2, service.getUserScentListforUser(1).size());
         service.logout();
         userScents.delete(testuser.getUserId(), testscent1.getScentId());
         userScents.delete(testuser.getUserId(), testscent2.getScentId()); 

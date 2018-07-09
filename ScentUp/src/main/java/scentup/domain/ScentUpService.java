@@ -60,24 +60,25 @@ public class ScentUpService {
     }
 
     /**
-     * List of active UserScents for this User
+     * List of UserScents for this User
      *
-     * @return list of active UserScents for this User
+     * @return list of UserScents for this User
+     * @param active is the UserScent active for this user: 0 no, 1 yes
      */
-    public List<UserScent> getUserScentListforUser() {
+    public List<UserScent> getUserScentListforUser(Integer active) {
         List<UserScent> activeList = new ArrayList<>();
         if (loggedIn == null) {
             return activeList;
         }
         try {
-            activeList = userScentDao.findAllForUser(1, loggedIn.getUserId());
+            activeList = userScentDao.findAllForUser(active, loggedIn.getUserId());
         } catch (Exception ex) {
             System.out.println("The list could not be found.");
             return new ArrayList<>();
         }
         return activeList;
     }
-
+    
     /**
      * Who has logged in
      *
@@ -207,6 +208,19 @@ public class ScentUpService {
     public void changePreference(UserScent userScent, Integer preference) throws SQLException {
         userScent.setPreference(preference);
         userScentDao.changePreference(userScent, preference);
+    }
+
+    /**
+     * Change an activation status of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param active the new status: 0 no, 1 yes
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
+    public void changeActivationStatus(UserScent userScent, Integer active) throws SQLException {
+        userScent.setActive(active);
+        userScentDao.changeActiveStatus(userScent, active);
     }
 
     /**

@@ -16,7 +16,7 @@ public class UserScent {
     private final Scent scent;
     private final Date choiceDate;
     private Integer preference;
-    private final Integer active;
+    private Integer active;
 
     /**
      * Makes a new UserScent - this means a certain user has a certain scent
@@ -58,6 +58,10 @@ public class UserScent {
 
     public void setPreference(Integer preference) {
         this.preference = preference;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
     /**

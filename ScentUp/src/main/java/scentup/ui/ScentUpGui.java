@@ -53,11 +53,12 @@ public class ScentUpGui extends Application {
     private VBox scentNodes;
     private VBox browseableScentNodes;
     private VBox userScentNodes;
-    private Scene sceneLoggedIn;
+    private Scene loggedInScene;
     private Scene newUserScene;
     private Scene loginScene;
     private Scene newScentScene;
     private Scene browseScene;
+    private Scene userHasNonActiveScene;
     private Label menuLabel;
     private Label browseMenuLabel;
 
@@ -92,13 +93,14 @@ public class ScentUpGui extends Application {
 
     /**
      * Renders the userScent list of the UserScents for the user logged in
+     * @param active is this UserScent active or not
      *
      */
-    public void redrawUserHasUserScentsList() {
+    public void redrawUserHasUserScentsList(Integer active) {
 
         userScentNodes.getChildren().clear();
 
-        List<UserScent> userScentsUserHas = scentUpService.getUserScentListforUser();
+        List<UserScent> userScentsUserHas = scentUpService.getUserScentListforUser(active);
         userScentsUserHas.forEach(userScent -> {
             userScentNodes.getChildren().add(createUserScentNode(userScent));
         });
@@ -157,7 +159,7 @@ public class ScentUpGui extends Application {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
             redrawUserHasNotScentsList();
-            redrawUserHasUserScentsList();
+            redrawUserHasUserScentsList(1);
         });
 
         Region spacer = new Region();
@@ -194,7 +196,7 @@ public class ScentUpGui extends Application {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
             redrawUserHasNotScentsList();
-            redrawUserHasUserScentsList();
+            redrawUserHasUserScentsList(1);
 
         });
 
@@ -206,7 +208,7 @@ public class ScentUpGui extends Application {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
             redrawUserHasNotScentsList();
-            redrawUserHasUserScentsList();
+            redrawUserHasUserScentsList(1);
 
         });
 
@@ -218,14 +220,15 @@ public class ScentUpGui extends Application {
                 Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);
             }
             redrawUserHasNotScentsList();
-            redrawUserHasUserScentsList();
+            redrawUserHasUserScentsList(1);
         });
-
+        
+        Button nonActivatorButton = new Button("storeUp");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0, 5, 0, 5));
 
-        box.getChildren().addAll(label, spacer, menuButton);
+        box.getChildren().addAll(label, spacer, menuButton, nonActivatorButton);
         return box;
     }
 
@@ -252,8 +255,8 @@ public class ScentUpGui extends Application {
                 if (scentUpService.login(username)) {
                     loginMessage.setText("");
                     redrawUserHasNotScentsList();
-                    redrawUserHasUserScentsList();
-                    primaryStage.setScene(sceneLoggedIn);
+                    redrawUserHasUserScentsList(1);
+                    primaryStage.setScene(loggedInScene);
                     userNameLogin.setText("");
                 } else {
                     loginMessage.setText("user does not exist");
@@ -488,7 +491,7 @@ public class ScentUpGui extends Application {
         // main scene, logged in
         ScrollPane scentScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(scentScrollbar);
-        sceneLoggedIn = new Scene(mainPane, 500, 250);
+        loggedInScene = new Scene(mainPane, 550, 250);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
@@ -511,7 +514,7 @@ public class ScentUpGui extends Application {
         userScentNodes = new VBox(10);
         userScentNodes.setMaxWidth(500);
         userScentNodes.setMinWidth(280);
-        redrawUserHasUserScentsList();
+        redrawUserHasUserScentsList(1);
         scentScrollbar.setContent(userScentNodes);
         mainPane.setTop(menuPane);
 
@@ -530,7 +533,7 @@ public class ScentUpGui extends Application {
 
         outBrowseButton.setOnAction(e -> {
 
-            primaryStage.setScene(sceneLoggedIn);
+            primaryStage.setScene(loggedInScene);
         });
 
         //add a new scent because what you want is not on the list
@@ -543,7 +546,7 @@ public class ScentUpGui extends Application {
         browseableScentNodes.setMaxWidth(500);
         browseableScentNodes.setMinWidth(280);
         redrawUserHasNotScentsList();
-        redrawUserHasUserScentsList();
+        redrawUserHasUserScentsList(1);
 
         browseScrollbar.setContent(browseableScentNodes);
         browsePane.setTop(browseMenuPane);
