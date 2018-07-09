@@ -466,7 +466,7 @@ public class ScentUpGui extends Application {
                         Integer timeOfDay = 0;
                         Integer season = 0;
                         Integer gender = 0;
-                        //luodaan scent
+                        //creating scent
                         if (scentTimeofDayChoices.getSelectedToggle() == day) {
                             timeOfDay = 1;
                         } else {
@@ -526,7 +526,7 @@ public class ScentUpGui extends Application {
         // main scene, logged in, active
         ScrollPane scentScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(scentScrollbar);
-        loggedInScene = new Scene(mainPane, 550, 250);
+        loggedInScene = new Scene(mainPane, 650, 250);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
@@ -552,7 +552,7 @@ public class ScentUpGui extends Application {
 
         // this does userscent list of active userscents
         userScentNodes = new VBox(10);
-        userScentNodes.setMaxWidth(550);
+        userScentNodes.setMaxWidth(650);
         userScentNodes.setMinWidth(280);
         redrawActiveUserHasUserScentsList();
         scentScrollbar.setContent(userScentNodes);
@@ -561,7 +561,7 @@ public class ScentUpGui extends Application {
         // main scene, logged in, non active
         ScrollPane nonActiveScentScrollbar = new ScrollPane();
         BorderPane mainNonActivePane = new BorderPane(nonActiveScentScrollbar);
-        userHasNonActiveScene = new Scene(mainNonActivePane, 550, 250);
+        userHasNonActiveScene = new Scene(mainNonActivePane, 650, 250);
         HBox menuNonActivePane = new HBox(10);
         Region menuNonActiveSpacer = new Region();
         HBox.setHgrow(menuNonActiveSpacer, Priority.ALWAYS);
@@ -580,7 +580,7 @@ public class ScentUpGui extends Application {
 
         // this does userscent list of non active userscents
         nonActiveUserScentNodes = new VBox(10);
-        nonActiveUserScentNodes.setMaxWidth(550);
+        nonActiveUserScentNodes.setMaxWidth(650);
         nonActiveUserScentNodes.setMinWidth(280);
         redrawActiveUserHasUserScentsList();
         nonActiveScentScrollbar.setContent(nonActiveUserScentNodes);
@@ -611,7 +611,7 @@ public class ScentUpGui extends Application {
         });
 
         browseableScentNodes = new VBox(10);
-        browseableScentNodes.setMaxWidth(500);
+        browseableScentNodes.setMaxWidth(650);
         browseableScentNodes.setMinWidth(280);
         redrawRoutine();
 
