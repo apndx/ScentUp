@@ -1,6 +1,7 @@
 package scentup.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -222,6 +223,23 @@ public class UserScentDao implements USDao {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET active =? WHERE user_id = ? AND scent_id = ?");
         stmt.setInt(1, active);
+        stmt.setInt(2, userScent.getUser().getUserId());
+        stmt.setInt(3, userScent.getScent().getScentId());
+        closingProceduresUpdate(conn, stmt);
+    }
+
+    /**
+     * Changes timestamp of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param now a new timestamp 
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
+    public void changeDate(UserScent userScent, Date now) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET choicedate =? WHERE user_id = ? AND scent_id = ?");
+        stmt.setDate(1, now);
         stmt.setInt(2, userScent.getUser().getUserId());
         stmt.setInt(3, userScent.getScent().getScentId());
         closingProceduresUpdate(conn, stmt);

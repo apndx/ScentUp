@@ -78,7 +78,7 @@ public class ScentUpService {
         }
         return activeList;
     }
-    
+
     /**
      * Who has logged in
      *
@@ -221,6 +221,19 @@ public class ScentUpService {
     public void changeActivationStatus(UserScent userScent, Integer active) throws SQLException {
         userScent.setActive(active);
         userScentDao.changeActiveStatus(userScent, active);
+    }
+
+    /**
+     * Change a timestamp of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
+    public void changeDate(UserScent userScent) throws SQLException {
+        Date now = new Date((int) new java.util.Date().getTime());
+        userScent.setChoiceDate(now);
+        userScentDao.changeDate(userScent, now);
     }
 
     /**

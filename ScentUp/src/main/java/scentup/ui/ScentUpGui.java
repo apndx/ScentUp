@@ -249,6 +249,7 @@ public class ScentUpGui extends Application {
             if (userScent.getActive() == 0) {
                 try {
                     scentUpService.changeActivationStatus(userScent, 1);
+                    scentUpService.changeDate(userScent);
                     redrawRoutine();
                 } catch (SQLException ex) {
                     Logger.getLogger(ScentUpGui.class.getName()).log(Level.SEVERE, null, ex);

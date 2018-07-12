@@ -14,7 +14,7 @@ public class UserScent {
 
     private final User user;
     private final Scent scent;
-    private final Date choiceDate;
+    private Date choiceDate;
     private Integer preference;
     private Integer active;
 
@@ -62,6 +62,10 @@ public class UserScent {
 
     public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public void setChoiceDate(Date choiceDate) {
+        this.choiceDate = choiceDate;
     }
 
     /**
