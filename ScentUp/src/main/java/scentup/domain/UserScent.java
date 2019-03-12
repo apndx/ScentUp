@@ -129,7 +129,7 @@ public class UserScent {
     /**
      * Makes a UserScent, this method is used to make listings in Dao
      *
-     * @param rs result set from user table of the database
+     * @param rs result set from userScent table of the database
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
      * @return UserScent returns a UserScent
