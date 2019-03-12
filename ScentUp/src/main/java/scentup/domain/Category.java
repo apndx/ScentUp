@@ -38,6 +38,10 @@ public class Category {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+   
     @Override
     public int hashCode() {
         int hash = 7;
