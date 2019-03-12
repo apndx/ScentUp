@@ -1,13 +1,13 @@
 package scentup.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import scentup.domain.Scent;
-import scentup.domain.User;
 import scentup.domain.UserScent;
 
 /**
@@ -26,7 +26,7 @@ public class UserScentDao implements USDao {
     /**
      * Finds a user from the database by username
      *
-     * @param userId userId of the user 
+     * @param userId userId of the user
      * @param scentId scentId of the scent
      * @throws SQLException if this database query does not succeed, this
      * exception is thrown
@@ -206,6 +206,40 @@ public class UserScentDao implements USDao {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET preference =? WHERE user_id = ? AND scent_id = ?");
         stmt.setInt(1, preference);
+        stmt.setInt(2, userScent.getUser().getUserId());
+        stmt.setInt(3, userScent.getScent().getScentId());
+        closingProceduresUpdate(conn, stmt);
+    }
+
+    /**
+     * Changes activation status of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param active the new status: 0 no, 1 yes
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
+    public void changeActiveStatus(UserScent userScent, Integer active) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET active =? WHERE user_id = ? AND scent_id = ?");
+        stmt.setInt(1, active);
+        stmt.setInt(2, userScent.getUser().getUserId());
+        stmt.setInt(3, userScent.getScent().getScentId());
+        closingProceduresUpdate(conn, stmt);
+    }
+
+    /**
+     * Changes timestamp of a userScent
+     *
+     * @param userScent userScent that is altered
+     * @param now a new timestamp 
+     * @throws SQLException if this database query does not succeed, this
+     * exception is thrown
+     */
+    public void changeDate(UserScent userScent, Date now) throws SQLException {
+        Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("UPDATE UserScent SET choicedate =? WHERE user_id = ? AND scent_id = ?");
+        stmt.setDate(1, now);
         stmt.setInt(2, userScent.getUser().getUserId());
         stmt.setInt(3, userScent.getScent().getScentId());
         closingProceduresUpdate(conn, stmt);

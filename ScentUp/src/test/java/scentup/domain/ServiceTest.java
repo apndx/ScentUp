@@ -92,7 +92,7 @@ public class ServiceTest {
 
     @Test
     public void userAddedCorrectly() throws SQLException {
-        
+
         assertEquals(false, service.createUser(randomuser, randomname));
 
     }
@@ -101,12 +101,12 @@ public class ServiceTest {
     public void isUserScentAddedCorrectly() throws SQLException {
 
         service.login(randomuser);
-        
+
         service.createUserScent(testuser.getUserId(), testscent1.getScentId(), 2, 1);
         assertEquals(false, service.createUserScent(testuser.getUserId(), testscent1.getScentId(), 2, 1));
 
         service.logout();
-        
+
     }
 
     @Test
@@ -145,7 +145,6 @@ public class ServiceTest {
     @Test
     public void doesServiceFoundIfScentExists() throws SQLException {
 
- 
         service.login(randomuser);
 
         assertEquals(true, service.doesScentExist(randomscent, randombrand));
@@ -162,17 +161,17 @@ public class ServiceTest {
 
         UserScent testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent);
-        testUserScent= userScents.findOne(testuser.getUserId(), testscent1.getScentId());
-        
+        testUserScent = userScents.findOne(testuser.getUserId(), testscent1.getScentId());
+
         UserScent testUserScent2 = new UserScent(testuser, testscent2, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent2);
-        testUserScent2= userScents.findOne(testuser.getUserId(), testscent2.getScentId());
+        testUserScent2 = userScents.findOne(testuser.getUserId(), testscent2.getScentId());
 
         service.login(randomuser);
-        assertEquals(2, service.getUserScentListforUser().size());
+        assertEquals(2, service.getUserScentListforUser(1).size());
         service.logout();
         userScents.delete(testuser.getUserId(), testscent1.getScentId());
-        userScents.delete(testuser.getUserId(), testscent2.getScentId()); 
+        userScents.delete(testuser.getUserId(), testscent2.getScentId());
 
     }
 
@@ -181,31 +180,47 @@ public class ServiceTest {
 
         UserScent testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent);
-        testUserScent= userScents.findOne(testuser.getUserId(), testscent1.getScentId());
-        
+        testUserScent = userScents.findOne(testuser.getUserId(), testscent1.getScentId());
+
         UserScent testUserScent2 = new UserScent(testuser, testscent2, new Date(new java.util.Date().getDate()), 2, 1);
         userScents.add(testUserScent2);
-        testUserScent2= userScents.findOne(testuser.getUserId(), testscent2.getScentId());
-        
+        testUserScent2 = userScents.findOne(testuser.getUserId(), testscent2.getScentId());
+
         service.login(randomuser);
         service.changePreference(testUserScent, 1);
         service.changePreference(testUserScent2, 3);
 
         assertEquals("dislike", testUserScent.userScentPreferenceString(testUserScent.getPreference()));
         assertEquals("love", testUserScent2.userScentPreferenceString(testUserScent2.getPreference()));
-        
+
         service.logout();
         userScents.delete(testuser.getUserId(), testscent1.getScentId());
         userScents.delete(testuser.getUserId(), testscent2.getScentId());
 
     }
-    
+
     @Test
     public void loggedInHandledCorrectly() throws SQLException {
         service.login(randomuser);
         assertEquals(testuser, service.getLoggedIn());
         service.logout();
         assertNull(service.getLoggedIn());
+
+    }
+
+    @Test
+    public void activeListingHandledCorrectly() throws SQLException {
+
+        UserScent testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
+        userScents.add(testUserScent);
+        testUserScent = userScents.findOne(testuser.getUserId(), testscent1.getScentId());
+
+        service.login(randomuser);
+        service.changeActivationStatus(testUserScent, 0);
+
+        assertEquals(1, service.getUserScentListforUser(0).size());
+        service.logout();
+        userScents.delete(testuser.getUserId(), testscent1.getScentId());
 
     }
 

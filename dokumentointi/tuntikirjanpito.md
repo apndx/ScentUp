@@ -1,4 +1,4 @@
-# työaikakirjanpito
+# Työaikakirjanpito 2018
 
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
@@ -31,4 +31,18 @@
 
 yht. 81 h 45 min 
 
+# Kurssin jälkeen 2018
 
+| päivä | aika | mitä tein  |
+| :----:|:-----| :-----|
+| 6.7. |1 h   | jatkokehityksen suunnittelua |
+| 9.7. |5 h   | käyttäjän kokoelman listauksen jako aktiivisiin ja varastoitaviin |
+| 10.7. |30 min   | testi aktiivisuuden muutokselle |
+| 11.7. |30 min   | päivämääräominaisuuden suunnittelua |
+| 12.7. |30 min   | UserScentin päivämäärä muuttuu kun se vaihdetaan aktiiviseksi |
+
+yht.
+
+# 2019
+
+|12.3 |30 min   | Projektin mieleenpalautusta |
