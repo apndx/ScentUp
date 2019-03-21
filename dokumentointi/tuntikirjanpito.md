@@ -45,4 +45,4 @@ yht.
 
 # 2019
 
-|12.3 |30 min   | Projektin mieleenpalautusta |
+|12.3 |2 h  | Projektin mieleenpalautusta, categoria-taulun lisäys: tietokanta, domain ja dao |
