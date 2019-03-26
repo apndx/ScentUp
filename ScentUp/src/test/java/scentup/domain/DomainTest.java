@@ -19,32 +19,38 @@ public class DomainTest {
     private final String randomuser;
     private final String randomname;
     private final User testuser;
-    private final String randomscent;
-    private final String randombrand;
+    private final String randomScentName;
+    private final String randomBrandName;
+    private final String randomCategoryName;
     private final Scent testscent1;
     private final Scent testscent2;
     private final Scent testscent3;
     private final Scent testscent4;
     private final UserScent testUserScent;
+    private final Category testCategory1;
+    private final ScentCategory testScentCategory1;
 
     public DomainTest() {
         this.randomuser = UUID.randomUUID().toString().substring(0, 6);
         this.randomname = UUID.randomUUID().toString().substring(0, 6);
         this.testuser = new User(null, randomname, randomuser);
 
-        this.randomscent = UUID.randomUUID().toString().substring(0, 6);
-        this.randombrand = UUID.randomUUID().toString().substring(0, 6);
-        this.testscent1 = new Scent(null, randomscent, randombrand, 1,
+        this.randomScentName = UUID.randomUUID().toString().substring(0, 6);
+        this.randomBrandName = UUID.randomUUID().toString().substring(0, 6);
+        this.randomCategoryName = UUID.randomUUID().toString().substring(0, 6);
+        this.testscent1 = new Scent(null, randomScentName, randomBrandName, 1,
                 1, 1);
-        this.testscent2 = new Scent(null, randomscent, randombrand, 2,
+        this.testscent2 = new Scent(null, randomScentName, randomBrandName, 2,
                 2, 2);
-        this.testscent3 = new Scent(null, randomscent, randombrand, 1,
+        this.testscent3 = new Scent(null, randomScentName, randomBrandName, 1,
                 3, 3);
-        this.testscent4 = new Scent(null, randomscent, randombrand, 2,
+        this.testscent4 = new Scent(null, randomScentName, randomBrandName, 2,
                 4, 1);
 
         this.testUserScent = new UserScent(testuser, testscent1, new Date(new java.util.Date().getDate()), 2, 1);
 
+        this.testCategory1 = new Category(null, randomCategoryName);
+        this.testScentCategory1 = new ScentCategory(testscent1, testCategory1);
     }
 
     @BeforeClass
@@ -71,6 +77,12 @@ public class DomainTest {
         assertEquals(false, testUserScent.equals(testUserScent3));
         assertEquals(testUserScent2.hashCode(), testUserScent.hashCode());
     }
+    
+    @Test
+    public void scentCategoryEquals() {
+        ScentCategory testScentCategory2 = new ScentCategory(testscent1, testCategory1);
+        assertEquals(true, testScentCategory1.equals(testScentCategory2));
+    }
 
     @Test
     public void userEquals() {
@@ -89,13 +101,13 @@ public class DomainTest {
     @Test
     public void scentToString() {
 
-        assertEquals(null + ". " + randomscent + ", " + randombrand + ", day, winter, female",
+        assertEquals(null + ". " + randomScentName + ", " + randomBrandName + ", day, winter, female",
                 testscent1.toString());
-        assertEquals(null + ". " + randomscent + ", " + randombrand + ", night, spring, male",
+        assertEquals(null + ". " + randomScentName + ", " + randomBrandName + ", night, spring, male",
                 testscent2.toString());
-        assertEquals(null + ". " + randomscent + ", " + randombrand + ", day, summer, unisex",
+        assertEquals(null + ". " + randomScentName + ", " + randomBrandName + ", day, summer, unisex",
                 testscent3.toString());
-        assertEquals(null + ". " + randomscent + ", " + randombrand + ", night, autumn, female",
+        assertEquals(null + ". " + randomScentName + ", " + randomBrandName + ", night, autumn, female",
                 testscent4.toString());
 
     }
