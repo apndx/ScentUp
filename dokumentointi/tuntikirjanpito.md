@@ -46,3 +46,8 @@ yht.
 # 2019
 
 |12.3 |2 h  | Projektin mieleenpalautusta, categoria-taulun lisäys: tietokanta, domain ja dao |
+|16.3 |30 min  | Testi scentcategorylle (oliovertailu) |
+|9.4 |30 min  | UI:n aloitus kategorian osalta |
+
+
+

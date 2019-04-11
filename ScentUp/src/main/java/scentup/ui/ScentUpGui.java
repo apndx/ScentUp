@@ -58,6 +58,7 @@ public class ScentUpGui extends Application {
     private Scene newUserScene;
     private Scene loginScene;
     private Scene newScentScene;
+    private Scene newCategoryScene;
     private Scene browseScene;
     private Scene userHasNonActiveScene;
     private Label menuLabel;
@@ -313,7 +314,8 @@ public class ScentUpGui extends Application {
             primaryStage.setScene(newScentScene);
 
         });
-
+        
+        // add a new user, button for it
         Button addNewUserButton = new Button("Add a new User");
         addNewUserButton.setOnAction((event) -> {
 
@@ -321,13 +323,23 @@ public class ScentUpGui extends Application {
             primaryStage.setScene(newUserScene);
 
         });
+        
+        // add a new category takes to another page, button for it
+        Button newCategoryButton = new Button("Add a new Category");  //add a new category button
+         newCategoryButton.setOnAction((event) -> {
 
-        loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton);
+            userNameLogin.setText("");
+            primaryStage.setScene(newCategoryScene);
+
+        });
+        
+        // all elements for loginpage 
+        loginPane.getChildren().addAll(loginMessage, loginGroup, addNewUserButton, newScentButton, newCategoryButton);
         loginScene = new Scene(loginPane);
 
         // stuff needed for add new user page
         VBox newUserPane = new VBox(10);
-
+       
         HBox newUsernamePane = new HBox(10);     //usernamestuff here
         newUsernamePane.setPadding(new Insets(10));
         TextField userAddInput = new TextField();
@@ -349,7 +361,7 @@ public class ScentUpGui extends Application {
         createUserButton.setPadding(new Insets(10));
         outFromCreateUserButton.setPadding(new Insets(10));
         outFromCreateUserButton.setOnAction(e -> {
-
+            
             primaryStage.setScene(loginScene);
         });
         createUserButton.setOnAction((event) -> {
@@ -375,9 +387,23 @@ public class ScentUpGui extends Application {
                 }
             }
         });
-
+        
+         // Stuff needed for add new category page
+        VBox newCategoryPane = new VBox(10);
+        HBox newCategoryNamePane = new HBox(10); 
+        newCategoryNamePane.setPadding(new Insets(10));
+        TextField categoryNameInput = new TextField();
+        Label newCategoryNameLabel = new Label("Name");
+        newCategoryNameLabel.setPrefWidth(100);
+        newCategoryNamePane.getChildren().addAll(newCategoryNameLabel, categoryNameInput);
+        Button createCategoryButton = new Button("Create");
+        createCategoryButton.setPadding(new Insets(10));
+        
+        
         newUserPane.getChildren().addAll(creationMessage, newUsernamePane, newNamePane, createUserButton, outFromCreateUserButton);
+        newCategoryPane.getChildren().addAll(creationMessage,newCategoryNamePane );
         newUserScene = new Scene(newUserPane, 400, 250);
+        newCategoryScene = new Scene(newCategoryPane, 400, 250);
 
         // stuff for new scent page
         VBox newScentPane = new VBox(10); // group pane for all the elements
@@ -619,7 +645,7 @@ public class ScentUpGui extends Application {
         browseScrollbar.setContent(browseableScentNodes);
         browsePane.setTop(browseMenuPane);
 
-        // seutp primary stage
+        // setup primary stage
         primaryStage.setTitle("ScentUp");
         primaryStage.setScene(loginScene);
         primaryStage.show();
