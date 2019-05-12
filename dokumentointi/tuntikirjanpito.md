@@ -45,4 +45,6 @@ yht.
 
 # 2019
 
+| päivä | aika | mitä tein  |
+| :----:|:-----| :-----|
 |12.3 |2 h  | Projektin mieleenpalautusta, categoria-taulun lisäys: tietokanta, domain ja dao |
